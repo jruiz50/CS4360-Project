@@ -79,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
 
   ];
+  // This creates a list of widgets; each widget displays different text so far
 
   void _onTabClicked (int index){
     setState(() {
@@ -109,7 +110,20 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+
+        title: Container(
+          width: double.infinity,
+          height: 30 ,
+          color: Colors.white,
+          child: const Center(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'What are you craving?',
+                prefixIcon: Icon(Icons.search)
+              ),
+            ),
+          ),
+        ),
         backgroundColor: Colors.transparent,
         actions: <Widget>[
           IconButton(onPressed: null,
@@ -122,6 +136,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: _widgetOptions.elementAt(_selectedIndex),
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
+
+        // Child shows widget from the list defined above
 
       ),
       bottomNavigationBar: BottomNavigationBar(
