@@ -5,13 +5,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,13 +24,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'ListView Test'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -49,6 +49,40 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  int _selectedIndex = 0;
+  // We set 2 to be the middle (search) screen
+
+  static const List<Widget> _widgetOptions = <Widget>[
+
+    Text(
+      'Index 0: Normal Screen',
+
+    ),
+    Text(
+      'Index 1: Second Screen',
+
+    ),
+
+    Text(
+      'Index 2: Third Screen'
+    ),
+
+    Text(
+      'Index 3: Fourth Screen'
+    ),
+
+    Text(
+      'Index 4: Fifth Screen'
+    ),
+
+  ];
+
+  void _onItemPressed (int index){
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -76,34 +110,32 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home),
+          label: 'Test 1',
+          backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.icecream),
+          label: 'Test 2',
+          backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.search),
+          label: 'Test 3',
+          backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.list),
+          label: 'Test 4',
+          backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.person),
+          label: 'Test 5',
+          backgroundColor: Colors.blue)
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemPressed,
+
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
@@ -113,3 +145,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
