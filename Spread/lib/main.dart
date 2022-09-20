@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'user_widget.dart';
+import 'search_appbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -107,31 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-
-        title: Container(
-          width: double.infinity,
-          height: 30 ,
-          color: Colors.white,
-          child: const Center(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'What are you craving?',
-                prefixIcon: Icon(Icons.search)
-              ),
-            ),
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        actions: <Widget>[
-          IconButton(onPressed: null,
-              icon: Icon(Icons.person))
-        ],
-        // Creates a button at top right with picture of icon
-        // Need to create action for whenever icon pressed
-      ),
+      appBar: SearchAppBar(appBar: AppBar(),),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
         // Center is a layout widget. It takes a single child and positions it
