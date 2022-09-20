@@ -50,30 +50,30 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   // We set 2 to be the middle (search) screen
 
   static const List<Widget> _widgetOptions = <Widget>[
 
     Text(
-      'Index 0: Normal Screen',
+      'Index 0: Scan Screen',
 
     ),
     Text(
-      'Index 1: Second Screen',
+      'Index 1: Favorites Screen',
 
     ),
 
     Text(
-      'Index 2: Third Screen'
+      'Index 2: Search Screen'
     ),
 
     Text(
-      'Index 3: Fourth Screen'
+      'Index 3: Map Screen'
     ),
 
     Text(
-      'Index 4: Fifth Screen'
+      'Index 4: Settings Screen'
     ),
 
   ];
@@ -117,24 +117,25 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home),
-          label: 'Test 1',
-          backgroundColor: Colors.blue),
-          BottomNavigationBarItem(icon: Icon(Icons.icecream),
-          label: 'Test 2',
-          backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.qr_code_2),
+          label: 'Scan QR',
+          backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(icon: Icon(Icons.star),
+          label: 'Favorites',
+          backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
           BottomNavigationBarItem(icon: Icon(Icons.search),
-          label: 'Test 3',
-          backgroundColor: Colors.blue),
-          BottomNavigationBarItem(icon: Icon(Icons.list),
-          label: 'Test 4',
-          backgroundColor: Colors.blue),
-          BottomNavigationBarItem(icon: Icon(Icons.person),
-          label: 'Test 5',
-          backgroundColor: Colors.blue)
+          label: 'Search',
+          backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(icon: Icon(Icons.location_pin),
+          label: 'Map',
+          backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(icon: Icon(Icons.settings),
+          label: 'Settings',
+          backgroundColor: Color.fromRGBO(208, 188, 255, 1))
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemPressed,
+        // Try to make color for bar #D0BCFF
 
       ),
       floatingActionButton: FloatingActionButton(
