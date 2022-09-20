@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'ListView Test'),
+      home: const MyHomePage(title: 'HomePage Test'),
     );
   }
 }
@@ -49,9 +49,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  // Placeholder
 
   int _selectedIndex = 2;
   // We set 2 to be the middle (search) screen
+  // Used for index relative to BottomNavigationBar
 
   static const List<Widget> _widgetOptions = <Widget>[
 
@@ -78,11 +80,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ];
 
-  void _onItemPressed (int index){
+  void _onTabClicked (int index){
     setState(() {
       _selectedIndex = index;
     });
-  }
+  } // Function to change index when tab is clicked
 
   void _incrementCounter() {
     setState(() {
@@ -108,6 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        backgroundColor: Colors.transparent,
+        actions: <Widget>[
+          IconButton(onPressed: null,
+              icon: Icon(Icons.person))
+        ],
+        // Creates a button at top right with picture of icon
+        // Need to create action for whenever icon pressed
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -134,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Color.fromRGBO(208, 188, 255, 1))
         ],
         currentIndex: _selectedIndex,
-        onTap: _onItemPressed,
+        onTap: _onTabClicked,
         // Try to make color for bar #D0BCFF
 
       ),
