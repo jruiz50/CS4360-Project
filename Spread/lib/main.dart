@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'user_widget.dart';
+import 'list_view.dart';
 import 'search_appbar.dart';
 
 void main() {
@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // We set 2 to be the middle (search) screen
   // Used for index relative to BottomNavigationBar
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
 
     Text(
       'Index 0: Scan Screen',
@@ -72,9 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'Index 2: Search Screen'
     ),
 
-    Text(
-      'Index 3: Map Screen'
-    ),
+    launchListView(),
 
     Text(
       'Index 4: Settings Screen'
