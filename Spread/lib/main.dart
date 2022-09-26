@@ -50,8 +50,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  // Placeholder
 
   int _selectedIndex = 2;
   // We set 2 to be the middle (search) screen
@@ -68,11 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     ),
 
-    Text(
-      'Index 2: Search Screen'
-    ),
-
     launchListView(),
+
+    Text(
+      'Index 3: Map Screen'
+    ),
 
     Text(
       'Index 4: Settings Screen'
@@ -87,16 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   } // Function to change index when tab is clicked
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,11 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Try to make color for bar #D0BCFF
 
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
     );
   }
 }

@@ -18,7 +18,17 @@ class launchListView extends StatelessWidget {
         return Container(
           height: 50,
           color: Colors.blue,
-          child: Center(child: Text(entries[index]),),
+          alignment: Alignment.centerLeft,
+          child: Container(
+              width: 30,
+              height: 30,
+              color: Colors.orange,
+              alignment: Alignment.centerRight,
+              child: Text(entries[index],),
+          ),
+          // USE FREAKIN COLUMNS, DORKASS!!!!
+
+
         );
       },
 
