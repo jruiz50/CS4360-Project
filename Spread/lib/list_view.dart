@@ -16,18 +16,35 @@ class launchListView extends StatelessWidget {
       itemCount: entries.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          height: 50,
-          color: Colors.blue,
-          alignment: Alignment.centerLeft,
-          child: Container(
-              width: 30,
-              height: 30,
-              color: Colors.orange,
-              alignment: Alignment.centerRight,
-              child: Text(entries[index],),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Colors.grey
           ),
-          // USE FREAKIN COLUMNS, DORKASS!!!!
+          height: 50,
 
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  const Icon(Icons.fastfood),
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  const Text ('Item name'),
+                  const Text ('Item Rating'),
+                  const Text ('Star Rating'),
+
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  IconButton(onPressed: null, icon: Icon(Icons.star_border))
+                ],
+              )
+            ],
+          ),
 
         );
       },
@@ -35,6 +52,15 @@ class launchListView extends StatelessWidget {
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
 
+    throw UnimplementedError();
+  }
+
+}
+
+class launchListViewGuest extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
     throw UnimplementedError();
   }
 
