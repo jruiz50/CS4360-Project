@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_signin_button: ^2.0.0
   firebase_core: ^1.23.0
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

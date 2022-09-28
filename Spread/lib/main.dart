@@ -6,6 +6,7 @@ import 'firebase_options.dart';
 import 'user_widget.dart';
 import 'search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
+import 'mapPage/mapView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // We set 2 to be the middle (search) screen
   // Used for index relative to BottomNavigationBar
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Scan Screen',
     ),
@@ -74,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
       'Index 1: Favorites Screen',
     ),
     Text('Index 2: Search Screen'),
-    Text('Index 3: Map Screen'),
+    // Text('Index 3: Map Screen'),
+    MapWidget(),
     Text('Index 4: Settings Screen'),
   ];
   // This creates a list of widgets; each widget displays different text so far
