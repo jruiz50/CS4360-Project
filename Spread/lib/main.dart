@@ -1,13 +1,22 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'user_widget.dart';
 import 'search_appbar.dart';
+import 'package:spread/loginPage/loginView.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -26,13 +35,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'HomePage Test'),
+      home:  loginView(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -58,32 +67,19 @@ class _MyHomePageState extends State<MyHomePage> {
   // Used for index relative to BottomNavigationBar
 
   static const List<Widget> _widgetOptions = <Widget>[
-
     Text(
       'Index 0: Scan Screen',
-
     ),
     Text(
       'Index 1: Favorites Screen',
-
     ),
-
-    Text(
-      'Index 2: Search Screen'
-    ),
-
-    Text(
-      'Index 3: Map Screen'
-    ),
-
-    Text(
-      'Index 4: Settings Screen'
-    ),
-
+    Text('Index 2: Search Screen'),
+    Text('Index 3: Map Screen'),
+    Text('Index 4: Settings Screen'),
   ];
   // This creates a list of widgets; each widget displays different text so far
 
-  void _onTabClicked (int index){
+  void _onTabClicked(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -109,37 +105,42 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: SearchAppBar(appBar: AppBar(),),
+      appBar: SearchAppBar(
+        appBar: AppBar(),
+      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
 
         // Child shows widget from the list defined above
-
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.qr_code_2),
-          label: 'Scan QR',
-          backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
-          BottomNavigationBarItem(icon: Icon(Icons.star),
-          label: 'Favorites',
-          backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
-          BottomNavigationBarItem(icon: Icon(Icons.search),
-          label: 'Search',
-          backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
-          BottomNavigationBarItem(icon: Icon(Icons.location_pin),
-          label: 'Map',
-          backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
-          BottomNavigationBarItem(icon: Icon(Icons.settings),
-          label: 'Settings',
-          backgroundColor: Color.fromRGBO(208, 188, 255, 1))
+          BottomNavigationBarItem(
+              icon: Icon(Icons.qr_code_2),
+              label: 'Scan QR',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.star),
+              label: 'Favorites',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.location_pin),
+              label: 'Map',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1))
         ],
         currentIndex: _selectedIndex,
         onTap: _onTabClicked,
         // Try to make color for bar #D0BCFF
-
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
@@ -149,5 +150,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
 
