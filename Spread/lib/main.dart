@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'user_widget.dart';
+import 'search_appbar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -55,6 +57,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  // Placeholder
+
+  int _selectedIndex = 2;
+  // We set 2 to be the middle (search) screen
+  // Used for index relative to BottomNavigationBar
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Scan Screen',
+    ),
+    Text(
+      'Index 1: Favorites Screen',
+    ),
+    Text('Index 2: Search Screen'),
+    Text('Index 3: Map Screen'),
+    Text('Index 4: Settings Screen'),
+  ];
+  // This creates a list of widgets; each widget displays different text so far
+
+  void _onTabClicked(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  } // Function to change index when tab is clicked
 
   void _incrementCounter() {
     setState(() {
@@ -76,40 +102,42 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      appBar: SearchAppBar(
+        appBar: AppBar(),
       ),
       body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+
+        // Child shows widget from the list defined above
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.qr_code_2),
+              label: 'Scan QR',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.star),
+              label: 'Favorites',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.location_pin),
+              label: 'Map',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+              backgroundColor: Color.fromRGBO(208, 188, 255, 1))
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onTabClicked,
+        // Try to make color for bar #D0BCFF
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
