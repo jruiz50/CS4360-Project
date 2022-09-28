@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.spread">
+    package="com.example.crave4360">
    <application
         android:label="spread"
         android:name="${applicationName}"

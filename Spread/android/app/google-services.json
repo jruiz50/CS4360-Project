@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "107894141193",
+    "project_id": "crave-4360",
+    "storage_bucket": "crave-4360.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107894141193:android:e48deca0c9a26f0b64a3d8",
+        "android_client_info": {
+          "package_name": "com.example.crave4360"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107894141193-19a1ghapnd15n21vrrtl02e7vaoou1p0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEM0ZluyqIjQP5b-5UJufNEMvogur26HQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107894141193-19a1ghapnd15n21vrrtl02e7vaoou1p0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

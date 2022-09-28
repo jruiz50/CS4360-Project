@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>107894141193-01cirhb0b76pqldj51quunkvrnqumb6f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.107894141193-01cirhb0b76pqldj51quunkvrnqumb6f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAWpWkFaOhenuChyElXdSk3q3SH3wkn-e8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>107894141193</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.crave4360</string>
+	<key>PROJECT_ID</key>
+	<string>crave-4360</string>
+	<key>STORAGE_BUCKET</key>
+	<string>crave-4360.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:107894141193:ios:90a80fc8d03fa3f264a3d8</string>
+</dict>
+</plist>
