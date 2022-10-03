@@ -1,7 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:spread/searchPage/list_view.dart';
 import 'firebase_options.dart';
 import 'user_widget.dart';
 import 'search_appbar.dart';
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo',
+      title: 'Crave',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -59,22 +58,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  // Placeholder
 
   int _selectedIndex = 2;
   // We set 2 to be the middle (search) screen
   // Used for index relative to BottomNavigationBar
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Scan Screen',
     ),
     Text(
       'Index 1: Favorites Screen',
     ),
-    Text('Index 2: Search Screen'),
-    Text('Index 3: Map Screen'),
+    launchListView(),
+    launchListTile(),
     Text('Index 4: Settings Screen'),
   ];
   // This creates a list of widgets; each widget displays different text so far
@@ -84,17 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
   } // Function to change index when tab is clicked
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,11 +128,6 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: _onTabClicked,
         // Try to make color for bar #D0BCFF
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
