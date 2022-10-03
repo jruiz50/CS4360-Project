@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:spread/searchPage/list_view.dart';
 import 'firebase_options.dart';
-import 'user_widget.dart';
-import 'search_appbar.dart';
+import 'package:spread/searchPage/search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
 
 Future<void> main() async {
