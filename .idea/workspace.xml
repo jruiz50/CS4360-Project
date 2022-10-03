@@ -8,6 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d1db001-fe70-417a-a833-7b619bfac402" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/jttom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spread/lib/qrPage/qr_scanner.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spread/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Spread/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spread/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Spread/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spread/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Spread/pubspec.lock" afterDir="false" />
