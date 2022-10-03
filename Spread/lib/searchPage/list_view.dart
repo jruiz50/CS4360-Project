@@ -123,7 +123,7 @@ class launchListTile extends StatelessWidget{
 
     return ListView.builder(
       itemCount: entries.length,
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(10),
       itemBuilder: (context, int index){
         return Card(
           margin: EdgeInsets.all(1),
@@ -132,8 +132,12 @@ class launchListTile extends StatelessWidget{
             leading: Icon(Icons.fastfood, size: 30,),
             title: Text('Food Name'),
             subtitle: Text('Item Star Rating'),
-            trailing: IconButton(onPressed: favorite, icon: showIcon),
+            trailing: IconButton(onPressed: (favorite), icon: showIcon),
+            onTap: (){
+              print(entries[index]);
+            },
           ),
+
         );
       },
 
@@ -147,12 +151,14 @@ class launchListTile extends StatelessWidget{
     if(favIconNum == 0){
       showIcon = unfav;
       favIconNum = 1;
+      print('Bro');
 
     }
 
     else{
       showIcon = fav;
       favIconNum = 0;
+      print('Bruh');
     }
 
 
