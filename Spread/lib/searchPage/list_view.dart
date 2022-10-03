@@ -110,9 +110,16 @@ class launchListTile extends StatelessWidget{
   final List<String> entries = <String>["First placeholder",
     "Second placeholder", "Third placeholder"];
 
+  Icon unfav = Icon(Icons.star_border);
+  Icon fav = Icon(Icons.star, color: Colors.yellow,);
+  Icon? showIcon;
+  int favIconNum = 0;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    Icon showIcon = unfav;
 
     return ListView.builder(
       itemCount: entries.length,
@@ -125,7 +132,7 @@ class launchListTile extends StatelessWidget{
             leading: Icon(Icons.fastfood, size: 30,),
             title: Text('Food Name'),
             subtitle: Text('Item Star Rating'),
-            trailing: IconButton(onPressed: null, icon: Icon(Icons.star_border)),
+            trailing: IconButton(onPressed: favorite, icon: showIcon),
           ),
         );
       },
@@ -133,6 +140,22 @@ class launchListTile extends StatelessWidget{
     );
 
     throw UnimplementedError();
+  }
+
+  void favorite(){
+
+    if(favIconNum == 0){
+      showIcon = unfav;
+      favIconNum = 1;
+
+    }
+
+    else{
+      showIcon = fav;
+      favIconNum = 0;
+    }
+
+
   }
   
 }
