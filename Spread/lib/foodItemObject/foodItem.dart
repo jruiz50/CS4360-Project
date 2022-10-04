@@ -1,3 +1,5 @@
+// Blueprint for all food items
+// Each object has a item name, category, rating, ingredients, allergens, restaurant name, restaurantId, image URL, and tags. 
 
 class foodItem {
     final String itemName;
