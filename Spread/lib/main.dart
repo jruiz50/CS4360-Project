@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:spread/searchPage/list_view.dart';
 import 'firebase_options.dart';
-// import 'package:test_project/loginPage/loginView.dart';
-import 'list_view.dart';
-import 'search_appbar.dart';
+import 'package:spread/searchPage/search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
 import 'package:spread/qrPage/qr_scanner.dart';
 import 'mapPage/mapView.dart';
@@ -60,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const Text(
       'Index 1: Favorites Screen',
     ),
-    launchListView(),
+    launchListTile(),
     MapWidget(),
     const Text('Index 4: Settings Screen'),
   ];
