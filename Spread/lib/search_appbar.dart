@@ -12,12 +12,13 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Container(
         width: double.infinity,
-        height: 30 ,
+        height: 30,
         color: Colors.white,
         child: const Center(
           child: TextField(
             decoration: InputDecoration(
                 hintText: 'What are you craving?',
+                hoverColor: Colors.greenAccent,//????
                 prefixIcon: Icon(Icons.search)
             ),
           ),
