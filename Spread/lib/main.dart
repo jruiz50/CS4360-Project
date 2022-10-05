@@ -6,6 +6,7 @@ import 'firebase_options.dart';
 import 'user_widget.dart';
 import 'search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
+import 'package:spread/qrPage/qr_scanner.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,9 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Used for index relative to BottomNavigationBar
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Scan Screen',
-    ),
+    QRViewFunction(),
     Text(
       'Index 1: Favorites Screen',
     ),
@@ -140,7 +139,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onTabClicked,
-        // Try to make color for bar #D0BCFF
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
