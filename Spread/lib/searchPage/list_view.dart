@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:spread/itemPage/itemView.dart';
 
-class launchListView extends StatelessWidget {
+/*class launchListView extends StatelessWidget {
 
   //final ListView myListView;
   //const launchView({super.key, required this.myListView})
@@ -55,7 +56,7 @@ class launchListView extends StatelessWidget {
     throw UnimplementedError();
   }
 
-}
+}*/
 
 class launchListViewGuest extends StatelessWidget{
   @override
@@ -134,7 +135,8 @@ class launchListTile extends StatelessWidget{
             subtitle: Text('Item Star Rating'),
             trailing: IconButton(onPressed: (favorite), icon: showIcon),
             onTap: (){
-              print(entries[index]);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => itemView()));
             },
           ),
 
