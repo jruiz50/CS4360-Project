@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spread/userPage/userView.dart';
 
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
 
@@ -12,12 +13,13 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Container(
         width: double.infinity,
-        height: 30 ,
+        height: 30,
         color: Colors.white,
         child: const Center(
           child: TextField(
             decoration: InputDecoration(
                 hintText: 'What are you craving?',
+                hoverColor: Colors.greenAccent,//????
                 prefixIcon: Icon(Icons.search)
             ),
           ),
@@ -25,7 +27,10 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: Colors.greenAccent,
       actions: <Widget>[
-        IconButton(onPressed: null,
+        IconButton(onPressed: () {
+          Navigator.push(context,
+          MaterialPageRoute(builder: (context) => userView()));
+        },
             icon: Icon(Icons.person))
       ],
 
@@ -35,4 +40,5 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
 }
+
 
