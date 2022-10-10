@@ -89,11 +89,45 @@ Widget Testing
 
         Next we have the 'await tester.pumpWidget()',
         pumpWidget() is the function that will render the given page and its components.
-        pumpWidget() takes a <Widget> as its argument. In out case it will be a
+        pumpWidget() takes a <Widget> as its argument. In our case it will be a
         MaterialApp() because we are using Material UI Widgets.
         And we specify the page to be loaded by declaring our 'home:'.
 
     Testing Widgets:
+        Testing is relatively simple, we will use an expect()
+        to see if the widget exists. expect() will take a finder, and then a
+        matcher. Now for the finder, there are many options,
+        some of the most common will be by using the find class. Which searches a widget tree
+        for a given widget. in the form of 'find.whatYourLookingFor'.
+
+        Then expect() will take a matcher.
+        Here is an example:
+        expect(find.byType(ElevatedButton), findsNWidgets(3));
+
+        Please see the login_test.dart file for examples.
+
+    Relevant Documentation:
+
+        flutter_test: http://man.hubwiz.com/docset/flutter.docset/Contents/Resources/Documents/doc/flutter/flutter_test/flutter_test-library.html
+
+        common Finders: http://man.hubwiz.com/docset/flutter.docset/Contents/Resources/Documents/doc/flutter/flutter_test/CommonFinders-class.html
+
+        finder: http://man.hubwiz.com/docset/flutter.docset/Contents/Resources/Documents/doc/flutter/flutter_test/Finder-class.html
+
+        labledTapTarget :http://man.hubwiz.com/docset/flutter.docset/Contents/Resources/Documents/doc/flutter/flutter_test/LabeledTapTargetGuideline-class.html
+
+        Blog Post Widget Test Example: https://medium.flutterdevs.com/widget-testing-with-flutter-59cbc020156f
+
+        Mock Navigator Stack Overflow example : https://stackoverflow.com/questions/50704647/how-to-test-navigation-via-navigator-in-flutter
+
+        Mock Navigator Example: https://developermemos.com/posts/mock-navigator-test-widgets
+
+        Find Widget With Text: https://api.flutter.dev/flutter/flutter_test/CommonFinders/widgetWithText.html
+
+        Flutter CookBook Widget Testing: https://docs.flutter.dev/cookbook/testing/widget/introduction
+
+
+
 
 
 
