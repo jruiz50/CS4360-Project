@@ -85,9 +85,8 @@ class loginView extends StatelessWidget{
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: (){
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const MyHomePage(title: "Crave")));
+                      onPressed: () {
+                        
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
@@ -136,6 +135,8 @@ class loginView extends StatelessWidget{
                     height: 50,
                     child: ElevatedButton(
                       onPressed: (){
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const MyHomePage(title: "Crave")));
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
