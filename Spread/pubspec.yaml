@@ -39,6 +39,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   geolocator: ^9.0.2
   firebase_auth: ^3.11.2
+  cloud_functions: ^3.3.9
 
 dev_dependencies:
   flutter_test:
