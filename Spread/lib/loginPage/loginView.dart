@@ -1,8 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:spread/main.dart';
+
+final functions = FirebaseFunctions.instance;
 
 class loginView extends StatelessWidget{
   @override
@@ -85,7 +87,7 @@ class loginView extends StatelessWidget{
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const MyHomePage(title: "Crave")));
                       },
@@ -111,7 +113,16 @@ class loginView extends StatelessWidget{
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: (){
+                      onPressed: () {
+                        try {
+                          final result =
+                              FirebaseFunctions.instance.httpsCallable('testFunction').call();
+                          print(result);
+                        } on FirebaseFunctionsException catch (error) {
+                          print(error.code);
+                          print(error.details);
+                          print(error.message);
+                        }
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
@@ -136,6 +147,8 @@ class loginView extends StatelessWidget{
                     height: 50,
                     child: ElevatedButton(
                       onPressed: (){
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const MyHomePage(title: "Crave")));
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),

@@ -14,7 +14,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "firebase-admin": "^10.2.0",
+    "dotenv": "^16.0.3",
     "firebase-functions": "^3.21.0"
   },
   "devDependencies": {
