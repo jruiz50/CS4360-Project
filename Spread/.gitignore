@@ -76,5 +76,6 @@ firebase-debug.log
 firestore-debug.log
 database-debug.log
 ui-debug.
+ui-debug.log
 
 ../.idea/workspace.xml
