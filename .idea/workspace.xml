@@ -13,8 +13,8 @@
       <change afterPath="$PROJECT_DIR$/.idea/dictionaries/jttom.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Spread/lib/qrPage/qr_scanner.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spread/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Spread/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spread/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Spread/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spread/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Spread/pubspec.lock" afterDir="false" />
@@ -37,10 +37,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/README.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Spread/lib/main.dart" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2EgQ2hlKi9gF9Ae5O81sMqxSfbr" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
