@@ -1,0 +1,138 @@
+How to test in Flutter
+
+Libraries:
+    flutter_test
+        Flutter ships with the flutter_test library which encapsulates all older Flutter test libraries. It can be used
+        for Integration testing, Widget Testing and Unit Testing.
+
+        Unit Testing: Tests a method or class. (Non-rendering code)
+
+        Widget Testing: Verifies the behavior of widgets without running the app.
+
+        Integration Testing: End to end testing, it runs the entire app.
+
+
+    Mockito
+        Is a based on the popular Java Library Mockito. It provides a means of
+        creating mocks, fakes, behavior verification, and stubbing.
+
+        For examples and tutorials please see:  https://github.com/dart-lang/mockito
+
+        Installing Mockito:
+            flutter pub add mockito
+
+            Imports:
+            import 'package:mockito/mockito.dart';
+            import 'package:mockito/annotations.dart';
+
+        Installing build_runner:
+            dart pub add build_runner --dev
+
+
+Widget Testing
+    Start by creating a file in the 'test' folder, name by page_test.dart
+    add all needed imports including the page your testing.
+
+    import 'dart:io';
+    import 'package:flutter/material.dart';
+    import 'package:flutter_test/flutter_test.dart';
+    import 'package:mockito/mockito.dart';  <---- Only needed if you need mocks/fakes etc.
+    import 'package:mockito/annotations.dart'; <---- Only needed if you need mocks/fakes etc.
+
+
+    All test files will begin with:
+
+         void main(){
+            //Your Code will go in here
+        }
+
+        Now each page will have a group of tests associated with it.
+        With in main, create a group.
+        Where the description is the page name your testing. Ex. group('loginView',(){});
+
+        void main(){
+            group('Description'(){
+
+            }
+            // This is where all tests will be written
+
+            });
+          }
+
+
+        Every widget test will generally start the same.
+        By using the function testWidgets(). It can be used to test both built in and custom widgets
+        as well as stateless or stateful widgets.
+        It has a  number of optional inputs, but the most important ones for us will be,
+        the description, future Function, and the skip Function.
+
+        skip is a boolean value and can be used to skip the test if need be.
+        Other wise a test stub will look like this
+
+        void main(){
+                group('Description'(){
+
+                }
+                testWidgets('What your testing', (WidgetTester tester) async{
+                    await test.pumpWidget(MaterialApp(
+                        home: yourPage(),
+                    ));
+                }
+                });
+              }
+        You'll notice a few interesting things here, the first being (WidgetTester tester).
+        Now 'tester' can be any name you chose, but this is
+        object that will allow you to interact with the app throughout the test.
+
+        The next interesting part, is the 'async' because tests are essentially futures,
+        'async' is required.
+
+        Next we have the 'await tester.pumpWidget()',
+        pumpWidget() is the function that will render the given page and its components.
+        pumpWidget() takes a <Widget> as its argument. In our case it will be a
+        MaterialApp() because we are using Material UI Widgets.
+        And we specify the page to be loaded by declaring our 'home:'.
+
+    Testing Widgets:
+        Testing is relatively simple, we will use an expect()
+        to see if the widget exists. expect() will take a finder, and then a
+        matcher. Now for the finder, there are many options,
+        some of the most common will be by using the find class. Which searches a widget tree
+        for a given widget. in the form of 'find.whatYourLookingFor'.
+
+        Then expect() will take a matcher.
+        Here is an example:
+        expect(find.byType(ElevatedButton), findsNWidgets(3));
+
+        Please see the login_test.dart file for examples.
+
+    Relevant Documentation:
+
+        flutter_test: http://man.hubwiz.com/docset/flutter.docset/Contents/Resources/Documents/doc/flutter/flutter_test/flutter_test-library.html
+
+        common Finders: http://man.hubwiz.com/docset/flutter.docset/Contents/Resources/Documents/doc/flutter/flutter_test/CommonFinders-class.html
+
+        finder: http://man.hubwiz.com/docset/flutter.docset/Contents/Resources/Documents/doc/flutter/flutter_test/Finder-class.html
+
+        labledTapTarget :http://man.hubwiz.com/docset/flutter.docset/Contents/Resources/Documents/doc/flutter/flutter_test/LabeledTapTargetGuideline-class.html
+
+        Blog Post Widget Test Example: https://medium.flutterdevs.com/widget-testing-with-flutter-59cbc020156f
+
+        Mock Navigator Stack Overflow example : https://stackoverflow.com/questions/50704647/how-to-test-navigation-via-navigator-in-flutter
+
+        Mock Navigator Example: https://developermemos.com/posts/mock-navigator-test-widgets
+
+        Find Widget With Text: https://api.flutter.dev/flutter/flutter_test/CommonFinders/widgetWithText.html
+
+        Flutter CookBook Widget Testing: https://docs.flutter.dev/cookbook/testing/widget/introduction
+
+
+
+
+
+
+
+
+
+
+

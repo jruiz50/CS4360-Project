@@ -6,192 +6,203 @@ import 'package:spread/main.dart';
 
 final functions = FirebaseFunctions.instance;
 
-class loginView extends StatelessWidget{
+class loginView extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-
       body: Center(
         child: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [
                 0.3,
                 0.9,
               ],
-              colors: [
+                  colors: [
                 Color(0xB30CDB21),
                 Color(0xCC7C4DFF)
-              ]
-            )
-          ),
+              ])),
           child: Container(
-
             alignment: Alignment.center,
             padding: const EdgeInsets.all(20),
-            child: Column(
-
-              children:  <Widget>[
-                //Fork & Spoon Image
-                Padding(padding: const EdgeInsets.only(top: 30.0,),
-                  child: Image.asset('lib/loginAssets/forkSpoon.png',
-                    scale: 2.5,
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  //Fork & Spoon Image
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 30.0,
+                    ),
+                    child: Image.asset(
+                      'lib/loginAssets/forkSpoon.png',
+                      scale: 2.5,
+                    ),
                   ),
-                ),
 
-                //Crave Text
-                Text("Crave",
-                  style: GoogleFonts.tangerine(fontSize: 100),
-                ),
-
-                //Email Field
-                TextField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: const BorderSide(color:Colors.black, width: 2.0)
-                      ),
-                      hintText: "Enter Email",
-                      hintStyle: const TextStyle(color: Colors.white),
-                      labelText: "Email",
-                      labelStyle: const TextStyle(
-                          color: Colors.white
-                      )
+                  //Crave Text
+                  Text(
+                    "Crave",
+                    style: GoogleFonts.tangerine(fontSize: 100),
                   ),
-                ),
 
-                //Password Field
-                const SizedBox(height: 10),
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: const BorderSide(color:Colors.black, width: 2.0)
-                      ),
-                      hintText: "Enter Password",
-                      hintStyle: const TextStyle(color: Colors.white),
-                      labelText: "Password",
-                      labelStyle: const TextStyle(
-                          color: Colors.white
-                      )
+                  //Email Field
+                  TextField(
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: const BorderSide(
+                                color: Colors.black, width: 2.0)),
+                        hintText: "Enter Email",
+                        hintStyle: const TextStyle(color: Colors.white),
+                        labelText: "Email",
+                        labelStyle: const TextStyle(color: Colors.white)),
                   ),
-                ),
 
-                //Sign In Button
-                Padding(padding: const EdgeInsets.only(top: 25),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const MyHomePage(title: "Crave")));
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side:const BorderSide(color: Colors.black,
-                              width: 2.0,
+                  //Password Field
+                  const SizedBox(height: 10),
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: const BorderSide(
+                                color: Colors.black, width: 2.0)),
+                        hintText: "Enter Password",
+                        hintStyle: const TextStyle(color: Colors.white),
+                        labelText: "Password",
+                        labelStyle: const TextStyle(color: Colors.white)),
+                  ),
+
+                  //Sign In Button
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MyHomePage(title: "Crave")));
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: const BorderSide(
+                                color: Colors.black,
+                                width: 2.0,
+                              ),
                             ),
                           ),
                         ),
+                        child: const Text('Sign In'),
                       ),
-                      child: const Text('Sign In'),
                     ),
                   ),
-                ),
 
-                //Create Account Button
-                Padding(padding: const EdgeInsets.only(top: 25),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        try {
-                          final result =
-                              FirebaseFunctions.instance.httpsCallable('testFunction').call();
-                          print(result);
-                        } on FirebaseFunctionsException catch (error) {
-                          print(error.code);
-                          print(error.details);
-                          print(error.message);
-                        }
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side:const BorderSide(color: Colors.black,
-                              width: 2.0,
+                  //Create Account Button
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MyHomePage(title: "Crave")));
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: const BorderSide(
+                                color: Colors.black,
+                                width: 2.0,
+                              ),
                             ),
                           ),
                         ),
+                        child: const Text('Create Account'),
                       ),
-                      child: const Text('Create Account'),
                     ),
                   ),
-                ),
 
-                //Guest Button
-                Padding(padding: const EdgeInsets.only(top: 25),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: (){
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const MyHomePage(title: "Crave")));
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side:const BorderSide(color: Colors.black,
-                              width: 2.0,
+                  //Guest Button
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MyHomePage(title: "Crave")));
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: const BorderSide(
+                                color: Colors.black,
+                                width: 2.0,
+                              ),
                             ),
                           ),
                         ),
+                        child: const Text('Continue as Guest'),
                       ),
-                      child: const Text('Continue as Guest'),
                     ),
                   ),
-                ),
-
-          //Google Sign In Button
-          Padding(padding: const EdgeInsets.only(top: 25),
-            child: SizedBox(
-              width: double.infinity,
-              height: 50,
-              child:
-              SignInButton(
-                Buttons.Google,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: const BorderSide(color: Colors.black,
-                      width: 2.0),
-                ),
-                onPressed: () {},
+                  //Google Sign In Button
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: SignInButton(
+                        Buttons.Google,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side:
+                              const BorderSide(color: Colors.black, width: 2.0),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MyHomePage(title: "Crave")));
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-
-
-              ],
             ),
           ),
         ),
       ),
     );
-
   }
-
 }
