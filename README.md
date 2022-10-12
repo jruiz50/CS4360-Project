@@ -113,7 +113,7 @@ Once installed, open the `Runner.xcworkspace` file, which can be found via the f
 
 > Note: There are two Runner.xc\* files. Be sure to open the correct one!
 
-### Installing Applciation Pods
+### Installing Application Pods
 
 In order for your build to succeed, it is required that you install the pods (dependencies) for the project. In your terminal from the project root of Spread:
 
@@ -129,7 +129,7 @@ pod install
 
 ```
 
-Once complete, you can build the application with `Cmd + B`. Sometimes the application will auto-build before you are able to complete the steps above. If youa re still seeing errors, clean your build folder with `Cmd + Shift + K`, then retry your build.
+Once complete, you can build the application in Xcode with `Cmd + B`. Sometimes the application will auto-build before you are able to complete the steps above. If you are still seeing errors, clean your build folder with `Cmd + Shift + K`, then retry your build.
 
 ### Emulating the Application
 
