@@ -42,7 +42,7 @@ class itemView extends StatelessWidget{
                       Text('Ingredients')
                     ],),
                     Row(children: <Text>[
-                      Text('Notable Allergens')
+                      Text('Notable Allergens: ')
                     ],)
 
                   ],

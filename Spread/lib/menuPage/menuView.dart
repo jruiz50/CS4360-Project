@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class friendView extends StatelessWidget{
+class menuView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
@@ -9,19 +9,19 @@ class friendView extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(title: Row(
         children: <Text>[
-          Text('Friend List')
+          Text('Menus')
         ],
       ),
         backgroundColor: Colors.greenAccent,
       ),
-      body: friendList(),
+      body: menuList(),
     );
     throw UnimplementedError();
   }
 
 }
 
-class friendList extends StatelessWidget{
+class menuList extends StatelessWidget{
 
   final List<String> entries = <String>["First placeholder",
     "Second placeholder"];
@@ -38,11 +38,12 @@ class friendList extends StatelessWidget{
             margin: EdgeInsets.all(1),
             elevation: 3,
             child: ListTile(
-              title: Text('Friend Name'),
-              subtitle: Text('Friend ID/User ID'),
-              trailing: IconButton(onPressed: (null), icon: Icon(Icons.send, color: Colors.lightBlueAccent,)),
+              leading: Icon(Icons.fastfood, size: 30,),
+              title: Text('Restaraunt Name'),
+              subtitle: Text('Description'),
+              onTap: (){
+              },
               onLongPress: (null),
-              // LongPress could be a delete function
             ),
           );
         }

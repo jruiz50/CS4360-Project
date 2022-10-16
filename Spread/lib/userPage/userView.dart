@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spread/favPage/favView.dart';
-import 'package:spread/main.dart';
+import '../friendPage/friendView.dart';
+import '../menuPage/menuView.dart';
+import '../settingsPage/settingsView.dart';
 
 class userView extends StatelessWidget{
   @override
@@ -15,12 +17,17 @@ class userView extends StatelessWidget{
 
       body: Column(
         children: <Widget>[
-          Icon(Icons.person, size: 400,),//Placeholder
+          Icon(Icons.person, size: 300,),//Placeholder
+          Text("Name"),
+          Text("User ID"),
           Card(child:
           ListTile(
             leading: Icon(Icons.menu_book),
             title: Text("Saved Menus"),
-            onTap: null,
+            onTap: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => menuView()));
+            },
           ),),
           Card(child:
           ListTile(
@@ -35,13 +42,19 @@ class userView extends StatelessWidget{
           ListTile(
             leading: Icon(Icons.people_alt),
             title: Text("Friends"),
-            onTap: null,
+            onTap: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => friendView()));
+            },
           ),),
           Card(child:
             ListTile(
               leading: Icon(Icons.settings),
               title: Text("Settings"),
-              onTap: null,
+              onTap: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => settingsView()));
+              },
             ),)
         ],
       )
