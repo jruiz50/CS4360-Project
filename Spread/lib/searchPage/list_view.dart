@@ -58,7 +58,7 @@ import 'package:spread/itemPage/itemView.dart';
 
 }*/
 
-class launchListViewGuest extends StatelessWidget{
+/*class launchListViewGuest extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -104,7 +104,7 @@ class launchListViewGuest extends StatelessWidget{
     throw UnimplementedError();
   }
 
-}
+}*/
 
 class launchListTile extends StatelessWidget{
 
@@ -118,8 +118,6 @@ class launchListTile extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
     Icon showIcon = unfav;
 
     return ListView.builder(
@@ -166,4 +164,32 @@ class launchListTile extends StatelessWidget{
 
   }
   
+}
+
+class launchGuestListTile extends StatelessWidget{
+
+  final List<String> entries = <String>["First placeholder",
+    "Second placeholder", "Third placeholder"];
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ListView.builder(
+      itemCount: entries.length,
+      padding: const EdgeInsets.all(10),
+      itemBuilder: (context, int index){
+        return Card(
+          margin: EdgeInsets.all(1),
+          elevation: 3,
+          child: ListTile(
+            leading: Icon(Icons.fastfood, size: 30,),
+            title: Text('Food Name'),
+            subtitle: Text('Item Star Rating'),
+          ),
+        );
+      },
+    );
+    throw UnimplementedError();
+  }
+
 }

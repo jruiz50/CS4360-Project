@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:spread/searchPage/list_view.dart';
+import 'firebase_options.dart';
 import 'package:spread/searchPage/search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
 import 'package:spread/qrPage/qr_scanner.dart';
@@ -52,18 +50,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
   // We set 2 to be the middle (search) screen
   // Used for index relative to BottomNavigationBar
 
   static final List<Widget> _widgetOptions = <Widget>[
     const QRViewFunction(),
-    const Text(
-      'Index 1: Favorites Screen',
-    ),
     launchListTile(),
     MapWidget(),
-    const Text('Index 4: Settings Screen'),
   ];
   // This creates a list of widgets; each widget displays different text so far
 
@@ -99,10 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
               label: 'Scan QR',
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.star),
-              label: 'Favorites',
-              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
-          BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: 'Search',
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
@@ -110,10 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.location_pin),
               label: 'Map',
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-              backgroundColor: Color.fromRGBO(208, 188, 255, 1))
         ],
         currentIndex: _selectedIndex,
         onTap: _onTabClicked,

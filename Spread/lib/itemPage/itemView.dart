@@ -17,9 +17,9 @@ class itemView extends StatelessWidget{
       body: Center(
         child: Column(
 
-            children: <Widget>[
-              Icon(Icons.fastfood, size: 400,), // Absolutely a placeholder; change it Image()
-              Align(
+          children: <Widget>[
+            Icon(Icons.fastfood, size: 400,), // Absolutely a placeholder; change it Image()
+            Align(
                 alignment: Alignment.topLeft,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,8 +47,8 @@ class itemView extends StatelessWidget{
 
                   ],
                 )
-              ),
-            ],
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -76,21 +76,21 @@ class ItemAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.greenAccent,
-      title: Container(
+        backgroundColor: Colors.greenAccent,
+        title: Container(
 
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Row>[
-            Row(children: <Text>[
-              Text('Name Placeholder')
-            ],),
-            Row(children: <Text>[
-              Text('Restaraunt Placeholder')
-            ],)
-          ],
-        ),
-    )
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Row>[
+              Row(children: <Text>[
+                Text('Name Placeholder')
+              ],),
+              Row(children: <Text>[
+                Text('Restaraunt Placeholder')
+              ],)
+            ],
+          ),
+        )
     );
   }
 
