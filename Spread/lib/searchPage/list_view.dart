@@ -71,36 +71,38 @@ class _launchListTile extends State<launchListTile>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
-    return ListView.builder(
-      itemCount: entries.length,
-      padding: const EdgeInsets.all(10),
-      itemBuilder: (context, int index){
-        return Card(
-          margin: EdgeInsets.all(1),
-          elevation: 3,
-          child: ListTile(
-            leading: Icon(Icons.fastfood, size: 30,),
-            title: Text('Food Name'),
-            subtitle: Text('Item Star Rating'),
-            trailing: IconButton(
-                onPressed: () {
-                  setState(() {
-                    isFav = !isFav;
-                    print(isFav);
-                  });
+    // TODO: will need to implement a way to do this for food items in db.
+    // This is somehow connecting all 3 food items as one object, which is why
+    // clicking on the fav button does the action for all three objects.
+    // This is at least a start
+      return ListView.builder(
+        itemCount: entries.length,
+        padding: const EdgeInsets.all(10),
+        itemBuilder: (context, int index) {
+          return Card(
+            margin: EdgeInsets.all(1),
+            elevation: 3,
+            child:
+              ListTile(
+                leading: Icon(Icons.fastfood, size: 30,),
+                title: Text('Food Name'),
+                subtitle: Text('Item Star Rating'),
+                trailing: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isFav = !isFav;
+                        print(isFav);
+                      });
+                    },
+                    icon: (isFav) ? fav : unfav),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => itemView()));
                 },
-                icon: (isFav) ? fav : unfav),
-            onTap: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => itemView()));
-            },
-          ),
-
-        );
-      },
-
-    );
+              ),
+          );
+        },
+      );
 
     throw UnimplementedError();
   }
