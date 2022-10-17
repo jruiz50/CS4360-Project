@@ -6,6 +6,7 @@ class restaurant {
   final String coordinates;
   var tags = <String>[];
   final double rating;
+  var foodTypeIDs = <int>[];
 
   restaurant(
       {required this.restaurantID,
@@ -14,7 +15,8 @@ class restaurant {
       required this.menuID,
       required this.coordinates,
       required this.tags,
-      required this.rating});
+      required this.rating,
+      required this.foodTypeIDs});
 
   Map<String, dynamic> toJson() => {
         'restaurantID': restaurantID,
@@ -24,6 +26,7 @@ class restaurant {
         'coordinates': coordinates,
         'tags': tags,
         'rating': rating,
+        'foodTypeIDs': foodTypeIDs
       };
 
   static restaurant fromJson(Map<String, dynamic> json) => restaurant(
@@ -33,5 +36,6 @@ class restaurant {
       menuID: json['menuID'],
       coordinates: json['coordinates'],
       tags: json['tags'],
-      rating: json['rating']);
+      rating: json['rating'],
+      foodTypeIDs: json['foodTypeIDs']);
 }
