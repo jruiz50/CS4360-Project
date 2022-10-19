@@ -47,7 +47,7 @@ class launchListViewGuest extends StatelessWidget{
     throw UnimplementedError();
   }
 
-}
+}*/
 
 class launchListTile extends StatefulWidget {
   const launchListTile({super.key});
@@ -104,7 +104,35 @@ class _launchListTile extends State<launchListTile>{
         },
       );
 
-    throw UnimplementedError();
+    // throw UnimplementedError();
   }
   
+}
+
+class launchGuestListTile extends StatelessWidget{
+
+  final List<String> entries = <String>["First placeholder",
+    "Second placeholder", "Third placeholder"];
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ListView.builder(
+      itemCount: entries.length,
+      padding: const EdgeInsets.all(10),
+      itemBuilder: (context, int index){
+        return Card(
+          margin: EdgeInsets.all(1),
+          elevation: 3,
+          child: ListTile(
+            leading: Icon(Icons.fastfood, size: 30,),
+            title: Text('Food Name'),
+            subtitle: Text('Item Star Rating'),
+          ),
+        );
+      },
+    );
+    // throw UnimplementedError();
+  }
+
 }
