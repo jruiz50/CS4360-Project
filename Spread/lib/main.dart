@@ -5,7 +5,6 @@ import 'package:spread/searchPage/list_view.dart';
 import 'firebase_options.dart';
 import 'package:spread/searchPage/search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
-import 'package:spread/qrPage/qr_scanner.dart';
 import 'mapPage/mapView.dart';
 import 'package:spread/ocrPage/camView.dart';
 import 'package:spread/mapPage/mapView.dart';
