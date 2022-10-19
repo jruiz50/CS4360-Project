@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,9 +9,11 @@ import 'package:spread/searchPage/search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
 import 'package:spread/qrPage/qr_scanner.dart';
 import 'mapPage/mapView.dart';
+import 'package:spread/ocrPage/camView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -57,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Used for index relative to BottomNavigationBar
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const QRViewFunction(),
+    CamView(),
     const Text(
       'Index 1: Favorites Screen',
     ),
