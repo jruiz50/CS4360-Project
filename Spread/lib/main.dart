@@ -8,6 +8,9 @@ import 'package:spread/loginPage/loginView.dart';
 import 'package:spread/qrPage/qr_scanner.dart';
 import 'mapPage/mapView.dart';
 import 'package:spread/ocrPage/camView.dart';
+import 'package:spread/mapPage/mapView.dart';
+import 'package:spread/mapPage/mapSample.dart';
+import 'package:spread/mapPage/googleMap.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'Index 1: Favorites Screen',
     ),
     launchListTile(),
-    MapWidget(),
+    GoogleMapsDemo(),
     const Text('Index 4: Settings Screen'),
   ];
   // This creates a list of widgets; each widget displays different text so far
