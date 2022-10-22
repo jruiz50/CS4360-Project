@@ -1,12 +1,85 @@
+// Import project dependencies
 require("dotenv").config();
-import * as functions from "firebase-functions";
+const {
+  // doc,
+  // setDoc,
+  getDocs,
+  // deleteDoc,
+  collection,
+  getFirestore
+} = require("firebase/firestore");
+const admin = require("firebase-admin");
 const superagent = require("superagent");
+const { initializeApp } = require("firebase/app");
+import * as functions from "firebase-functions";
 
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
+// Connect Cloud Functions to Firestore Database
+admin.initializeApp();
+const firebaseConfig = {
+  apiKey: process.env.APP_API_KEY,
+  authDomain: process.env.APP_AUTH_DOMAIN,
+  projectId: process.env.APP_PROJECT_ID,
+  storageBucket: process.env.APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.APP_MSG_SENDER_ID,
+  appId: process.env.APP_ID
+};
+initializeApp(firebaseConfig);
 
-export const foodQuery = functions.https.onCall(async (data, context) => {
+
+// References to Database and Collections
+const db = getFirestore();
+const users = collection(db, "users");
+
+
+
+// ------------------------------- Cloud Functions -------------------------------
+
+
+// Database CRUD Operation Functions
+
+/**
+ * This functions serves as an example as to how you can read
+ * data from a database collection. In this case, a user profile.
+ * 
+ * @param data - Object containing desired user information
+ * @returns - Object containing user stored user information
+ */
+export const getUserProfile = functions.https.onCall((data) => {
+  // const userID: string = data.userID;
+  const userID: string = "";
+
+  let userFound: boolean = false;
+
+  getDocs(users)
+    .then((snapshot: any) => {
+      snapshot.docs.forEach((document: any) => {
+        if (document.data().firstName === userID) {
+          console.log("User profile found!");
+          userFound = true;
+        }
+      })
+    })
+    .finally(() => {
+      return {
+        userFound: userFound
+      }
+    });
+});
+
+
+
+
+// App Utility Functions
+
+/**
+ * This function receives a search query from the application, and 
+ * uses it as a query to a food API for nutrition information.
+ * 
+ * @param data - Object containing a string of the user's typed search
+ * @returns - At the moment, simply returns a success response to app
+ */
+export const foodQuery = functions.https.onCall((data) => {
   const userQuery: string = data.query;
   let searchQuery: string = userQuery.trim().toLowerCase();
   
