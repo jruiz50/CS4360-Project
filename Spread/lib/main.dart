@@ -5,7 +5,7 @@ import 'package:spread/searchPage/list_view.dart';
 import 'firebase_options.dart';
 import 'package:spread/searchPage/search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
-import 'mapPage/mapView.dart';
+import '/mapPage/mapView.dart';
 import 'package:spread/ocrPage/camView.dart';
 import 'package:spread/mapPage/mapView.dart';
 import 'package:spread/mapPage/mapSample.dart';
@@ -85,12 +85,15 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+          child: Flexible(
+              flex: 1,
+              fit: FlexFit.loose,
+              child: (_widgetOptions.elementAt(_selectedIndex)))
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
 
-        // Child shows widget from the list defined above
-      ),
+          // Child shows widget from the list defined above
+          ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

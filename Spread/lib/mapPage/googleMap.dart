@@ -16,7 +16,6 @@ class _GoogleMapsDemoState extends State<GoogleMapsDemo> {
     distanceFilter: 100,
   );
 
-
   Marker marker = Marker(markerId: MarkerId("user_location"));
 
   var _msuDenver2 = null;
@@ -43,19 +42,20 @@ class _GoogleMapsDemoState extends State<GoogleMapsDemo> {
   void initState() {
     super.initState();
     if (_determinePosition() == true) {
-      StreamSubscription<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-              (Position? position) {
-            if (position != null) {
-              mapController?.moveCamera(
-                CameraUpdate.newCameraPosition(
-                  CameraPosition(
-                    target: LatLng(position.latitude, position.longitude),
-                    zoom: 20.0,
-                  ),
-                ),
-              );
-            }
-          });
+      StreamSubscription<Position> positionStream =
+          Geolocator.getPositionStream(locationSettings: locationSettings)
+              .listen((Position? position) {
+        if (position != null) {
+          mapController?.moveCamera(
+            CameraUpdate.newCameraPosition(
+              CameraPosition(
+                target: LatLng(position.latitude, position.longitude),
+                zoom: 20.0,
+              ),
+            ),
+          );
+        }
+      });
     }
     // StreamSubscription<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
     //         (Position? position) {
@@ -89,7 +89,6 @@ class _GoogleMapsDemoState extends State<GoogleMapsDemo> {
     //           //   ),
     //           // );
     //     });
-
   }
 
   Future<bool> _determinePosition() async {
@@ -115,11 +114,13 @@ class _GoogleMapsDemoState extends State<GoogleMapsDemo> {
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever.
-      print('Location permissions are permanently denied, we cannot request permissions.');
+      print(
+          'Location permissions are permanently denied, we cannot request permissions.');
       return false;
     }
 
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
 
     // _msuDenver2 = CameraPosition(
     //   target: LatLng(position.latitude, position.longitude),
@@ -156,22 +157,27 @@ class _GoogleMapsDemoState extends State<GoogleMapsDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _msuDenver2 == null
-        ? const Center(child: Text("Loading..."),)
-        :Column(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: GoogleMap(
-              onMapCreated: (GoogleMapController controller) {
-                mapController = controller;
-              },
-              myLocationEnabled: true,
-              initialCameraPosition: _msuDenver2,
-              ),
-            ),
-        ],
-      ),
+          ? const Center(
+              child: Text("Loading..."),
+            )
+          : Flexible(
+              flex: 1,
+              fit: FlexFit.loose,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: GoogleMap(
+                      onMapCreated: (GoogleMapController controller) {
+                        mapController = controller;
+                      },
+                      myLocationEnabled: true,
+                      initialCameraPosition: _msuDenver2,
+                    ),
+                  ),
+                ],
+              )),
     );
   }
 }
