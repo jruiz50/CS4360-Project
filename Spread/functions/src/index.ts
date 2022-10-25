@@ -8,27 +8,31 @@ const {
   collection,
   getFirestore
 } = require("firebase/firestore");
-const admin = require("firebase-admin");
 const superagent = require("superagent");
 const { initializeApp } = require("firebase/app");
 import * as functions from "firebase-functions";
 
 
 // Connect Cloud Functions to Firestore Database
-admin.initializeApp();
+// const app = initializeApp();
+// const firebaseConfig = 
+// initializeApp(firebaseConfig);
+
 const firebaseConfig = {
-  apiKey: process.env.APP_API_KEY,
-  authDomain: process.env.APP_AUTH_DOMAIN,
-  projectId: process.env.APP_PROJECT_ID,
-  storageBucket: process.env.APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.APP_MSG_SENDER_ID,
-  appId: process.env.APP_ID
+    apiKey: process.env.APP_API_KEY,
+    authDomain: process.env.APP_AUTH_DOMAIN,
+    projectId: process.env.APP_PROJECT_ID,
+    storageBucket: process.env.APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.APP_MSG_SENDER_ID,
+    appId: process.env.APP_ID
 };
-initializeApp(firebaseConfig);
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 
 // References to Database and Collections
-const db = getFirestore();
+const db = getFirestore(app);
 const users = collection(db, "users");
 
 
@@ -45,26 +49,25 @@ const users = collection(db, "users");
  * @param data - Object containing desired user information
  * @returns - Object containing user stored user information
  */
-export const getUserProfile = functions.https.onCall((data) => {
+export const getUserProfile = functions.https.onCall(async (data) => {
   // const userID: string = data.userID;
-  const userID: string = "";
+  // const userID: string = "";
 
-  let userFound: boolean = false;
+  let user: object = {
+    test: "hello"
+  };
 
-  getDocs(users)
+  await getDocs(users)
     .then((snapshot: any) => {
       snapshot.docs.forEach((document: any) => {
-        if (document.data().firstName === userID) {
-          console.log("User profile found!");
-          userFound = true;
-        }
+        console.log(document.data());
+        console.log(document.data);
+        user = { ...user, data: document.data()};
+        console.log(user);
       })
-    })
-    .finally(() => {
-      return {
-        userFound: userFound
-      }
     });
+
+  return { user }
 });
 
 
