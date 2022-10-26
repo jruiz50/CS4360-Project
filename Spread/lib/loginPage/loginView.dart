@@ -82,12 +82,26 @@ class loginView extends StatelessWidget {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                        onPressed: () async {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //         const MyHomePage(title: "Crave")));
+                          try {
+                            final userCredential =
+                                await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(email: "test@example.com", password: "password");
+                            print("Signed in with temporary account.");
+                          } on FirebaseAuthException catch (e) {
+                            switch (e.code) {
+                              case "operation-not-allowed":
+                                print("Auth type hasn't been enabled for this project.");
+                                break;
+                              default:
+                                print("Unknown error.");
+                            }
+                          }
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
