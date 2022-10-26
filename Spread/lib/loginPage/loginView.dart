@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:spread/main.dart';
-
-final functions = FirebaseFunctions.instance;
 
 class loginView extends StatelessWidget {
   @override
@@ -149,12 +148,16 @@ class loginView extends StatelessWidget {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                        onPressed: () async {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //         const MyHomePage(title: "Crave")));
+                          final userCredential =
+                              await FirebaseAuth.instance.signInAnonymously();
+                            print("Signed in with temporary account.");
+                            print(userCredential);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
