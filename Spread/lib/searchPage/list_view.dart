@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spread/itemPage/itemView.dart';
+import 'dart:math';
 
 class launchListViewGuest extends StatelessWidget{
   @override
@@ -61,6 +62,11 @@ class _launchListTile extends State<launchListTile>{
 
   final List<String> entries = <String>["First placeholder",
     "Second placeholder", "Third placeholder"];
+  // final starRatings = List<int>.generate(3, (i) => Random().nextInt(6));
+  // // final isFavorite = List<bool>.generate(3, (i) => Random().nextBool());
+  final isFavorite = <bool>[false, true, false];
+  final starRatings = <int>[1,3,5];
+
 
   Icon unfav = Icon(Icons.star_border);
   Icon fav = Icon(Icons.star, color: Colors.yellow,);
@@ -84,16 +90,28 @@ class _launchListTile extends State<launchListTile>{
             child:
               ListTile(
                 leading: Icon(Icons.fastfood, size: 30,),
-                title: Text('Food Name'),
-                subtitle: Text('Item Star Rating'),
+                title: Text(entries[index]),
+                subtitle: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: List<Widget>.generate(5, (i) =>
+                    (() {
+                      if (i < starRatings[index]){
+                        return Icon(Icons.star, color: Colors.yellow,);
+                      }
+                      else {
+                        return Icon(Icons.star, color: Colors.grey,);
+                      }
+                    }())
+                    )
+                ),
                 trailing: IconButton(
                     onPressed: () {
                       setState(() {
-                        isFav = !isFav;
-                        print(isFav);
+                        isFavorite[index] = !isFavorite[index];
+                        print(isFavorite[index]);
                       });
                     },
-                    icon: (isFav) ? fav : unfav),
+                    icon: (isFavorite[index]) ? fav : unfav),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => itemView()));
