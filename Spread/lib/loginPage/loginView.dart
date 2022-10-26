@@ -161,7 +161,7 @@ class loginView extends StatelessWidget {
                           try {
                             final userCredential =
                             await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(email: "test@example.com", password: "password");
+                                .signInAnonymously();
                             print("Signed in with temporary account.");
                             Navigator.push(
                                 context,
