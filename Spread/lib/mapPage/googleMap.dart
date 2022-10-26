@@ -9,77 +9,20 @@ class GoogleMapsView extends StatefulWidget {
 }
 
 class _GoogleMapsViewState extends State<GoogleMapsView> {
-
   late GoogleMapController mapController;
   Geolocator location = Geolocator();
   final LocationSettings locationSettings = LocationSettings(
     accuracy: LocationAccuracy.high,
     distanceFilter: 100,
   );
-<<<<<<< HEAD
-
-=======
->>>>>>> 4b7b6b8f08f39d40103e684f69e2057efa6c9734
   Marker marker = Marker(markerId: MarkerId("user_location"));
   var _msuDenver2 = null;
 
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
-    if (_determinePosition() == true) {
-      StreamSubscription<Position> positionStream =
-          Geolocator.getPositionStream(locationSettings: locationSettings)
-              .listen((Position? position) {
-        if (position != null) {
-          mapController?.moveCamera(
-            CameraUpdate.newCameraPosition(
-              CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 20.0,
-              ),
-            ),
-          );
-        }
-      });
-    }
-    // StreamSubscription<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-    //         (Position? position) {
-    //           if (position != null) {
-    //             mapController?.moveCamera(
-    //               CameraUpdate.newCameraPosition(
-    //                 CameraPosition(
-    //                   target: LatLng(position.latitude, position.longitude),
-    //                   zoom: 20.0,
-    //                 ),
-    //               ),
-    //             );
-    //             // mapController.moveCamera(cameraUpdate)
-    //           }
-    //
-    //           // if(marker != null) {
-    //           //   mapController.removeMarker(marker);
-    //           // }
-    //           // marker = await mapController?.addMarker(MarkerOptions(
-    //           //   position: LatLng(location["latitude"], location["longitude"]),
-    //           // ));
-    //           // mapController?.moveCamera(
-    //           //   CameraUpdate.newCameraPosition(
-    //           //     CameraPosition(
-    //           //       target: LatLng(
-    //           //         location["latitude"],
-    //           //         location["longitude"],
-    //           //       ),
-    //           //       zoom: 20.0,
-    //           //     ),
-    //           //   ),
-    //           // );
-    //     });
-=======
     _determinePosition();
     setState(() {});
-
->>>>>>> 4b7b6b8f08f39d40103e684f69e2057efa6c9734
   }
 
   Future<bool> _determinePosition() async {
@@ -101,8 +44,6 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     }
 
     if (permission == LocationPermission.deniedForever) {
-<<<<<<< HEAD
-      // Permissions are denied forever.
       print(
           'Location permissions are permanently denied, we cannot request permissions.');
       return false;
@@ -110,30 +51,19 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
 
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-
-    // _msuDenver2 = CameraPosition(
-    //   target: LatLng(position.latitude, position.longitude),
-    //   zoom: 17,
-    // );
-=======
-      print('Location permissions are permanently denied, we cannot request permissions.');
-      return false;
-    }
-
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    StreamSubscription<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-            (Position? position) {
-          mapController?.animateCamera(
-            CameraUpdate.newCameraPosition(
-              CameraPosition(
-                target: LatLng(position!.latitude, position!.longitude),
-                zoom: 17.0,
-              ),
-            ),
-          );
-          setState(() {});
-        });
->>>>>>> 4b7b6b8f08f39d40103e684f69e2057efa6c9734
+    StreamSubscription<Position> positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position? position) {
+      mapController?.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(position!.latitude, position!.longitude),
+            zoom: 17.0,
+          ),
+        ),
+      );
+      setState(() {});
+    });
 
     setState(() {
       _msuDenver2 = CameraPosition(
@@ -165,45 +95,26 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _msuDenver2 == null
-<<<<<<< HEAD
           ? const Center(
               child: Text("Loading..."),
             )
           : Column(
               children: <Widget>[
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: GoogleMap(
-                    onMapCreated: (GoogleMapController controller) {
-                      mapController = controller;
-                    },
-                    myLocationEnabled: true,
-                    initialCameraPosition: _msuDenver2,
+                Flexible(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: GoogleMap(
+                      onMapCreated: (GoogleMapController controller) {
+                        mapController = controller;
+                      },
+                      myLocationEnabled: true,
+                      initialCameraPosition: _msuDenver2,
+                    ),
                   ),
                 ),
               ],
             ),
-=======
-        ? const Center(child: Text("Loading..."),)
-        :Column(
-        children: <Widget>[
-          Flexible(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: GoogleMap(
-                onMapCreated: (GoogleMapController controller) {
-                  mapController = controller;
-                  },
-                myLocationEnabled: true,
-                initialCameraPosition: _msuDenver2,
-              ),
-            ),
-          ),
-        ],
-      ),
->>>>>>> 4b7b6b8f08f39d40103e684f69e2057efa6c9734
     );
   }
 }
