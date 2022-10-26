@@ -14,10 +14,6 @@ import * as functions from "firebase-functions";
 
 
 // Connect Cloud Functions to Firestore Database
-// const app = initializeApp();
-// const firebaseConfig = 
-// initializeApp(firebaseConfig);
-
 const firebaseConfig = {
     apiKey: process.env.APP_API_KEY,
     authDomain: process.env.APP_AUTH_DOMAIN,
@@ -26,8 +22,6 @@ const firebaseConfig = {
     messagingSenderId: process.env.APP_MSG_SENDER_ID,
     appId: process.env.APP_ID
 };
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 
