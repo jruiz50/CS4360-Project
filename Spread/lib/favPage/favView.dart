@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../itemPage/itemView.dart';
 
+import 'package:spread/foodItemObject/foodItem.dart';
+
 class favView extends StatelessWidget {
   final List<String> entries = <String>[
     "First placeholder",
@@ -25,15 +27,35 @@ class favView extends StatelessWidget {
 }
 
 class favList extends StatelessWidget {
+  var testFood = foodItem(
+      itemName: 'Burger',
+      categoryOfFood: 'American',
+      rating: 3,
+      ingredients: ['Beef', 'Lettuce', 'Cheese', 'Bun', 'Ketchup', 'Mustard'],
+      allergens: ['Gluten'],
+      restaurantName: 'McDongles',
+      restaurantId: 'A0000',
+      imageURL: '-',
+      tags: ['Yum', 'Spicy']);
+
   final List<String> entries = <String>[
     "First placeholder",
     "Second placeholder",
     "Third placeholder"
   ];
 
+  List<foodItem> foodEntries = <foodItem>[];
+
+  addSomething() {
+    foodEntries.add(testFood);
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    addSomething();
+    // Adding test food to list
 
     return ListView.builder(
         itemCount: entries.length,

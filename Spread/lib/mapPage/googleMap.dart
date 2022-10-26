@@ -160,24 +160,21 @@ class _GoogleMapsDemoState extends State<GoogleMapsDemo> {
           ? const Center(
               child: Text("Loading..."),
             )
-          : Flexible(
-              flex: 1,
-              fit: FlexFit.loose,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    child: GoogleMap(
-                      onMapCreated: (GoogleMapController controller) {
-                        mapController = controller;
-                      },
-                      myLocationEnabled: true,
-                      initialCameraPosition: _msuDenver2,
-                    ),
+          : Column(
+              children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: GoogleMap(
+                    onMapCreated: (GoogleMapController controller) {
+                      mapController = controller;
+                    },
+                    myLocationEnabled: true,
+                    initialCameraPosition: _msuDenver2,
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
     );
   }
 }

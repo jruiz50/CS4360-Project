@@ -23,7 +23,7 @@ void main() {
       expect(find.byType(Card), findsNWidgets(favList().entries.length));
     });
 
-    testWidgets('Test onPressed IconButton functionality',
+    testWidgets('Test onPressed Card functionality',
         (WidgetTester tester) async {
       final mockObserve = MockNavigatorObserver();
       await tester.pumpWidget(MaterialApp(
