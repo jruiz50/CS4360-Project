@@ -1,10 +1,12 @@
-class restaurantTag {
+//Blueprint for all restaurant tags
+
+class RestaurantTag {
   final int restaurantTagID;
   final String restaurantTagName;
   final String restaurantTagDesc;
   final int count;
 
-  restaurantTag(
+  RestaurantTag(
       {required this.restaurantTagID,
       required this.restaurantTagName,
       required this.restaurantTagDesc,
@@ -17,7 +19,7 @@ class restaurantTag {
         'count': count,
       };
 
-  static restaurantTag fromJson(Map<String, dynamic> json) => restaurantTag(
+  static RestaurantTag fromJson(Map<String, dynamic> json) => RestaurantTag(
       restaurantTagID: json['restaurantTagID'],
       restaurantTagName: json['restaurantTagName'],
       restaurantTagDesc: json['restaurantTagDesc'],

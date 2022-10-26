@@ -1,11 +1,11 @@
-class menu {
+class Menu {
   final int menuID;
-  var foodItemIDs = <int>[];
+  var foodItemIDs = <dynamic>[];
   final int restaurantID;
   final double rating;
   final int typeMenuID;
 
-  menu(
+  Menu(
       {required this.menuID,
       required this.foodItemIDs,
       required this.restaurantID,
@@ -20,7 +20,7 @@ class menu {
         'typeMenuID': typeMenuID,
       };
 
-  static menu fromJson(Map<String, dynamic> json) => menu(
+  static Menu fromJson(Map<String, dynamic> json) => Menu(
       menuID: json['menuID'],
       foodItemIDs: json['foodItemIDs'],
       restaurantID: json['restaurantID'],

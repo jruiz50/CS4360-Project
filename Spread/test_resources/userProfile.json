@@ -1,0 +1,11 @@
+{
+    "userID": 1, 
+    "firstName": "John", 
+    "lastName": "Doe", 
+    "email": "johndoe@email.com", 
+    "password": "********",
+    "favFoodItemIDs": [1, 2, 3],
+    "favMenuIDs": [1, 2, 3],
+    "allergens": ["Peanut"],
+    "friendUserIDs": [1, 2, 3] 
+}

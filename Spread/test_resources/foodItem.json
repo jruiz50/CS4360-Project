@@ -1,0 +1,11 @@
+{
+    "itemName": "Pizza", 
+    "categoryOfFood": "Italian", 
+    "rating": 3.5, 
+    "ingredients": ["Cheese", "Flour", "Pepperoni"], 
+    "allergens": ["Gluten"],
+    "restaurantName": "Dominos",
+    "restaurantId": 1, 
+    "imageURL": "https://www.cuisinart.com/globalassets/catalog/appliances/food-processors/complete-chef-cooking-food-processor/pepperonipizza_ss656275903.jpg",
+    "tags": ["cheesy", "yummy"]
+}

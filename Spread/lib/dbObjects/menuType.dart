@@ -1,8 +1,10 @@
-class menuType {
+//Blueprint for all menu types
+
+class MenuType {
   final int typeMenuID;
   final String typeName;
 
-  menuType({
+  MenuType({
     required this.typeMenuID,
     required this.typeName,
   });
@@ -10,6 +12,6 @@ class menuType {
   Map<String, dynamic> toJson() =>
       {'typeMenuID': typeMenuID, 'typeName': typeName};
 
-  static menuType fromJson(Map<String, dynamic> json) =>
-      menuType(typeMenuID: json['typeMenuID'], typeName: json['typeName']);
+  static MenuType fromJson(Map<String, dynamic> json) =>
+      MenuType(typeMenuID: json['typeMenuID'], typeName: json['typeName']);
 }

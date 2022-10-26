@@ -1,14 +1,14 @@
-class restaurant {
+class Restaurant {
   final int restaurantID;
   final int regionID;
   final String restaurantName;
   final int menuID;
   final String coordinates;
-  var tags = <String>[];
+  var tags = <dynamic>[];
   final double rating;
-  var foodTypeIDs = <int>[];
+  var foodTypeIDs = <dynamic>[];
 
-  restaurant(
+  Restaurant(
       {required this.restaurantID,
       required this.regionID,
       required this.restaurantName,
@@ -29,7 +29,7 @@ class restaurant {
         'foodTypeIDs': foodTypeIDs
       };
 
-  static restaurant fromJson(Map<String, dynamic> json) => restaurant(
+  static Restaurant fromJson(Map<String, dynamic> json) => Restaurant(
       restaurantID: json['restaurantID'],
       regionID: json['regionID'],
       restaurantName: json['restaurantName'],

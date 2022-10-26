@@ -1,9 +1,11 @@
-class regionType {
+//Blueprint for all region types
+
+class RegionType {
   final int regionID;
   final String regionDesc;
   final String regionAbbr;
 
-  regionType(
+  RegionType(
       {required this.regionID,
       required this.regionDesc,
       required this.regionAbbr});
@@ -14,7 +16,7 @@ class regionType {
         'regionAbbr': regionAbbr
       };
 
-  static regionType fromJson(Map<String, dynamic> json) => regionType(
+  static RegionType fromJson(Map<String, dynamic> json) => RegionType(
       regionID: json['regionID'],
       regionDesc: json['regionDesc'],
       regionAbbr: json['regionAbbr']);

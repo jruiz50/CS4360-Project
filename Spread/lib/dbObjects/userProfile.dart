@@ -1,15 +1,17 @@
-class userProfile {
+//Blueprint for all user profiles
+
+class UserProfile {
   final int userID;
   final String firstName;
   final String lastName;
   final String email;
   final String password;
-  var favMenuIDs = <int>[];
-  var favFoodItemIDs = <int>[];
-  var allergens = <String>[];
-  var friendUserIDs = <int>[];
+  var favMenuIDs = <dynamic>[];
+  var favFoodItemIDs = <dynamic>[];
+  var allergens = <dynamic>[];
+  var friendUserIDs = <dynamic>[];
 
-  userProfile(
+  UserProfile(
       {required this.userID,
       required this.firstName,
       required this.lastName,
@@ -32,7 +34,7 @@ class userProfile {
         'friendUserIDs': friendUserIDs
       };
 
-  static userProfile fromJson(Map<String, dynamic> json) => userProfile(
+  static UserProfile fromJson(Map<String, dynamic> json) => UserProfile(
       userID: json['userID'],
       firstName: json['firstName'],
       lastName: json['lastName'],
