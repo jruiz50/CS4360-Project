@@ -83,24 +83,19 @@ class loginView extends StatelessWidget {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () async {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) =>
-                          //         const MyHomePage(title: "Crave")));
                           try {
                             final userCredential =
                                 await FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(email: "test@example.com", password: "password");
+                                    .signInWithEmailAndPassword
+                                    (email: "test@example.com", password: "password");
                             print("Signed in with temporary account.");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    const MyHomePage(title: "Crave")));
                           } on FirebaseAuthException catch (e) {
-                            switch (e.code) {
-                              case "operation-not-allowed":
-                                print("Auth type hasn't been enabled for this project.");
-                                break;
-                              default:
-                                print("Unknown error.");
-                            }
+                            print(e);
                           }
                         },
                         style: ButtonStyle(
@@ -163,15 +158,19 @@ class loginView extends StatelessWidget {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () async {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) =>
-                          //         const MyHomePage(title: "Crave")));
-                          final userCredential =
-                              await FirebaseAuth.instance.signInAnonymously();
+                          try {
+                            final userCredential =
+                            await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(email: "test@example.com", password: "password");
                             print("Signed in with temporary account.");
-                            print(userCredential);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    const MyHomePage(title: "Crave")));
+                          } on FirebaseAuthException catch (e) {
+                            print(e);
+                          }
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
