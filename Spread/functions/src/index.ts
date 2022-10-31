@@ -15,12 +15,12 @@ import * as functions from "firebase-functions";
 
 // Connect Cloud Functions to Firestore Database
 const firebaseConfig = {
-    apiKey: process.env.APP_API_KEY,
-    authDomain: process.env.APP_AUTH_DOMAIN,
-    projectId: process.env.APP_PROJECT_ID,
-    storageBucket: process.env.APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.APP_MSG_SENDER_ID,
-    appId: process.env.APP_ID
+  apiKey: process.env.APP_API_KEY,
+  authDomain: process.env.APP_AUTH_DOMAIN,
+  projectId: process.env.APP_PROJECT_ID,
+  storageBucket: process.env.APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.APP_MSG_SENDER_ID,
+  appId: process.env.APP_ID
 };
 const app = initializeApp(firebaseConfig);
 
@@ -28,6 +28,7 @@ const app = initializeApp(firebaseConfig);
 // References to Database and Collections
 const db = getFirestore(app);
 const users = collection(db, "users");
+const foodItems = collection(db, "foodItems");
 
 
 
@@ -60,6 +61,21 @@ export const getUserProfile = functions.https.onCall(async (data) => {
   return usersList;
 });
 
+export const getFoodItems = functions.https.onCall(async (data) => {
+
+  let foodItems: Array<any> = [];
+
+  const querySnapshot = await getDocs(foodItems);
+  querySnapshot.forEach((doc: any) => {
+    foodItems.push({
+      docID: doc.id,
+      docData: JSON.parse(JSON.stringify(doc.data()))
+    });
+  });
+
+  return foodItems;
+});
+
 
 
 
@@ -75,7 +91,7 @@ export const getUserProfile = functions.https.onCall(async (data) => {
 export const foodQuery = functions.https.onCall((data) => {
   const userQuery: string = data.query;
   let searchQuery: string = userQuery.trim().toLowerCase();
-  
+
   superagent
     .post(process.env.FDA_SERVER_URL)
     .set('X-Api-Key', process.env.FDA_API_KEY)
@@ -92,7 +108,7 @@ export const foodQuery = functions.https.onCall((data) => {
     .catch((err: any) => {
       console.log(err);
     });
-  
+
 
   return {
     result: "Hello from Firebase!"
