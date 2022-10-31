@@ -94,7 +94,11 @@ class _launchListTile extends State<launchListTile>{
                         print(isFav);
                       });
                       final result =
-                        await FirebaseFunctions.instance.httpsCallable('getUserProfile').call(); 
+                        await FirebaseFunctions.instance.httpsCallable('createUserProfile').call({
+                          "firstName": "Test",
+                          "lastName": "Example",
+                          "userID": "ayoooo"
+                        });
                       print(result.data);
                     },
                     icon: (isFav) ? fav : unfav),
