@@ -188,11 +188,11 @@ class ItemViewNew extends StatelessWidget {
                       // Should be item description
                     ),
                     Row(
-                      children: <Text>[Text('Ingredients')],
+                      children: <Text>[Text(foodItem.ingredients.join(', '))],
                       // Turn this into a listtile!!
                     ),
                     Row(
-                      children: <Text>[Text('Notable Allergens: ')],
+                      children: <Text>[Text(foodItem.allergens.join(', '))],
                       // Also make this a listtile!!!
                     ),
                   ],
