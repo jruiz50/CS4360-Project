@@ -1,8 +1,8 @@
 // Import project dependencies
 require("dotenv").config();
 const {
-  // doc,
-  // setDoc,
+  doc,
+  setDoc,
   getDocs,
   // deleteDoc,
   collection,
@@ -38,28 +38,70 @@ const foodItems = collection(db, "foodItems");
 // Database CRUD Operation Functions
 
 /**
- * This functions serves as an example as to how you can read
- * data from a database collection. In this case, a user profile.
+ * This function grabs a user's stored profile information
+ * data from the "users" collection given a unique ID.
  * 
  * @param data - Object containing desired user information
  * @returns - Object containing user stored user information
  */
 export const getUserProfile = functions.https.onCall(async (data) => {
-  // const userID: string = data.userID;
-  // const userID: string = "";
+  const userID: string = data.userID;
 
   let usersList: Array<any> = [];
 
   const querySnapshot = await getDocs(users);
   querySnapshot.forEach((doc: any) => {
-    usersList.push({
-      docID: doc.id,
-      docData: JSON.parse(JSON.stringify(doc.data()))
-    });
+    if (doc.id === userID) {
+      const docData = JSON.parse(JSON.stringify(doc.data()));
+
+      usersList.push({
+        docID: doc.id,
+        firstName: docData.firstName,
+        lastName: docData.lastName,
+        menus: docData.menus
+      });
+
+    }
   });
 
   return usersList;
 });
+
+/**
+ * This function will take data from the application and
+ * create a new user in Firebase Auth. Afterwards, it uploads
+ * this new user information to the Firestore Database.
+ * 
+ * @param data - Object containing new user information
+ * @returns - Object indicating whether the operation was successful
+ */
+export const createUserProfile = functions.https.onCall(async (data) => {
+  const firstName: string = data.firstName;
+  const lastName: string = data.lastName;
+  const userID: string = data.userID;
+
+  let isSuccessful: boolean = false;
+
+  await setDoc(doc(users, userID), {
+    firstName,
+    lastName,
+    menus: [],
+    allergens: [],
+    favorites: [],
+  })
+  .then(() => {
+    isSuccessful = true;
+  })
+  .catch((error: any) => {
+    console.log(error);
+    isSuccessful = false;
+  });
+
+  return {
+    isSuccessful
+  };
+});
+
 
 export const getFoodItems = functions.https.onCall(async (data) => {
 
