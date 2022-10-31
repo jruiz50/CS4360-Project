@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:spread/creationPage/createAccView.dart';
 import 'package:spread/main.dart';
 
 final functions = FirebaseFunctions.instance;
@@ -18,13 +19,13 @@ class loginView extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   stops: [
-                    0.3,
-                    0.9,
-                  ],
+                0.3,
+                0.9,
+              ],
                   colors: [
-                    Color(0xB30CDB21),
-                    Color(0xCC7C4DFF)
-                  ])),
+                Color(0xB30CDB21),
+                Color(0xCC7C4DFF)
+              ])),
           child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(20),
@@ -88,13 +89,13 @@ class loginView extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                                      const MyHomePage(title: "Crave")));
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.transparent),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                               side: const BorderSide(
@@ -120,14 +121,13 @@ class loginView extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                                  builder: (context) => createAccView()));
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.transparent),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                               side: const BorderSide(
@@ -154,13 +154,13 @@ class loginView extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                                      const MyHomePage(title: "Crave")));
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.transparent),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                               side: const BorderSide(
@@ -185,14 +185,14 @@ class loginView extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                           side:
-                          const BorderSide(color: Colors.black, width: 2.0),
+                              const BorderSide(color: Colors.black, width: 2.0),
                         ),
                         onPressed: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                                      const MyHomePage(title: "Crave")));
                         },
                       ),
                     ),

@@ -2,19 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../itemPage/itemView.dart';
 
-class favView extends StatelessWidget{
+import 'package:spread/foodItemObject/foodItem.dart';
 
-  final List<String> entries = <String>["First placeholder",
-    "Second placeholder", "Third placeholder"];
+class favView extends StatelessWidget {
+  final List<String> entries = <String>[
+    "First placeholder",
+    "Second placeholder",
+    "Third placeholder"
+  ];
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: Row(
-        children: <Text>[
-          Text('Favorites')
-          ],
+      appBar: AppBar(
+        title: Row(
+          children: <Text>[Text('Favorites')],
         ),
         backgroundColor: Colors.greenAccent,
       ),
@@ -22,43 +24,122 @@ class favView extends StatelessWidget{
     );
     throw UnimplementedError();
   }
-
 }
 
-class favList extends StatelessWidget{
+class favList extends StatelessWidget {
+  var testFoodOne = FoodItem(
+      itemName: 'Burger',
+      categoryOfFood: 'American',
+      rating: 3,
+      ingredients: ['Beef', 'Lettuce', 'Cheese', 'Bun', 'Ketchup', 'Mustard'],
+      allergens: ['Gluten'],
+      restaurantName: 'McDongles',
+      restaurantId: 'A0000',
+      imageURL: '-',
+      tags: ['Yum', 'Spicy']);
 
-  final List<String> entries = <String>["First placeholder",
-    "Second placeholder", "Third placeholder"];
+  var testFoodTwo = FoodItem(
+      itemName: 'Spaghetti',
+      categoryOfFood: 'Italian',
+      rating: 5,
+      ingredients: [
+        'Noodle',
+        'Cheese',
+        'Tomato',
+        'Beef',
+        'Pesto',
+      ],
+      allergens: ['Gluten'],
+      restaurantName: 'Olib Gardin',
+      restaurantId: 'A0001',
+      imageURL: '-',
+      tags: ['Spicy']);
+
+  var testFoodThree = FoodItem(
+      itemName: 'Ramen',
+      categoryOfFood: 'Japanese',
+      rating: 4,
+      ingredients: ['water', 'ice', 'salt'],
+      allergens: [],
+      restaurantName: 'Ichiraku Ramen',
+      restaurantId: 'A0002',
+      imageURL: '-',
+      tags: ['Expensive']);
+
+  final List<String> entries = <String>[
+    "First placeholder",
+    "Second placeholder",
+    "Third placeholder"
+  ];
+
+  List<FoodItem> foodEntries = <FoodItem>[];
+
+  addSomething() {
+    foodEntries.add(testFoodOne);
+    foodEntries.add(testFoodTwo);
+    foodEntries.add(testFoodThree);
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
+    addSomething();
+    // Adding test food to list
+
     return ListView.builder(
-        itemCount: entries.length,
+        itemCount: foodEntries.length,
         padding: const EdgeInsets.all(10),
-        itemBuilder: (context, int index){
+        itemBuilder: (context, int index) {
           return Card(
             margin: EdgeInsets.all(1),
             elevation: 3,
             child: ListTile(
-              leading: Icon(Icons.fastfood, size: 30,),
-              title: Text('Food Name'),
-              subtitle: Text('Item Star Rating'),
-              trailing: IconButton(onPressed: (null), icon: Icon(Icons.star, color: Colors.yellow,)),
-              onTap: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => itemView()));
+              leading: Icon(
+                Icons.fastfood,
+                size: 30,
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Text>[Text(foodEntries[index].itemName)],
+              ),
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Row>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Text>[Text(foodEntries[index].restaurantName)],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Text>[
+                      Text(foodEntries[index].rating.toString())
+                      // This should be replaced with function to
+                      // show a set number of stars instead of num later
+                    ],
+                  )
+                ],
+              ),
+              trailing: IconButton(
+                  onPressed: (null),
+                  icon: Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  )),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ItemViewNew(foodItem: foodEntries[index])));
               },
               onLongPress: (null),
             ),
           );
-          }
-        );
+        });
     /* Will be functionally a bit different. Maybe include 'onLongPress'
     * to delete entries that are already present in your favorites?
     *  */
     throw UnimplementedError();
   }
-
 }
