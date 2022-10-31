@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spread/itemPage/itemView.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 class launchListViewGuest extends StatelessWidget{
   @override
@@ -87,11 +88,14 @@ class _launchListTile extends State<launchListTile>{
                 title: Text('Food Name'),
                 subtitle: Text('Item Star Rating'),
                 trailing: IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         isFav = !isFav;
                         print(isFav);
                       });
+                      final result =
+                        await FirebaseFunctions.instance.httpsCallable('getUserProfile').call(); 
+                      print(result.data);
                     },
                     icon: (isFav) ? fav : unfav),
                 onTap: () {

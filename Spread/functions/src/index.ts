@@ -47,21 +47,17 @@ export const getUserProfile = functions.https.onCall(async (data) => {
   // const userID: string = data.userID;
   // const userID: string = "";
 
-  let user: object = {
-    test: "hello"
-  };
+  let usersList: Array<any> = [];
 
-  await getDocs(users)
-    .then((snapshot: any) => {
-      snapshot.docs.forEach((document: any) => {
-        console.log(document.data());
-        console.log(document.data);
-        user = { ...user, data: document.data()};
-        console.log(user);
-      })
+  const querySnapshot = await getDocs(users);
+  querySnapshot.forEach((doc: any) => {
+    usersList.push({
+      docID: doc.id,
+      docData: JSON.parse(JSON.stringify(doc.data()))
     });
+  });
 
-  return { user }
+  return usersList;
 });
 
 
