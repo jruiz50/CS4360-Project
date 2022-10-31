@@ -27,7 +27,7 @@ class favView extends StatelessWidget {
 }
 
 class favList extends StatelessWidget {
-  var testFood = foodItem(
+  var testFoodOne = FoodItem(
       itemName: 'Burger',
       categoryOfFood: 'American',
       rating: 3,
@@ -38,16 +38,46 @@ class favList extends StatelessWidget {
       imageURL: '-',
       tags: ['Yum', 'Spicy']);
 
+  var testFoodTwo = FoodItem(
+      itemName: 'Spaghetti',
+      categoryOfFood: 'Italian',
+      rating: 5,
+      ingredients: [
+        'Noodle',
+        'Cheese',
+        'Tomato',
+        'Beef',
+        'Pesto',
+      ],
+      allergens: ['Gluten'],
+      restaurantName: 'Olib Gardin',
+      restaurantId: 'A0001',
+      imageURL: '-',
+      tags: ['Spicy']);
+
+  var testFoodThree = FoodItem(
+      itemName: 'Ramen',
+      categoryOfFood: 'Japanese',
+      rating: 4,
+      ingredients: ['water', 'ice', 'salt'],
+      allergens: [],
+      restaurantName: 'Ichiraku Ramen',
+      restaurantId: 'A0002',
+      imageURL: '-',
+      tags: ['Expensive']);
+
   final List<String> entries = <String>[
     "First placeholder",
     "Second placeholder",
     "Third placeholder"
   ];
 
-  List<foodItem> foodEntries = <foodItem>[];
+  List<FoodItem> foodEntries = <FoodItem>[];
 
   addSomething() {
-    foodEntries.add(testFood);
+    foodEntries.add(testFoodOne);
+    foodEntries.add(testFoodTwo);
+    foodEntries.add(testFoodThree);
   }
 
   @override
@@ -58,7 +88,7 @@ class favList extends StatelessWidget {
     // Adding test food to list
 
     return ListView.builder(
-        itemCount: entries.length,
+        itemCount: foodEntries.length,
         padding: const EdgeInsets.all(10),
         itemBuilder: (context, int index) {
           return Card(
@@ -69,8 +99,27 @@ class favList extends StatelessWidget {
                 Icons.fastfood,
                 size: 30,
               ),
-              title: Text(entries[index]),
-              subtitle: Text('Item Star Rating'),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Text>[Text(foodEntries[index].itemName)],
+              ),
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Row>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Text>[Text(foodEntries[index].restaurantName)],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Text>[
+                      Text(foodEntries[index].rating.toString())
+                      // This should be replaced with function to
+                      // show a set number of stars instead of num later
+                    ],
+                  )
+                ],
+              ),
               trailing: IconButton(
                   onPressed: (null),
                   icon: Icon(
@@ -78,8 +127,11 @@ class favList extends StatelessWidget {
                     color: Colors.yellow,
                   )),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => itemView()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ItemViewNew(foodItem: foodEntries[index])));
               },
               onLongPress: (null),
             ),

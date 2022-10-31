@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static final List<Widget> _widgetOptions = <Widget>[
     CamView(),
     launchListTile(),
-    GoogleMapsDemo(),
+    GoogleMapsView(),
   ];
   // This creates a list of widgets; each widget displays different text so far
 
