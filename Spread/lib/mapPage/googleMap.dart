@@ -40,7 +40,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     Marker temp = Marker(
       markerId: MarkerId(markerID),
       icon: BitmapDescriptor.defaultMarker,
-      position: LatLng(long, lat),
+      position: LatLng(lat, long),
       visible: true,
     );
 
