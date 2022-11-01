@@ -115,6 +115,11 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                 ),
               ],
             ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: const Text('Refresh Map'),
+        icon: const Icon(Icons.refresh),
+      ),
     );
   }
 }
