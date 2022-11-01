@@ -29,7 +29,7 @@ const app = initializeApp(firebaseConfig);
 // References to Database and Collections
 const db = getFirestore(app);
 const users = collection(db, "users");
-// const foodItems = collection(db, "foodItems");
+const foodItems = collection(db, "foodItems");
 
 
 
@@ -184,20 +184,20 @@ export const createUserProfile = functions.https.onCall(async (data) => {
  });
 
 
-// export const getFoodItems = functions.https.onCall(async (data) => {
+export const getFoodItems = functions.https.onCall(async (data) => {
 
-//   let foodItems: Array<any> = [];
+  let foodArray: Array<any> = [];
 
-//   const querySnapshot = await getDocs(foodItems);
-//   querySnapshot.forEach((doc: any) => {
-//     foodItems.push({
-//       docID: doc.id,
-//       docData: JSON.parse(JSON.stringify(doc.data()))
-//     });
-//   });
+  const querySnapshot = await getDocs(foodItems);
+  querySnapshot.forEach((doc: any) => {
+    foodArray.push({
+      docID: doc.id,
+      docData: JSON.parse(JSON.stringify(doc.data()))
+    });
+  });
 
-//   return foodItems;
-// });
+  return foodArray;
+});
 
 
 
