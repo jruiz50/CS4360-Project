@@ -23,7 +23,11 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   Future<String> getPositionString() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    String coordinates = "(" + position.longitude.toString() + ", " + position.latitude.toString() + ")";
+    String coordinates = "(" +
+        position.longitude.toString() +
+        ", " +
+        position.latitude.toString() +
+        ")";
     print(coordinates);
     return coordinates;
   }
@@ -36,7 +40,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     String latitude = coordinates.split(", ")[1].replaceAll(")", "");
     double long = double.parse(longitude);
     double lat = double.parse(latitude);
-    
+
     Marker temp = Marker(
       markerId: MarkerId(markerID),
       icon: BitmapDescriptor.defaultMarker,
@@ -156,6 +160,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
