@@ -15,7 +15,42 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     accuracy: LocationAccuracy.high,
     distanceFilter: 100,
   );
-  Marker marker = Marker(markerId: MarkerId("user_location"));
+
+  Set<Marker> markersToDisplay = {};
+  List<Marker> _markers = [];
+  int numOfMarkers = 0;
+
+  Future<String> getPositionString() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    String coordinates = "(" + position.longitude.toString() + ", " + position.latitude.toString() + ")";
+    print(coordinates);
+    return coordinates;
+  }
+
+  void createMarker() async {
+    String coordinates = await getPositionString();
+    String markerID = numOfMarkers.toString();
+    numOfMarkers++;
+    String longitude = coordinates.split(", ")[0].replaceAll("(", "");
+    String latitude = coordinates.split(", ")[1].replaceAll(")", "");
+    double long = double.parse(longitude);
+    double lat = double.parse(latitude);
+    
+    Marker temp = Marker(
+      markerId: MarkerId(markerID),
+      icon: BitmapDescriptor.defaultMarker,
+      position: LatLng(long, lat),
+      visible: true,
+    );
+
+    _markers.add(temp);
+    print("length: " + _markers.length.toString());
+    setState(() {
+      markersToDisplay = _markers.toSet();
+    });
+  }
+
   var _msuDenver2 = null;
 
   @override
@@ -110,13 +145,14 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                       },
                       myLocationEnabled: true,
                       initialCameraPosition: _msuDenver2,
+                      markers: Set<Marker>.of(_markers),
                     ),
                   ),
                 ),
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: createMarker,
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),
