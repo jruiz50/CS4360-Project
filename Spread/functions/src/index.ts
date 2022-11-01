@@ -5,6 +5,7 @@ const {
   setDoc,
   getDocs,
   deleteDoc,
+  updateDoc,
   collection,
   getFirestore
 } = require("firebase/firestore");
@@ -58,7 +59,9 @@ export const getUserProfile = functions.https.onCall(async (data) => {
         docID: doc.id,
         firstName: docData.firstName,
         lastName: docData.lastName,
-        menus: docData.menus
+        menus: docData.menus,
+        allergens: docData.allergens,
+        favorites: docData.favorites
       });
 
     }
@@ -103,10 +106,62 @@ export const createUserProfile = functions.https.onCall(async (data) => {
 });
 
 /**
- * This function will take delete a user's profile and
- * their stored information from the Firestore database.
+ * This function will update a user's profile information
+ * based on the data provided by the application.
  * 
- * @param data - Object containing new user information
+ * @param data - Object containing user's unique ID and object with
+ *               fields of the desired update information
+ * @returns - Object indicating whether the operation was successful
+ */
+ export const updateUserProfile = functions.https.onCall(async (data) => {
+  const userID: string = data.userID;
+
+  const menus: Array<string> = data.menus ? data.menus : null;
+  const allergens: string = data.allergens ? data.allergens : null;
+  const favorites: string = data.favorites ? data.favorites : null;
+
+  let updatedData: any = {};
+
+  if (menus) {
+    updatedData = {
+      ...updatedData,
+      menus
+    };
+  };
+  if (allergens) {
+    updatedData = {
+      ...updatedData,
+      allergens
+    };
+  };
+  if (favorites) {
+    updatedData = {
+      ...updatedData,
+      favorites
+    };
+  };
+
+  let isSuccessful: boolean = false;
+
+  await updateDoc(doc(users, userID), updatedData)
+  .then(() => {
+    isSuccessful = true;
+  })
+  .catch((error: any) => {
+    console.log(error);
+    isSuccessful = false;
+  })
+
+  return {
+    isSuccessful
+  };
+ });
+
+/**
+ * This function will  delete a user's profile along with
+ * any of their stored information in the Firestore database.
+ * 
+ * @param data - Object containing user's unique ID
  * @returns - Object indicating whether the operation was successful
  */
  export const deleteUserProfile = functions.https.onCall(async (data) => {
