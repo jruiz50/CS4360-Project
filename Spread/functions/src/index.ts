@@ -4,7 +4,7 @@ const {
   doc,
   setDoc,
   getDocs,
-  // deleteDoc,
+  deleteDoc,
   collection,
   getFirestore
 } = require("firebase/firestore");
@@ -28,7 +28,7 @@ const app = initializeApp(firebaseConfig);
 // References to Database and Collections
 const db = getFirestore(app);
 const users = collection(db, "users");
-const foodItems = collection(db, "foodItems");
+// const foodItems = collection(db, "foodItems");
 
 
 
@@ -102,21 +102,47 @@ export const createUserProfile = functions.https.onCall(async (data) => {
   };
 });
 
+/**
+ * This function will take delete a user's profile and
+ * their stored information from the Firestore database.
+ * 
+ * @param data - Object containing new user information
+ * @returns - Object indicating whether the operation was successful
+ */
+ export const deleteUserProfile = functions.https.onCall(async (data) => {
+  const userID: string = data.userID;
 
-export const getFoodItems = functions.https.onCall(async (data) => {
+  let isSuccessful: boolean = false;
 
-  let foodItems: Array<any> = [];
+  await deleteDoc(doc(users, userID))
+  .then(() => {
+    isSuccessful = true;
+  })
+  .catch((error: any) => {
+    console.log(error);
+    isSuccessful = false;
+  })
 
-  const querySnapshot = await getDocs(foodItems);
-  querySnapshot.forEach((doc: any) => {
-    foodItems.push({
-      docID: doc.id,
-      docData: JSON.parse(JSON.stringify(doc.data()))
-    });
-  });
+  return {
+    isSuccessful
+  };
+ });
 
-  return foodItems;
-});
+
+// export const getFoodItems = functions.https.onCall(async (data) => {
+
+//   let foodItems: Array<any> = [];
+
+//   const querySnapshot = await getDocs(foodItems);
+//   querySnapshot.forEach((doc: any) => {
+//     foodItems.push({
+//       docID: doc.id,
+//       docData: JSON.parse(JSON.stringify(doc.data()))
+//     });
+//   });
+
+//   return foodItems;
+// });
 
 
 

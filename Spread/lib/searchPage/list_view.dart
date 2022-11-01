@@ -94,9 +94,7 @@ class _launchListTile extends State<launchListTile>{
                         print(isFav);
                       });
                       final result =
-                        await FirebaseFunctions.instance.httpsCallable('createUserProfile').call({
-                          "firstName": "Test",
-                          "lastName": "Example",
+                        await FirebaseFunctions.instance.httpsCallable('deleteUserProfile').call({
                           "userID": "ayoooo"
                         });
                       print(result.data);
