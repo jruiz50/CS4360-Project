@@ -88,16 +88,11 @@ class _launchListTile extends State<launchListTile>{
                 title: Text('Food Name'),
                 subtitle: Text('Item Star Rating'),
                 trailing: IconButton(
-                    onPressed: () async {
+                    onPressed: () {
                       setState(() {
                         isFav = !isFav;
                         print(isFav);
                       });
-                      final result =
-                        await FirebaseFunctions.instance.httpsCallable('deleteUserProfile').call({
-                          "userID": "ayoooo"
-                        });
-                      print(result.data);
                     },
                     icon: (isFav) ? fav : unfav),
                 onTap: () {
