@@ -39,6 +39,16 @@ const foodItems = collection(db, "foodItems");
 
 // Database CRUD Operation Functions
 
+interface User {
+  userID?: string,
+  firstName?: string,
+  lastName?: string,
+  menus?: Array<string>,
+  favorites?: Array<any>
+  allergens?: Array<string>
+  error?: string
+}
+
 /**
  * This function grabs a user's stored profile information
  * data from the "users" collection given a unique ID.
@@ -49,7 +59,7 @@ const foodItems = collection(db, "foodItems");
 export const getUserProfile = functions.https.onCall(async (data) => {
   const userID: string = data.userID;
 
-  let user: any = [];
+  let user: User = {};
 
   const docSnap = await getDoc(doc(users, userID));
 
@@ -57,7 +67,7 @@ export const getUserProfile = functions.https.onCall(async (data) => {
     const docData = JSON.parse(JSON.stringify(docSnap.data()));
 
     user = {
-      docID: userID,
+      userID: userID,
       firstName: docData.firstName,
       lastName: docData.lastName,
       menus: docData.menus,
@@ -89,13 +99,16 @@ export const createUserProfile = functions.https.onCall(async (data) => {
 
   let isSuccessful: boolean = false;
 
-  await setDoc(doc(users, userID), {
+  const newUser: User = {
+    userID,
     firstName,
     lastName,
     menus: [],
     allergens: [],
-    favorites: [],
-  })
+    favorites: []
+  };
+
+  await setDoc(doc(users, userID), newUser)
   .then(() => {
     isSuccessful = true;
   })
@@ -121,33 +134,33 @@ export const createUserProfile = functions.https.onCall(async (data) => {
   const userID: string = data.userID;
 
   const menus: Array<string> = data.menus ? data.menus : null;
-  const allergens: string = data.allergens ? data.allergens : null;
-  const favorites: string = data.favorites ? data.favorites : null;
+  const allergens: Array<string> = data.allergens ? data.allergens : null;
+  const favorites: Array<string> = data.favorites ? data.favorites : null;
 
-  let updatedData: any = {};
+  let updatedUser: User = {};
 
   if (menus) {
-    updatedData = {
-      ...updatedData,
+    updatedUser = {
+      ...updatedUser,
       menus
     };
   };
   if (allergens) {
-    updatedData = {
-      ...updatedData,
+    updatedUser = {
+      ...updatedUser,
       allergens
     };
   };
   if (favorites) {
-    updatedData = {
-      ...updatedData,
+    updatedUser = {
+      ...updatedUser,
       favorites
     };
   };
 
   let isSuccessful: boolean = false;
 
-  await updateDoc(doc(users, userID), updatedData)
+  await updateDoc(doc(users, userID), updatedUser)
   .then(() => {
     isSuccessful = true;
   })
@@ -188,7 +201,7 @@ export const createUserProfile = functions.https.onCall(async (data) => {
  });
 
 
-export const getFoodItems = functions.https.onCall(async (data) => {
+export const getFoodItem = functions.https.onCall(async (data) => {
 
   let foodArray: Array<any> = [];
 
