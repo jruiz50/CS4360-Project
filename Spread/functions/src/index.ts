@@ -3,6 +3,7 @@ require("dotenv").config();
 const {
   doc,
   setDoc,
+  getDoc,
   getDocs,
   deleteDoc,
   updateDoc,
@@ -48,26 +49,29 @@ const foodItems = collection(db, "foodItems");
 export const getUserProfile = functions.https.onCall(async (data) => {
   const userID: string = data.userID;
 
-  let usersList: Array<any> = [];
+  let user: any = [];
 
-  const querySnapshot = await getDocs(users);
-  querySnapshot.forEach((doc: any) => {
-    if (doc.id === userID) {
-      const docData = JSON.parse(JSON.stringify(doc.data()));
+  const docSnap = await getDoc(doc(users, userID));
 
-      usersList.push({
-        docID: doc.id,
-        firstName: docData.firstName,
-        lastName: docData.lastName,
-        menus: docData.menus,
-        allergens: docData.allergens,
-        favorites: docData.favorites
-      });
+  if (docSnap.exists()) {
+    const docData = JSON.parse(JSON.stringify(docSnap.data()));
 
+    user = {
+      docID: userID,
+      firstName: docData.firstName,
+      lastName: docData.lastName,
+      menus: docData.menus,
+      allergens: docData.allergens,
+      favorites: docData.favorites
     }
-  });
+  } else {
+    user = {
+      error: `User { ${userID} } was not found.`
+    }
+  }
 
-  return usersList;
+
+  return user;
 });
 
 /**
