@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:spread/creationPage/createAccView.dart';
 import 'package:spread/main.dart';
 
-final functions = FirebaseFunctions.instance;
+class loginView extends StatefulWidget {
+  const loginView({super.key});
 
-class loginView extends StatelessWidget {
+  @override
+  State<loginView> createState() => _loginViewState();
+}
+
+class _loginViewState extends State<loginView> {
+  final eController = TextEditingController();
+  final pController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +60,7 @@ class loginView extends StatelessWidget {
 
                   //Email Field
                   TextField(
+                    controller: eController,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -65,6 +75,7 @@ class loginView extends StatelessWidget {
                   //Password Field
                   const SizedBox(height: 10),
                   TextField(
+                    controller: pController,
                     obscureText: true,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
@@ -84,12 +95,23 @@ class loginView extends StatelessWidget {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MyHomePage(title: "Crave")));
+                        onPressed: () async {
+                          try {
+                            final userCredential = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                    email: eController.text,
+                                    password: pController.text);
+                            print("Signed in successfully.");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyHomePage(title: "Crave")));
+                          } on FirebaseAuthException catch (e) {
+                            print(e);
+                            eController.text = "";
+                            pController.text = "";
+                          }
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -149,12 +171,19 @@ class loginView extends StatelessWidget {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MyHomePage(title: "Crave")));
+                        onPressed: () async {
+                          try {
+                            final userCredential =
+                                await FirebaseAuth.instance.signInAnonymously();
+                            print("Signed in with temporary account.");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyHomePage(title: "Crave")));
+                          } on FirebaseAuthException catch (e) {
+                            print(e);
+                          }
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

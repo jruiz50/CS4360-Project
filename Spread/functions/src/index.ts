@@ -3,8 +3,10 @@ require("dotenv").config();
 const {
   doc,
   setDoc,
+  getDoc,
   getDocs,
-  // deleteDoc,
+  deleteDoc,
+  updateDoc,
   collection,
   getFirestore
 } = require("firebase/firestore");
@@ -37,6 +39,16 @@ const foodItems = collection(db, "foodItems");
 
 // Database CRUD Operation Functions
 
+interface User {
+  userID?: string,
+  firstName?: string,
+  lastName?: string,
+  menus?: Array<string>,
+  favorites?: Array<any>
+  allergens?: Array<string>
+  error?: string
+}
+
 /**
  * This function grabs a user's stored profile information
  * data from the "users" collection given a unique ID.
@@ -47,24 +59,29 @@ const foodItems = collection(db, "foodItems");
 export const getUserProfile = functions.https.onCall(async (data) => {
   const userID: string = data.userID;
 
-  let usersList: Array<any> = [];
+  let user: User = {};
 
-  const querySnapshot = await getDocs(users);
-  querySnapshot.forEach((doc: any) => {
-    if (doc.id === userID) {
-      const docData = JSON.parse(JSON.stringify(doc.data()));
+  const docSnap = await getDoc(doc(users, userID));
 
-      usersList.push({
-        docID: doc.id,
-        firstName: docData.firstName,
-        lastName: docData.lastName,
-        menus: docData.menus
-      });
+  if (docSnap.exists()) {
+    const docData = JSON.parse(JSON.stringify(docSnap.data()));
 
+    user = {
+      userID: userID,
+      firstName: docData.firstName,
+      lastName: docData.lastName,
+      menus: docData.menus,
+      allergens: docData.allergens,
+      favorites: docData.favorites
     }
-  });
+  } else {
+    user = {
+      error: `User { ${userID} } was not found.`
+    }
+  }
 
-  return usersList;
+
+  return user;
 });
 
 /**
@@ -82,13 +99,16 @@ export const createUserProfile = functions.https.onCall(async (data) => {
 
   let isSuccessful: boolean = false;
 
-  await setDoc(doc(users, userID), {
+  const newUser: User = {
+    userID,
     firstName,
     lastName,
     menus: [],
     allergens: [],
-    favorites: [],
-  })
+    favorites: []
+  };
+
+  await setDoc(doc(users, userID), newUser)
   .then(() => {
     isSuccessful = true;
   })
@@ -102,20 +122,98 @@ export const createUserProfile = functions.https.onCall(async (data) => {
   };
 });
 
+/**
+ * This function will update a user's profile information
+ * based on the data provided by the application.
+ * 
+ * @param data - Object containing user's unique ID and object with
+ *               fields of the desired update information
+ * @returns - Object indicating whether the operation was successful
+ */
+ export const updateUserProfile = functions.https.onCall(async (data) => {
+  const userID: string = data.userID;
 
-export const getFoodItems = functions.https.onCall(async (data) => {
+  const menus: Array<string> = data.menus ? data.menus : null;
+  const allergens: Array<string> = data.allergens ? data.allergens : null;
+  const favorites: Array<string> = data.favorites ? data.favorites : null;
 
-  let foodItems: Array<any> = [];
+  let updatedUser: User = {};
+
+  if (menus) {
+    updatedUser = {
+      ...updatedUser,
+      menus
+    };
+  };
+  if (allergens) {
+    updatedUser = {
+      ...updatedUser,
+      allergens
+    };
+  };
+  if (favorites) {
+    updatedUser = {
+      ...updatedUser,
+      favorites
+    };
+  };
+
+  let isSuccessful: boolean = false;
+
+  await updateDoc(doc(users, userID), updatedUser)
+  .then(() => {
+    isSuccessful = true;
+  })
+  .catch((error: any) => {
+    console.log(error);
+    isSuccessful = false;
+  })
+
+  return {
+    isSuccessful
+  };
+ });
+
+/**
+ * This function will  delete a user's profile along with
+ * any of their stored information in the Firestore database.
+ * 
+ * @param data - Object containing user's unique ID
+ * @returns - Object indicating whether the operation was successful
+ */
+ export const deleteUserProfile = functions.https.onCall(async (data) => {
+  const userID: string = data.userID;
+
+  let isSuccessful: boolean = false;
+
+  await deleteDoc(doc(users, userID))
+  .then(() => {
+    isSuccessful = true;
+  })
+  .catch((error: any) => {
+    console.log(error);
+    isSuccessful = false;
+  })
+
+  return {
+    isSuccessful
+  };
+ });
+
+
+export const getFoodItem = functions.https.onCall(async (data) => {
+
+  let foodArray: Array<any> = [];
 
   const querySnapshot = await getDocs(foodItems);
   querySnapshot.forEach((doc: any) => {
-    foodItems.push({
+    foodArray.push({
       docID: doc.id,
       docData: JSON.parse(JSON.stringify(doc.data()))
     });
   });
 
-  return foodItems;
+  return foodArray;
 });
 
 
