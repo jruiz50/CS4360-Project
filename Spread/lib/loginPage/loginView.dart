@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:spread/creationPage/createAccView.dart';
 import 'package:spread/main.dart';
 
 final functions = FirebaseFunctions.instance;
@@ -120,8 +121,7 @@ class loginView extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MyHomePage(title: "Crave")));
+                                  builder: (context) => createAccView()));
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
