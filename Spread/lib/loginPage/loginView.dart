@@ -5,7 +5,24 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:spread/main.dart';
 
-class loginView extends StatelessWidget {
+class loginView extends StatefulWidget {
+  const loginView({super.key});
+
+  @override
+  State<loginView> createState() => _loginViewState();
+}
+
+class _loginViewState extends State<loginView> {
+  final eController = TextEditingController();
+  final pController = TextEditingController();
+
+  @override
+  void dispose() {
+    eController.dispose();
+    pController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +66,7 @@ class loginView extends StatelessWidget {
 
                   //Email Field
                   TextField(
+                    controller: eController,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -59,10 +77,12 @@ class loginView extends StatelessWidget {
                         labelText: "Email",
                         labelStyle: const TextStyle(color: Colors.white)),
                   ),
+                  
 
                   //Password Field
                   const SizedBox(height: 10),
                   TextField(
+                    controller: pController,
                     obscureText: true,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
@@ -87,8 +107,9 @@ class loginView extends StatelessWidget {
                             final userCredential =
                                 await FirebaseAuth.instance
                                     .signInWithEmailAndPassword
-                                    (email: "test@example.com", password: "password");
-                            print("Signed in with temporary account.");
+                                    (email: eController.text,
+                                    password: pController.text);
+                            print("Signed in successfully.");
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -96,6 +117,8 @@ class loginView extends StatelessWidget {
                                     const MyHomePage(title: "Crave")));
                           } on FirebaseAuthException catch (e) {
                             print(e);
+                            eController.text = "";
+                            pController.text = "";
                           }
                         },
                         style: ButtonStyle(
