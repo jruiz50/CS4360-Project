@@ -17,13 +17,6 @@ class _loginViewState extends State<loginView> {
   final pController = TextEditingController();
 
   @override
-  void dispose() {
-    eController.dispose();
-    pController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
