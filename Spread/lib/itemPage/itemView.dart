@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/favPage/favView.dart';
 import '../foodItemObject/foodItem.dart';
