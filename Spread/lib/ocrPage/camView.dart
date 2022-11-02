@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:card_settings/card_settings.dart';
 
 class CamView extends StatefulWidget {
   @override
@@ -13,13 +14,98 @@ class _CamViewState extends State<CamView> {
   CroppedFile? _croppedPhoto;
   RecognizedText? _recogText;
   final TextRecognizer _textRecognizer = TextRecognizer();
+  List<String> blockLines = [];
+///////////////////////////////////////////////////////////////////////////////////////////////
+  final TextEditingController _itemNameCont = TextEditingController();
+  final TextEditingController _descCont = TextEditingController();
+  final TextEditingController _restNameCont = TextEditingController();
+  final TextEditingController _tagsCont = TextEditingController();
+
+  List<String> itemTypes = <String>[
+    "Cocktail",
+    "Non-Alchoholic Beverage",
+    "American",
+    "Mexican",
+    "Italian",
+    "Chinese",
+    "Japanese",
+    "Indian",
+    "Vietamese",
+    'Medaterianan'
+  ];
+
+  void initControllerVal(List blockLines) {
+    debugPrint("Entering initCont!");
+    debugPrint(blockLines[0]);
+    int index = 1;
+    int numLines = blockLines.length - 1;
+    _itemNameCont.text = blockLines[0];
+    while (index < numLines) {
+      _descCont.text = _descCont.text + blockLines[index];
+      index += 1;
+    }
+  }
+
+  void save() {}
+
+  Widget itemForm(List blockLines) {
+    final formKey = GlobalKey<FormState>();
+    initControllerVal(blockLines);
+    return Column(
+      children: [
+        Form(
+            key: formKey,
+            child: CardSettings(
+              children: <CardSettingsSection>[
+                CardSettingsSection(
+                  children: [
+                    CardSettingsText(
+                      label: "Resturant Name: ",
+                      hintText: "Enter Resturant Name",
+                    ),
+                    CardSettingsText(
+                      label: "Item Name: ",
+                      controller: _itemNameCont,
+                    ),
+                    CardSettingsListPicker(
+                      items: itemTypes,
+                      initialItem: itemTypes[0],
+                      label: 'Item Type',
+                    ),
+                    CardSettingsParagraph(
+                      maxLength: 1000,
+                      label: "Description: ",
+                      controller: _descCont,
+                    ),
+                    CardSettingsNumberPicker(
+                      label: 'Rating',
+                      min: 1,
+                      max: 5,
+                      initialValue: 5,
+                    ),
+                    CardSettingsParagraph(
+                      label: "Hashtags",
+                      hintText: "Add your hashtags!",
+                    ),
+                    CardSettingsButton(
+                        label: 'Save',
+                        onPressed: (() => {debugPrint('SAVED!')}))
+                  ],
+                ),
+              ],
+            ))
+      ],
+    );
+  }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   void takePic() async {
     final ImagePicker picker = ImagePicker();
     _rawPhoto = await picker.pickImage(
       source: ImageSource.camera,
     );
-    dynamic item = _cropImage(_rawPhoto!.path);
+    _cropImage(_rawPhoto!.path);
     //Navigator.pop(context);
   }
 
@@ -28,6 +114,8 @@ class _CamViewState extends State<CamView> {
       sourcePath: rawPic,
       uiSettings: [
         AndroidUiSettings(
+            cropGridRowCount: 14,
+            cropGridColumnCount: 8,
             toolbarTitle: 'Crop Menu Item',
             toolbarColor: Colors.green,
             toolbarWidgetColor: Colors.white,
@@ -51,8 +139,6 @@ class _CamViewState extends State<CamView> {
     );
     InputImage croppedInput = InputImage.fromFilePath(_croppedPhoto!.path);
     processImg(croppedInput);
-
-    //return _croppedPhoto;
   }
 
   void closeRecog() async {
@@ -62,9 +148,17 @@ class _CamViewState extends State<CamView> {
 
   processImg(InputImage croppedPic) async {
     _recogText = await _textRecognizer.processImage(croppedPic);
-    List<String> lines = convertToLines(_recogText!);
-    displayPopUp(lines);
-    debugPrint(_recogText!.text);
+    blockLines = convertToLines(_recogText!);
+
+    for (var element in blockLines) {
+      debugPrint(element);
+    }
+    debugPrint(blockLines.length.toString());
+    initControllerVal(blockLines);
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => itemForm(blockLines)));
+    // displayPopUp(lines);
   }
 
   List<String> convertToLines(RecognizedText recognizedText) {
@@ -74,54 +168,19 @@ class _CamViewState extends State<CamView> {
         lines.add(tLine.text);
       }
     }
-    //String name;
-    //String desc = "";
-    //int numLines;
-    //name = lines[0];
-    //numLines = lines.length - 1;
-    //for (int i = 1; i < numLines; i++) {
-    // desc = desc + lines[i] + "\n";
-    // }
     return lines;
   }
 
-  Future<void> displayPopUp(List<String> lines) {
-    //List<String> itemStrings;
-
-    return showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            scrollable: true,
-            title: const Text('Item'),
-            content: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration:
-                        const InputDecoration(labelText: 'Name of Item:'),
-                    initialValue: lines[0],
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.multiline,
-                    decoration:
-                        const InputDecoration(labelText: 'Description:'),
-                    initialValue: lines[1],
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
+  processText() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
+      shrinkWrap: true,
       children: [
-        const Text("Select Scan to take a picture of your menu item"),
-        const Text("Then Crop the photo to only include your chosen item"),
+        //const Text("Select Scan to take a picture of your menu item"),
+        //const Text("Then Crop the photo to only include your chosen item"),
         ElevatedButton(onPressed: takePic, child: const Text("Scan")),
       ],
     ));
