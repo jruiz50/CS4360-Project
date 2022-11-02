@@ -18,13 +18,13 @@ class loginView extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   stops: [
-                    0.3,
-                    0.9,
-                  ],
+                0.3,
+                0.9,
+              ],
                   colors: [
-                    Color(0xB30CDB21),
-                    Color(0xCC7C4DFF)
-                  ])),
+                Color(0xB30CDB21),
+                Color(0xCC7C4DFF)
+              ])),
           child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(20),
@@ -88,13 +88,13 @@ class loginView extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                                      const MyHomePage(title: "Crave")));
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.transparent),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                               side: const BorderSide(
@@ -121,13 +121,13 @@ class loginView extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                                      const MyHomePage(title: "Crave")));
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.transparent),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                               side: const BorderSide(
@@ -154,13 +154,13 @@ class loginView extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                                      const MyHomePage(title: "Crave")));
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.transparent),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                               side: const BorderSide(
@@ -185,14 +185,14 @@ class loginView extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                           side:
-                          const BorderSide(color: Colors.black, width: 2.0),
+                              const BorderSide(color: Colors.black, width: 2.0),
                         ),
                         onPressed: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const MyHomePage(title: "Crave")));
+                                      const MyHomePage(title: "Crave")));
                         },
                       ),
                     ),
