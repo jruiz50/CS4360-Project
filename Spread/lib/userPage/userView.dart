@@ -5,6 +5,7 @@ import 'package:spread/loginPage/loginView.dart';
 import '../friendPage/friendView.dart';
 import '../menuPage/menuView.dart';
 import '../settingsPage/settingsView.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class userView extends StatelessWidget {
   @override
@@ -67,7 +68,8 @@ class userView extends StatelessWidget {
               child: ListTile(
                 leading: Icon(Icons.person_off),
                 title: Text("Log Out"),
-                onTap: () {
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => loginView()));
                 },
