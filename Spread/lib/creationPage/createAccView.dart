@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spread/main.dart';
 import 'package:spread/loginPage/loginView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 class createAccView extends StatefulWidget {
   const createAccView({super.key});
@@ -79,7 +80,17 @@ class _createAccViewState extends State<createAccView> {
                               .createUserWithEmailAndPassword(
                               email: eController.text.toLowerCase(),
                               password: p2Controller.text);
-                          print(user);
+                          try {
+                            final result = await FirebaseFunctions.instance
+                                .httpsCallable('createUserProfile').call({
+                              "firstName": fController.text,
+                              "lastName": lController.text,
+                              "userID": FirebaseAuth.instance.currentUser?.uid
+                            });
+                            print(result.data);
+                          } on FirebaseFunctionsException catch (e) {
+                            print(e);
+                          }
                           Navigator.push(
                               context,
                               MaterialPageRoute(
