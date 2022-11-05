@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spread/main.dart';
 import 'package:spread/loginPage/loginView.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class createAccView extends StatefulWidget {
   const createAccView({super.key});
@@ -71,12 +72,29 @@ class _createAccViewState extends State<createAccView> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {
-                      print(fController.text);
-                      print(lController.text);
-                      print(eController.text);
-                      print(p1Controller.text);
-                      print(p2Controller.text);
+                    onPressed: () async {
+                      if (p1Controller.text == p2Controller.text) {
+                        try {
+                          final user = await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                              email: eController.text.toLowerCase(),
+                              password: p2Controller.text);
+                          print(user);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                  const MyHomePage(title: "Crave")));
+                        } on FirebaseAuthException catch (e) {
+                          print(e);
+                          eController.text = "";
+                          p1Controller.text = "";
+                          p2Controller.text = "";
+                        }
+                      } else {
+                        p1Controller.text = "";
+                        p2Controller.text = "";
+                      }
                     },
                     child: const Text('Create Account'),
                   ),
