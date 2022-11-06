@@ -31,7 +31,15 @@ class favList extends StatelessWidget {
       itemName: 'Burger',
       categoryOfFood: 'American',
       rating: 3,
-      ingredients: ['Beef', 'Lettuce', 'Cheese', 'Bun', 'Ketchup', 'Mustard'],
+      ingredients: [
+        'Beef',
+        'Lettuce',
+        'Cheese',
+        'Bun',
+        'Ketchup',
+        'Mustard',
+        'LONG TEXT TO TEST WRAPPING AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+      ],
       allergens: ['Gluten'],
       restaurantName: 'McDongles',
       restaurantId: 'A0000',
@@ -112,8 +120,23 @@ class favList extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Text>[
-                      Text(foodEntries[index].rating.toString())
+                    children: <Row>[
+                      Row(
+                          children: List<Widget>.generate(
+                              5,
+                              (i) => (() {
+                                    if (i < foodEntries[index].rating) {
+                                      return Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                      );
+                                    } else {
+                                      return Icon(
+                                        Icons.star,
+                                        color: Colors.grey,
+                                      );
+                                    }
+                                  }())))
                       // This should be replaced with function to
                       // show a set number of stars instead of num later
                     ],

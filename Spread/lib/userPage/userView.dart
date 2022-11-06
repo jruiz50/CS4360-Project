@@ -15,14 +15,16 @@ class userView extends StatelessWidget {
         appBar: ProfileAppBar(
           appBar: AppBar(),
         ),
-        body: Column(
+        body: ListView(
           children: <Widget>[
             Icon(
               Icons.person,
               size: 300,
             ), //Placeholder
-            Text("Name"),
-            Text("User ID"),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Text>[Text("Name"), Text("User ID")],
+            ),
             Card(
               child: ListTile(
                 leading: Icon(Icons.menu_book),

@@ -3,6 +3,8 @@ import 'package:spread/itemPage/itemView.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'dart:math';
 
+import '../foodItemObject/foodItem.dart';
+
 class launchListViewGuest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class _launchListTile extends State<launchListTile> {
   ];
   // final starRatings = List<int>.generate(3, (i) => Random().nextInt(6));
   // // final isFavorite = List<bool>.generate(3, (i) => Random().nextBool());
-  final isFavorite = <bool>[false, true, false];
+  final isFavorite = <bool>[false, false, false];
   final starRatings = <int>[1, 3, 5];
 
   Icon unfav = Icon(Icons.star_border);
@@ -77,6 +79,75 @@ class _launchListTile extends State<launchListTile> {
   Icon? showIcon;
   int favIconNum = 0;
 
+  var testFoodOne = FoodItem(
+      itemName: 'Steak',
+      categoryOfFood: 'American',
+      rating: 3,
+      ingredients: ['Beef', 'Potatoes', 'Asparagus'],
+      allergens: [],
+      restaurantName: 'Steak Place',
+      restaurantId: 'A0003',
+      imageURL: '-',
+      tags: ['Yum', 'Spicy']);
+
+  var testFoodTwo = FoodItem(
+      itemName: 'Salad',
+      categoryOfFood: 'Italian',
+      rating: 5,
+      ingredients: [
+        'Lettuce',
+        'Cheese',
+        'Tomato',
+        'Pesto',
+      ],
+      allergens: [],
+      restaurantName: 'Olib Gardin',
+      restaurantId: 'A0001',
+      imageURL: '-',
+      tags: ['Spicy']);
+
+  var testFoodThree = FoodItem(
+      itemName: 'Ramen',
+      categoryOfFood: 'Japanese',
+      rating: 4,
+      ingredients: ['water', 'ice', 'salt'],
+      allergens: [],
+      restaurantName: 'Another Ramen Place',
+      restaurantId: 'A0004',
+      imageURL: '-',
+      tags: ['Expensive']);
+
+  List<FoodItem> foodEntries = <FoodItem>[];
+
+  List<FoodItem> savedEntries = <FoodItem>[];
+
+  populateEntries() {
+    foodEntries.add(testFoodOne);
+    foodEntries.add(testFoodTwo);
+    foodEntries.add(testFoodThree);
+  }
+
+  onFavoritePress(index) {
+    // if isFav; remove from savedEntries
+    // if isntFav; add to savedEntries
+
+    if (savedEntries.contains(foodEntries[index])) {
+      savedEntries.remove(savedEntries[index]);
+
+      setState(() {
+        isFavorite[index] = !isFavorite[index];
+        print(isFavorite[index]);
+      });
+    } else {
+      savedEntries.add(foodEntries[index]);
+
+      setState(() {
+        isFavorite[index] = !isFavorite[index];
+        print(isFavorite[index]);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -84,8 +155,10 @@ class _launchListTile extends State<launchListTile> {
     // This is somehow connecting all 3 food items as one object, which is why
     // clicking on the fav button does the action for all three objects.
     // This is at least a start
+    populateEntries();
+
     return ListView.builder(
-      itemCount: entries.length,
+      itemCount: foodEntries.length,
       padding: const EdgeInsets.all(10),
       itemBuilder: (context, int index) {
         return Card(
@@ -96,35 +169,51 @@ class _launchListTile extends State<launchListTile> {
               Icons.fastfood,
               size: 30,
             ),
-            title: Text(entries[index]),
-            subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List<Widget>.generate(
-                    5,
-                    (i) => (() {
-                          if (i < starRatings[index]) {
-                            return Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                            );
-                          } else {
-                            return Icon(
-                              Icons.star,
-                              color: Colors.grey,
-                            );
-                          }
-                        }()))),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Text>[Text(foodEntries[index].itemName)],
+            ) /*Text(foodEntries[index].itemName)*/,
+            subtitle: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Row>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Text>[Text(foodEntries[index].restaurantName)],
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(
+                        5,
+                        (i) => (() {
+                              if (i < foodEntries[index].rating) {
+                                return Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                );
+                              } else {
+                                return Icon(
+                                  Icons.star,
+                                  color: Colors.grey,
+                                );
+                              }
+                            }())))
+              ],
+            ),
             trailing: IconButton(
                 onPressed: () {
-                  setState(() {
+                  /*setState(() {
                     isFavorite[index] = !isFavorite[index];
                     print(isFavorite[index]);
-                  });
+                  });*/
+                  // onFavoritePress(index);
                 },
                 icon: (isFavorite[index]) ? fav : unfav),
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => itemView()));
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ItemViewNew(foodItem: foodEntries[index])));
             },
           ),
         );

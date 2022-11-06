@@ -63,16 +63,16 @@ class itemView extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      children: <Text>[Text('Item Type')],
+                      children: <Widget>[Text('Item Type')],
                     ),
                     Row(
-                      children: <Text>[Text('Description')],
+                      children: <Widget>[Text('Description')],
                     ),
                     Row(
-                      children: <Text>[Text('Ingredients')],
+                      children: <Widget>[Text('Ingredients')],
                     ),
                     Row(
-                      children: <Text>[Text('Notable Allergens: ')],
+                      children: <Widget>[Text('Notable Allergens: ')],
                     ),
                   ],
                 )),
@@ -180,18 +180,26 @@ class ItemViewNew extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      children: <Text>[Text(foodItem.categoryOfFood)],
+                      children: <Widget>[
+                        Flexible(child: Text(foodItem.categoryOfFood))
+                      ],
                     ),
                     Row(
-                      children: <Text>[Text(foodItem.itemName)],
+                      children: <Widget>[
+                        Flexible(child: Text(foodItem.itemName))
+                      ],
                       // Should be item description
                     ),
                     Row(
-                      children: <Text>[Text(foodItem.ingredients.join(', '))],
+                      children: <Widget>[
+                        Flexible(child: Text(foodItem.ingredients.join(', ')))
+                      ],
                       // Turn this into a listtile!!
                     ),
                     Row(
-                      children: <Text>[Text(foodItem.allergens.join(', '))],
+                      children: <Widget>[
+                        Flexible(child: Text(foodItem.allergens.join(', ')))
+                      ],
                       // Also make this a listtile!!!
                     ),
                   ],
