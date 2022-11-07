@@ -21,6 +21,7 @@ class itemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    TextEditingController _textFieldController = TextEditingController();
 
     return Scaffold(
       appBar: ItemAppBar(
@@ -78,6 +79,31 @@ class itemView extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Flexible(child: Text(foodItem.allergens.join(',')))
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ButtonBar(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      new ElevatedButton(
+                          onPressed: () {
+                            AlertDialog(
+                              title: Text('Enter Rating'),
+                              content: TextField(
+                                onChanged: (value) {},
+                                controller: _textFieldController,
+                                decoration: InputDecoration(
+                                    hintText: 'Enter rating between 1-5'),
+                              ),
+                            );
+                          }, // Open dialog to change rating
+                          // This still needs to be changed; button is lit up but does nothing!!!
+
+                          child: Text('Change Rating'))
+                    ],
+                  )
                 ],
               )
             ],
