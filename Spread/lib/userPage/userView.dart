@@ -6,11 +6,36 @@ import '../friendPage/friendView.dart';
 import '../menuPage/menuView.dart';
 import '../settingsPage/settingsView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
-class userView extends StatelessWidget {
+class userView extends StatefulWidget {
+  const userView({super.key});
+
+  @override
+  State<userView> createState() => _userViewState();
+}
+
+class _userViewState extends State<userView> {
+
+  Future <Map<dynamic, dynamic>> getUserProfile(String userID) async {
+    try {
+      final userProfile = await FirebaseFunctions.instance
+          .httpsCallable('getUserProfile').call({
+          "userID": userID
+      });
+      return userProfile.data;
+    } catch (e) {
+      print(e);
+      return {};
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    getUserProfile(FirebaseAuth.instance.currentUser?.uid ?? "")
+      .then((userProfile) {
+        print(userProfile["favorites"]);
+    });
 
     return Scaffold(
         appBar: ProfileAppBar(
@@ -22,7 +47,7 @@ class userView extends StatelessWidget {
               Icons.person,
               size: 300,
             ), //Placeholder
-            Text("Name"),
+            Text("user"),
             Text("User ID"),
             Card(
               child: ListTile(
