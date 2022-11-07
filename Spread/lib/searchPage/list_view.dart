@@ -5,6 +5,9 @@ import 'dart:math';
 
 import '../foodItemObject/foodItem.dart';
 
+List<FoodItem> savedItems = [];
+// Global variable?
+
 class launchListTile extends StatefulWidget {
   const launchListTile({super.key});
 
@@ -143,12 +146,12 @@ class _launchListTile extends State<launchListTile> {
   }
 
   populateFavorites(index) {
-    if (savedEntries.contains(foodEntries[index])) {
+    if (savedItems.contains(foodEntries[index])) {
       print('Already in saved');
     } else {
-      savedEntries.add(foodEntries[index]);
+      savedItems.add(foodEntries[index]);
     }
-    print(savedEntries[index].itemName.toString());
+    print(savedItems[index].itemName.toString());
   }
   /*onFavoritePress(index) {
     // if isFav; remove from savedEntries

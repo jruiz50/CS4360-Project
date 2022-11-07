@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../itemPage/itemView.dart';
+import 'package:spread/searchPage/list_view.dart';
 
 import 'package:spread/foodItemObject/foodItem.dart';
 
@@ -81,12 +82,9 @@ class favList extends StatelessWidget {
   ];
 
   List<FoodItem> foodEntries = <FoodItem>[];
+  // List<FoodItem> savedEntries = <FoodItem>[];
 
-  addSomething() {
-    foodEntries.add(testFoodOne);
-    foodEntries.add(testFoodTwo);
-    foodEntries.add(testFoodThree);
-  }
+  addSomething() {}
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +94,7 @@ class favList extends StatelessWidget {
     // Adding test food to list
 
     return ListView.builder(
-        itemCount: foodEntries.length,
+        itemCount: savedItems.length,
         padding: const EdgeInsets.all(10),
         itemBuilder: (context, int index) {
           return Card(
@@ -109,14 +107,14 @@ class favList extends StatelessWidget {
               ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Text>[Text(foodEntries[index].itemName)],
+                children: <Text>[Text(savedItems[index].itemName)],
               ),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Row>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Text>[Text(foodEntries[index].restaurantName)],
+                    children: <Text>[Text(savedItems[index].restaurantName)],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +123,7 @@ class favList extends StatelessWidget {
                           children: List<Widget>.generate(
                               5,
                               (i) => (() {
-                                    if (i < foodEntries[index].rating) {
+                                    if (i < savedItems[index].rating) {
                                       return Icon(
                                         Icons.star,
                                         color: Colors.yellow,
@@ -154,7 +152,7 @@ class favList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            itemView(foodItem: foodEntries[index])));
+                            itemView(foodItem: savedItems[index])));
               },
               onLongPress: (null),
             ),
