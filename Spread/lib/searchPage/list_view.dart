@@ -213,7 +213,7 @@ class _launchListTile extends State<launchListTile> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          ItemViewNew(foodItem: foodEntries[index])));
+                          itemView(foodItem: foodEntries[index])));
             },
           ),
         );

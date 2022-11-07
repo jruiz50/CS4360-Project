@@ -154,7 +154,7 @@ class favList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            ItemViewNew(foodItem: foodEntries[index])));
+                            itemView(foodItem: foodEntries[index])));
               },
               onLongPress: (null),
             ),
