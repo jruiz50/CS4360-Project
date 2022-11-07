@@ -1,90 +1,123 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/favPage/favView.dart';
 import '../foodItemObject/foodItem.dart';
 import '../userPage/userView.dart';
+// import 'package:flutter_spinbox/cupertino.dart';
 
 // This'll probably get combined with "foodItemObject" because it's going to use all the same info
 
 class itemView extends StatelessWidget {
   //final this.foodItem = foodItem;
 
+  final FoodItem foodItem;
+
+  itemView({Key? key, required this.foodItem}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    TextEditingController _textFieldController = TextEditingController();
 
     return Scaffold(
       appBar: ItemAppBar(
         appBar: AppBar(),
+        foodItem: foodItem,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Icon(
-              Icons.fastfood,
-              size: 400,
-            ), // Absolutely a placeholder; change it Image()
-            Align(
-                alignment: Alignment.topLeft,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: <Row>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Icon>[
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 50,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 50,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 50,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 50,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 50,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Text>[Text('Item Type')],
-                    ),
-                    Row(
-                      children: <Text>[Text('Description')],
-                    ),
-                    Row(
-                      children: <Text>[Text('Ingredients')],
-                    ),
-                    Row(
-                      children: <Text>[Text('Notable Allergens: ')],
-                    ),
-                  ],
-                )),
-          ],
-        ),
+      body: ListView(
+        children: <Widget>[
+          new Container(
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.fastfood,
+                  size: 400,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List<Widget>.generate(
+                      5,
+                      (i) => (() {
+                            if (i < foodItem.rating) {
+                              return Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 40,
+                              );
+                            } else {
+                              return Icon(
+                                Icons.star,
+                                color: Colors.grey,
+                                size: 40,
+                              );
+                            }
+                          }())),
+                ),
+              ],
+            ),
+          ),
+          new Container(
+              child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Flexible(child: Text(foodItem.categoryOfFood))
+                ],
+              ),
+              Row(
+                children: <Widget>[Flexible(child: Text(foodItem.itemName))],
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(child: Text(foodItem.ingredients.join(', ')))
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(child: Text(foodItem.allergens.join(',')))
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ButtonBar(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      new ElevatedButton(
+                          onPressed: () {
+                            AlertDialog(
+                              title: Text('Enter Rating'),
+                              content: TextField(
+                                onChanged: (value) {},
+                                controller: _textFieldController,
+                                decoration: InputDecoration(
+                                    hintText: 'Enter rating between 1-5'),
+                              ),
+                            );
+                          }, // Open dialog to change rating
+                          // This still needs to be changed; button is lit up but does nothing!!!
+
+                          child: Text('Change Rating'))
+                    ],
+                  )
+                ],
+              )
+            ],
+          ))
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <TextButton>[
-            TextButton(onPressed: null, child: Text("Save")),
+            TextButton(
+              onPressed: null,
+              child: Text("Save"),
+            ),
             TextButton(onPressed: null, child: Text("Route"))
           ],
         ),
@@ -95,7 +128,9 @@ class itemView extends StatelessWidget {
 
 class ItemAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
-  const ItemAppBar({super.key, required this.appBar});
+  final FoodItem foodItem;
+  const ItemAppBar(
+      {super.key, required this.appBar, required FoodItem this.foodItem});
 
   //const SearchAppBar({Key key, this.appBar, this.widgets}) : super (key : key);
 
@@ -108,10 +143,10 @@ class ItemAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Row>[
               Row(
-                children: <Text>[Text('Name Placeholder')],
+                children: <Text>[Text(foodItem.itemName)],
               ),
               Row(
-                children: <Text>[Text('Restaraunt Placeholder')],
+                children: <Text>[Text(foodItem.restaurantName)],
               )
             ],
           ),
@@ -122,7 +157,7 @@ class ItemAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
 }
 
-class ItemViewNew extends StatelessWidget {
+/*class ItemViewNew extends StatelessWidget {
   final FoodItem foodItem;
 
   ItemViewNew({Key? key, required this.foodItem}) : super(key: key);
@@ -180,18 +215,26 @@ class ItemViewNew extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      children: <Text>[Text(foodItem.categoryOfFood)],
+                      children: <Widget>[
+                        Flexible(child: Text(foodItem.categoryOfFood))
+                      ],
                     ),
                     Row(
-                      children: <Text>[Text(foodItem.itemName)],
+                      children: <Widget>[
+                        Flexible(child: Text(foodItem.itemName))
+                      ],
                       // Should be item description
                     ),
                     Row(
-                      children: <Text>[Text(foodItem.ingredients.join(', '))],
+                      children: <Widget>[
+                        Flexible(child: Text(foodItem.ingredients.join(', ')))
+                      ],
                       // Turn this into a listtile!!
                     ),
                     Row(
-                      children: <Text>[Text(foodItem.allergens.join(', '))],
+                      children: <Widget>[
+                        Flexible(child: Text(foodItem.allergens.join(', ')))
+                      ],
                       // Also make this a listtile!!!
                     ),
                   ],
@@ -238,8 +281,8 @@ class ItemAppBarNew extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
         ));
-  }
+  } 
 
   @override
   Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
-}
+}*/
