@@ -85,10 +85,15 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(),
       ),
       body: Center(
-          child: Flexible(
+          child: Flex(
+        direction: Axis.vertical,
+        children: <Flexible>[
+          Flexible(
               flex: 1,
               fit: FlexFit.loose,
               child: (_widgetOptions.elementAt(_selectedIndex)))
+        ],
+      )
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
 

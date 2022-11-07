@@ -5,52 +5,6 @@ import 'dart:math';
 
 import '../foodItemObject/foodItem.dart';
 
-class launchListViewGuest extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-
-    final List<String> entries = <String>[
-      "First placeholder",
-      "Second placeholder",
-      "Third placeholder"
-    ];
-
-    return ListView.separated(
-      padding: const EdgeInsets.all(8),
-      itemCount: entries.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.grey),
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  const Icon(Icons.fastfood),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  const Text('Item name'),
-                  const Text('Item Rating'),
-                  const Text('Star Rating'),
-                ],
-              ),
-            ],
-          ),
-        );
-      }, // Use a listtile next time, ya goof!!
-
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
-    );
-    throw UnimplementedError();
-  }
-}
-
 class launchListTile extends StatefulWidget {
   const launchListTile({super.key});
 
@@ -117,6 +71,65 @@ class _launchListTile extends State<launchListTile> {
       imageURL: '-',
       tags: ['Expensive']);
 
+  var t1 = FoodItem(
+      itemName: "Big Mac",
+      categoryOfFood: 'American',
+      rating: 3,
+      ingredients: [
+        'Bun',
+        'Beef',
+        'Lettuce',
+        'Ketchup',
+        'Tomato',
+        'Mustard',
+        'Mayonaise'
+      ],
+      allergens: ['Gluten'],
+      restaurantName: 'McDonalds',
+      restaurantId: 'A0001',
+      imageURL: '-',
+      tags: ['Cheap', 'Fast']);
+  var t2 = FoodItem(
+      itemName: '20 Piece Chicken McNuggets',
+      categoryOfFood: 'American',
+      rating: 4,
+      ingredients: ['Chicken'],
+      allergens: ['Peanut Oil'],
+      restaurantName: 'McDonalds',
+      restaurantId: 'A0001',
+      imageURL: '-',
+      tags: ['Cheap', 'Fast', 'Good']);
+  var t3 = FoodItem(
+      itemName: 'Tonkatsu Ramen',
+      categoryOfFood: 'Japanese',
+      rating: 4,
+      ingredients: ['Pork', 'Noodle', 'Egg', 'Miso', 'Green Onion'],
+      allergens: ['Gluten', 'Milk'],
+      restaurantName: 'Katsu Ramen',
+      restaurantId: 'A0105',
+      imageURL: '-',
+      tags: ['Expensive', 'Good', 'Spicy']);
+  var t4 = FoodItem(
+      itemName: 'BBQ Ribs',
+      categoryOfFood: 'American',
+      rating: 5,
+      ingredients: ['Pork'],
+      allergens: [],
+      restaurantName: 'Famous Dave\'s',
+      restaurantId: 'A0451',
+      imageURL: '-',
+      tags: ['Good']);
+  var t5 = FoodItem(
+      itemName: 'Test',
+      categoryOfFood: 'Mexican',
+      rating: 1,
+      ingredients: ['Water'],
+      allergens: [],
+      restaurantName: 'Test Restaraunt',
+      restaurantId: 'A1111',
+      imageURL: '-',
+      tags: []);
+
   List<FoodItem> foodEntries = <FoodItem>[];
 
   List<FoodItem> savedEntries = <FoodItem>[];
@@ -127,7 +140,7 @@ class _launchListTile extends State<launchListTile> {
     foodEntries.add(testFoodThree);
   }
 
-  onFavoritePress(index) {
+  /*onFavoritePress(index) {
     // if isFav; remove from savedEntries
     // if isntFav; add to savedEntries
 
@@ -146,7 +159,7 @@ class _launchListTile extends State<launchListTile> {
         print(isFavorite[index]);
       });
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +168,12 @@ class _launchListTile extends State<launchListTile> {
     // This is somehow connecting all 3 food items as one object, which is why
     // clicking on the fav button does the action for all three objects.
     // This is at least a start
-    populateEntries();
+    if (foodEntries.isEmpty) {
+      populateEntries();
+    } // This needs to be here because list would overflow
+    // with duplicates on hot reload
+    // This means that on boot, you can use this function to call
+    // the Firebase command and populate from there
 
     return ListView.builder(
       itemCount: foodEntries.length,
@@ -199,12 +217,12 @@ class _launchListTile extends State<launchListTile> {
                             }())))
               ],
             ),
-            trailing: IconButton(
+            /*trailing: IconButton(
                 onPressed: () {
-                  /*setState(() {
+                  setState(() {
                     isFavorite[index] = !isFavorite[index];
                     print(isFavorite[index]);
-                  });*/
+                  });
                   // onFavoritePress(index);
                 },
                 icon: (isFavorite[index]) ? fav : unfav),
@@ -215,6 +233,8 @@ class _launchListTile extends State<launchListTile> {
                       builder: (context) =>
                           itemView(foodItem: foodEntries[index])));
             },
+          */ // Needs to be rewritten to have same number as foodEntries
+            // in order to avoid an error in list_view
           ),
         );
       },
@@ -224,7 +244,7 @@ class _launchListTile extends State<launchListTile> {
   }
 }
 
-class launchGuestListTile extends StatelessWidget {
+/*class launchGuestListTile extends StatelessWidget {
   final List<String> entries = <String>[
     "First placeholder",
     "Second placeholder",
@@ -253,4 +273,50 @@ class launchGuestListTile extends StatelessWidget {
     );
     // throw UnimplementedError();
   }
-}
+}*/
+
+/*class launchListViewGuest extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+
+    final List<String> entries = <String>[
+      "First placeholder",
+      "Second placeholder",
+      "Third placeholder"
+    ];
+
+    return ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemCount: entries.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.grey),
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  const Icon(Icons.fastfood),
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  const Text('Item name'),
+                  const Text('Item Rating'),
+                  const Text('Star Rating'),
+                ],
+              ),
+            ],
+          ),
+        );
+      }, // Use a listtile next time, ya goof!!
+
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+    );
+    throw UnimplementedError();
+  }
+}*/
