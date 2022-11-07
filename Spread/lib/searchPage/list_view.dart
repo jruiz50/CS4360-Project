@@ -37,17 +37,19 @@ class _launchListTile extends State<launchListTile> {
   int favIconNum = 0;
 
   var testFoodOne = FoodItem(
+      foodItemID: 'test',
       itemName: 'Steak',
       categoryOfFood: 'American',
       rating: 3,
       ingredients: ['Beef', 'Potatoes', 'Asparagus'],
       allergens: [],
       restaurantName: 'Steak Place',
-      restaurantId: 'A0003',
+      restaurantID: 'A0003',
       imageURL: '-',
       tags: ['Yum', 'Spicy']);
 
   var testFoodTwo = FoodItem(
+      foodItemID: 'test',
       itemName: 'Salad',
       categoryOfFood: 'Italian',
       rating: 5,
@@ -59,22 +61,24 @@ class _launchListTile extends State<launchListTile> {
       ],
       allergens: [],
       restaurantName: 'Olib Gardin',
-      restaurantId: 'A0001',
+      restaurantID: 'A0001',
       imageURL: '-',
       tags: ['Spicy']);
 
   var testFoodThree = FoodItem(
+      foodItemID: 'test',
       itemName: 'Ramen',
       categoryOfFood: 'Japanese',
       rating: 4,
       ingredients: ['water', 'ice', 'salt'],
       allergens: [],
       restaurantName: 'Another Ramen Place',
-      restaurantId: 'A0004',
+      restaurantID: 'A0004',
       imageURL: '-',
       tags: ['Expensive']);
 
   var t1 = FoodItem(
+      foodItemID: 'test',
       itemName: "Big Mac",
       categoryOfFood: 'American',
       rating: 3,
@@ -89,47 +93,51 @@ class _launchListTile extends State<launchListTile> {
       ],
       allergens: ['Gluten'],
       restaurantName: 'McDonalds',
-      restaurantId: 'A0001',
+      restaurantID: 'A0001',
       imageURL: '-',
       tags: ['Cheap', 'Fast']);
   var t2 = FoodItem(
+      foodItemID: 'test',
       itemName: '20 Piece Chicken McNuggets',
       categoryOfFood: 'American',
       rating: 4,
       ingredients: ['Chicken'],
       allergens: ['Peanut Oil'],
       restaurantName: 'McDonalds',
-      restaurantId: 'A0001',
+      restaurantID: 'A0001',
       imageURL: '-',
       tags: ['Cheap', 'Fast', 'Good']);
   var t3 = FoodItem(
+      foodItemID: 'test',
       itemName: 'Tonkatsu Ramen',
       categoryOfFood: 'Japanese',
       rating: 4,
       ingredients: ['Pork', 'Noodle', 'Egg', 'Miso', 'Green Onion'],
       allergens: ['Gluten', 'Milk'],
       restaurantName: 'Katsu Ramen',
-      restaurantId: 'A0105',
+      restaurantID: 'A0105',
       imageURL: '-',
       tags: ['Expensive', 'Good', 'Spicy']);
   var t4 = FoodItem(
+      foodItemID: 'test',
       itemName: 'BBQ Ribs',
       categoryOfFood: 'American',
       rating: 5,
       ingredients: ['Pork'],
       allergens: [],
       restaurantName: 'Famous Dave\'s',
-      restaurantId: 'A0451',
+      restaurantID: 'A0451',
       imageURL: '-',
       tags: ['Good']);
   var t5 = FoodItem(
+      foodItemID: 'test',
       itemName: 'Test',
       categoryOfFood: 'Mexican',
       rating: 1,
       ingredients: ['Water'],
       allergens: [],
       restaurantName: 'Test Restaraunt',
-      restaurantId: 'A1111',
+      restaurantID: 'A1111',
       imageURL: '-',
       tags: []);
 

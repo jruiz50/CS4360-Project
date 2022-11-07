@@ -29,6 +29,7 @@ class favView extends StatelessWidget {
 
 class favList extends StatelessWidget {
   var testFoodOne = FoodItem(
+      foodItemID: 'test',
       itemName: 'Burger',
       categoryOfFood: 'American',
       rating: 3,
@@ -43,11 +44,12 @@ class favList extends StatelessWidget {
       ],
       allergens: ['Gluten'],
       restaurantName: 'McDongles',
-      restaurantId: 'A0000',
+      restaurantID: 'A0000',
       imageURL: '-',
       tags: ['Yum', 'Spicy']);
 
   var testFoodTwo = FoodItem(
+      foodItemID: 'test',
       itemName: 'Spaghetti',
       categoryOfFood: 'Italian',
       rating: 5,
@@ -60,18 +62,19 @@ class favList extends StatelessWidget {
       ],
       allergens: ['Gluten'],
       restaurantName: 'Olib Gardin',
-      restaurantId: 'A0001',
+      restaurantID: 'A0001',
       imageURL: '-',
       tags: ['Spicy']);
 
   var testFoodThree = FoodItem(
+      foodItemID: 'test',
       itemName: 'Ramen',
       categoryOfFood: 'Japanese',
       rating: 4,
       ingredients: ['water', 'ice', 'salt'],
       allergens: [],
       restaurantName: 'Ichiraku Ramen',
-      restaurantId: 'A0002',
+      restaurantID: 'A0002',
       imageURL: '-',
       tags: ['Expensive']);
 
