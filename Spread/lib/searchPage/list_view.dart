@@ -135,11 +135,21 @@ class _launchListTile extends State<launchListTile> {
   List<FoodItem> savedEntries = <FoodItem>[];
 
   populateEntries() {
-    foodEntries.add(testFoodOne);
-    foodEntries.add(testFoodTwo);
-    foodEntries.add(testFoodThree);
+    foodEntries.add(t1);
+    foodEntries.add(t2);
+    foodEntries.add(t3);
+    foodEntries.add(t4);
+    foodEntries.add(t5);
   }
 
+  populateFavorites(index) {
+    if (savedEntries.contains(foodEntries[index])) {
+      print('Already in saved');
+    } else {
+      savedEntries.add(foodEntries[index]);
+    }
+    print(savedEntries[index].itemName.toString());
+  }
   /*onFavoritePress(index) {
     // if isFav; remove from savedEntries
     // if isntFav; add to savedEntries
@@ -217,6 +227,13 @@ class _launchListTile extends State<launchListTile> {
                             }())))
               ],
             ),
+            trailing: IconButton(
+              icon: Icon(Icons.star),
+              onPressed: () {
+                populateFavorites(index);
+              },
+              // Test onPressed Save
+            ),
             /*trailing: IconButton(
                 onPressed: () {
                   setState(() {
@@ -243,6 +260,7 @@ class _launchListTile extends State<launchListTile> {
     // throw UnimplementedError();
   }
 }
+
 
 /*class launchGuestListTile extends StatelessWidget {
   final List<String> entries = <String>[
