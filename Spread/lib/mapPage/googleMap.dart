@@ -57,10 +57,9 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     });
   }
 
-  Future<Set<Object>> getFoodItemRestruant() async {
+  Future<Map<foodItem, restaurant>> getFoodItemRestruant() async {
 
-    Set<Object> pair = Set()
-    foodItem item = foodItem(itemName: "Burger King",
+    foodItem item = foodItem(itemName: "whopper",
         categoryOfFood: "fast food",
         rating: 3,
         ingredients: [""],
@@ -83,9 +82,37 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
         foodTypeIDs: [0]
     );
 
-    pair.add(item)
-    pair.add(rest)
+    Map<foodItem, restaurant> pair = {item : rest};
+
     return pair;
+  }
+
+  void createMarkerVersion2() async {
+    Map<foodItem, restaurant> itemRestaurantPair = await getFoodItemRestruant();
+    foodItem item = itemRestaurantPair.keys.elementAt(0);
+    restaurant rest = itemRestaurantPair[item]!;
+    String coordinates = rest.coordinates;
+
+    String markerID = numOfMarkers.toString();
+    numOfMarkers++;
+    String longitude = coordinates.split(", ")[0].replaceAll("(", "");
+    String latitude = coordinates.split(", ")[1].replaceAll(")", "");
+    double long = double.parse(longitude);
+    double lat = double.parse(latitude);
+
+    Marker temp = Marker(
+      markerId: MarkerId(markerID),
+      icon: BitmapDescriptor.defaultMarker,
+      position: LatLng(lat, long),
+      infoWindow: InfoWindow(title: item.itemName, snippet: rest.restaurantName, anchor: Offset(0.5, 0.0)),
+      visible: true,
+    );
+
+    _markers.add(temp);
+    print("length: " + _markers.length.toString());
+    setState(() {
+      markersToDisplay = _markers.toSet();
+    });
   }
 
   var _msuDenver2 = null;
