@@ -74,7 +74,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
 
     restaurant rest = restaurant(restaurantID: 1,
         regionID: 2,
-        restaurantName: "restaurantName",
+        restaurantName: "Burger King",
         menuID: 1,
         coordinates: coordinates,
         tags: ["tags"],
@@ -216,7 +216,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: createMarker,
+        onPressed: createMarkerVersion2,
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),
