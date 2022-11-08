@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:spread/dbObjects/foodItem.dart';
+import 'package:spread/dbObjects/restaurant.dart';
 
 class GoogleMapsView extends StatefulWidget {
   @override
@@ -53,6 +55,37 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     setState(() {
       markersToDisplay = _markers.toSet();
     });
+  }
+
+  Future<Set<Object>> getFoodItemRestruant() async {
+
+    Set<Object> pair = Set()
+    foodItem item = foodItem(itemName: "Burger King",
+        categoryOfFood: "fast food",
+        rating: 3,
+        ingredients: [""],
+        allergens: ["none"],
+        restaurantName: "restaurantName",
+        restaurantId: "restaurantId",
+        imageURL: "imageURL",
+        tags: ["okay"]
+    );
+
+    String coordinates = await getPositionString();
+
+    restaurant rest = restaurant(restaurantID: 1,
+        regionID: 2,
+        restaurantName: "restaurantName",
+        menuID: 1,
+        coordinates: coordinates,
+        tags: ["tags"],
+        rating: 4,
+        foodTypeIDs: [0]
+    );
+
+    pair.add(item)
+    pair.add(rest)
+    return pair;
   }
 
   var _msuDenver2 = null;
