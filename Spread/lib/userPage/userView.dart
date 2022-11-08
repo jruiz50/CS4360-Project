@@ -16,6 +16,9 @@ class userView extends StatefulWidget {
 }
 
 class _userViewState extends State<userView> {
+  var _fName = "";
+  var _lName = "";
+  var _userID = "";
 
   Future <Map<dynamic, dynamic>> getUserProfile(String userID) async {
     try {
@@ -32,10 +35,18 @@ class _userViewState extends State<userView> {
 
   @override
   Widget build(BuildContext context) {
-    getUserProfile(FirebaseAuth.instance.currentUser?.uid ?? "")
-      .then((userProfile) {
-        print(userProfile["favorites"]);
-    });
+
+    if (_fName == "") {
+      getUserProfile(FirebaseAuth.instance.currentUser?.uid ?? "")
+          .then((userProfile) {
+        print(userProfile);
+        setState(() {
+          _fName = userProfile["firstName"];
+          _lName = userProfile["lastName"];
+          _userID = userProfile["userID"];
+        });
+      });
+    }
 
     return Scaffold(
         appBar: ProfileAppBar(
@@ -46,9 +57,9 @@ class _userViewState extends State<userView> {
             Icon(
               Icons.person,
               size: 300,
-            ), //Placeholder
-            Text("user"),
-            Text("User ID"),
+            ),
+            Text(_fName + " " + _lName),
+            Text(_userID),
             Card(
               child: ListTile(
                 leading: Icon(Icons.menu_book),
