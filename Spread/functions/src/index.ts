@@ -13,6 +13,7 @@ const {
 const superagent = require("superagent");
 const { initializeApp } = require("firebase/app");
 import * as functions from "firebase-functions";
+import internal = require("stream");
 
 
 // Connect Cloud Functions to Firestore Database
@@ -48,6 +49,69 @@ interface User {
   allergens?: Array<string>
   error?: string
 }
+
+// interface FoodTag {
+//   foodTagID?: string,
+//   foodTagName?: string,
+//   foodTagDesc?: string,
+//   foodTagCount?: number,
+//   error?: string
+// }
+
+// interface FoodType {
+//   foodTypeID?: string,
+//   foodTypeAbbr?: string,
+//   foodTypeDesc?: string,
+//   error?: string
+// }
+
+// interface Ingredients {
+//   ingredientID?: string,
+//   ingredientName?: string,
+//   isAllergen?: boolean,
+//   error?: string
+// }
+
+// interface Menu {
+//   foodItemIDs?: Array<string>,
+//   restaurantID?: string,
+//   rating?: number,
+//   tyoeMenuID?: Array<string>,
+//   error?: string
+// }
+
+// interface MenuType {
+//   typeMenuID?: String,
+//   typeNAME?: String,
+//   error?: string
+// }
+
+// interface RegionType {
+//   regionID?: string,
+//   regionDesc?: string,
+//   regionAbbr?: string, 
+//   error?: string
+// }
+
+// interface Restaurant {
+//   restaurantID?: string,
+//   regionID?: string,
+//   restaurantName?: string,
+//   menuID?: string,
+//   coordinates?: string,
+//   tags?: Array<string>,
+//   rating?: number,
+//   foodTypeIDs?: Array<string>,
+//   error?: string
+// }
+
+// interface RestaurantTag {
+//   restaurantTagID?: string,
+//   restaurantTagName?: string,
+//   restaurantTagDesc?: string,
+//   count?: number,
+//   error?: string
+// }
 
 /**
  * This function grabs a user's stored profile information
