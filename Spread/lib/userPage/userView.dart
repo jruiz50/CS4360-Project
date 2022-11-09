@@ -5,11 +5,48 @@ import 'package:spread/loginPage/loginView.dart';
 import '../friendPage/friendView.dart';
 import '../menuPage/menuView.dart';
 import '../settingsPage/settingsView.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
-class userView extends StatelessWidget {
+class userView extends StatefulWidget {
+  const userView({super.key});
+
+  @override
+  State<userView> createState() => _userViewState();
+}
+
+class _userViewState extends State<userView> {
+  var _fName = "";
+  var _lName = "";
+  var _userID = "";
+
+  Future <Map<dynamic, dynamic>> getUserProfile(String userID) async {
+    try {
+      final userProfile = await FirebaseFunctions.instance
+          .httpsCallable('getUserProfile').call({
+          "userID": userID
+      });
+      return userProfile.data;
+    } catch (e) {
+      print(e);
+      return {};
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
+    if (_fName == "") {
+      getUserProfile(FirebaseAuth.instance.currentUser?.uid ?? "")
+          .then((userProfile) {
+        print(userProfile);
+        setState(() {
+          _fName = userProfile["firstName"];
+          _lName = userProfile["lastName"];
+          _userID = userProfile["userID"];
+        });
+      });
+    }
 
     return Scaffold(
         appBar: ProfileAppBar(
@@ -20,9 +57,9 @@ class userView extends StatelessWidget {
             Icon(
               Icons.person,
               size: 300,
-            ), //Placeholder
-            Text("Name"),
-            Text("User ID"),
+            ),
+            Text(_fName + " " + _lName),
+            Text(_userID),
             Card(
               child: ListTile(
                 leading: Icon(Icons.menu_book),
@@ -67,7 +104,8 @@ class userView extends StatelessWidget {
               child: ListTile(
                 leading: Icon(Icons.person_off),
                 title: Text("Log Out"),
-                onTap: () {
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => loginView()));
                 },
