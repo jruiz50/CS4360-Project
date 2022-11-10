@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:spread/dbObjects/foodItem.dart';
+import 'package:spread/dbObjects/restaurant.dart';
 
 class GoogleMapsView extends StatefulWidget {
   @override
@@ -45,6 +47,64 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
       markerId: MarkerId(markerID),
       icon: BitmapDescriptor.defaultMarker,
       position: LatLng(lat, long),
+      visible: true,
+    );
+
+    _markers.add(temp);
+    print("length: " + _markers.length.toString());
+    setState(() {
+      markersToDisplay = _markers.toSet();
+    });
+  }
+
+  Future<Map<foodItem, restaurant>> getFoodItemRestruant() async {
+
+    foodItem item = foodItem(itemName: "whopper",
+        categoryOfFood: "fast food",
+        rating: 3,
+        ingredients: [""],
+        allergens: ["none"],
+        restaurantName: "restaurantName",
+        restaurantId: "restaurantId",
+        imageURL: "imageURL",
+        tags: ["okay"]
+    );
+
+    String coordinates = await getPositionString();
+
+    restaurant rest = restaurant(restaurantID: 1,
+        regionID: 2,
+        restaurantName: "Burger King",
+        menuID: 1,
+        coordinates: coordinates,
+        tags: ["tags"],
+        rating: 4,
+        foodTypeIDs: [0]
+    );
+
+    Map<foodItem, restaurant> pair = {item : rest};
+
+    return pair;
+  }
+
+  void createMarkerVersion2() async {
+    Map<foodItem, restaurant> itemRestaurantPair = await getFoodItemRestruant();
+    foodItem item = itemRestaurantPair.keys.elementAt(0);
+    restaurant rest = itemRestaurantPair[item]!;
+    String coordinates = rest.coordinates;
+
+    String markerID = numOfMarkers.toString();
+    numOfMarkers++;
+    String longitude = coordinates.split(", ")[0].replaceAll("(", "");
+    String latitude = coordinates.split(", ")[1].replaceAll(")", "");
+    double long = double.parse(longitude);
+    double lat = double.parse(latitude);
+
+    Marker temp = Marker(
+      markerId: MarkerId(markerID),
+      icon: BitmapDescriptor.defaultMarker,
+      position: LatLng(lat, long),
+      infoWindow: InfoWindow(title: item.itemName, snippet: rest.restaurantName, anchor: Offset(0.5, 0.0)),
       visible: true,
     );
 
@@ -156,7 +216,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: createMarker,
+        onPressed: createMarkerVersion2,
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),
