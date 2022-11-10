@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spread/userPage/userView.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+
+import '../foodItemObject/foodItem.dart';
+import 'list_view.dart';
 
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
@@ -15,12 +19,21 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
         width: double.infinity,
         height: 30,
         color: Colors.white,
-        child: const Center(
+        child: Center(
           child: TextField(
             decoration: InputDecoration(
-                hintText: 'What are you craving?',
-                hoverColor: Colors.greenAccent, //????
-                prefixIcon: Icon(Icons.search)),
+              hintText: 'What are you craving?',
+              hoverColor: Colors.greenAccent, //????
+              prefixIcon: IconButton(
+                  onPressed: () async {
+                    final result = await FirebaseFunctions.instance
+                        .httpsCallable('getFoodItem')
+                        .call();
+                    savedItems
+                        .add(FoodItem.fromJson(result.data[0]['docData']));
+                  },
+                  icon: Icon(Icons.search)),
+            ),
           ),
         ),
       ),

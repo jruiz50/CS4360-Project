@@ -20,12 +20,11 @@ class _userViewState extends State<userView> {
   var _lName = "";
   var _userID = "";
 
-  Future <Map<dynamic, dynamic>> getUserProfile(String userID) async {
+  Future<Map<dynamic, dynamic>> getUserProfile(String userID) async {
     try {
       final userProfile = await FirebaseFunctions.instance
-          .httpsCallable('getUserProfile').call({
-          "userID": userID
-      });
+          .httpsCallable('getUserProfile')
+          .call({"userID": userID});
       return userProfile.data;
     } catch (e) {
       print(e);
@@ -35,7 +34,6 @@ class _userViewState extends State<userView> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_fName == "") {
       getUserProfile(FirebaseAuth.instance.currentUser?.uid ?? "")
           .then((userProfile) {
@@ -52,14 +50,16 @@ class _userViewState extends State<userView> {
         appBar: ProfileAppBar(
           appBar: AppBar(),
         ),
-        body: Column(
+        body: ListView(
           children: <Widget>[
             Icon(
               Icons.person,
               size: 300,
+            ), //Placeholder
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Text>[Text("Name"), Text("User ID")],
             ),
-            Text(_fName + " " + _lName),
-            Text(_userID),
             Card(
               child: ListTile(
                 leading: Icon(Icons.menu_book),

@@ -30,7 +30,7 @@ const app = initializeApp(firebaseConfig);
 // References to Database and Collections
 const db = getFirestore(app);
 const users = collection(db, "users");
-const foodItems = collection(db, "foodItems");
+const foodItemsCollection = collection(db, "foodItems");
 
 
 
@@ -46,6 +46,20 @@ interface User {
   menus?: Array<string>,
   favorites?: Array<any>
   allergens?: Array<string>
+  error?: string
+}
+
+interface FoodItem {
+  foodItemID?: string,
+  itemName?: string,
+  categoryOfFood?: Array<string>,
+  rating?: number,
+  ingredients?: Array<string>,
+  allergens?: Array<string>,
+  restaurantName?: string,
+  restaurantID?: string,
+  imageURL?: string,
+  tags?: Array<any>,
   error?: string
 }
 
@@ -109,13 +123,13 @@ export const createUserProfile = functions.https.onCall(async (data) => {
   };
 
   await setDoc(doc(users, userID), newUser)
-  .then(() => {
-    isSuccessful = true;
-  })
-  .catch((error: any) => {
-    console.log(error);
-    isSuccessful = false;
-  });
+    .then(() => {
+      isSuccessful = true;
+    })
+    .catch((error: any) => {
+      console.log(error);
+      isSuccessful = false;
+    });
 
   return {
     isSuccessful
@@ -130,7 +144,7 @@ export const createUserProfile = functions.https.onCall(async (data) => {
  *               fields of the desired update information
  * @returns - Object indicating whether the operation was successful
  */
- export const updateUserProfile = functions.https.onCall(async (data) => {
+export const updateUserProfile = functions.https.onCall(async (data) => {
   const userID: string = data.userID;
 
   const menus: Array<string> = data.menus ? data.menus : null;
@@ -161,18 +175,18 @@ export const createUserProfile = functions.https.onCall(async (data) => {
   let isSuccessful: boolean = false;
 
   await updateDoc(doc(users, userID), updatedUser)
-  .then(() => {
-    isSuccessful = true;
-  })
-  .catch((error: any) => {
-    console.log(error);
-    isSuccessful = false;
-  })
+    .then(() => {
+      isSuccessful = true;
+    })
+    .catch((error: any) => {
+      console.log(error);
+      isSuccessful = false;
+    })
 
   return {
     isSuccessful
   };
- });
+});
 
 /**
  * This function will  delete a user's profile along with
@@ -181,39 +195,66 @@ export const createUserProfile = functions.https.onCall(async (data) => {
  * @param data - Object containing user's unique ID
  * @returns - Object indicating whether the operation was successful
  */
- export const deleteUserProfile = functions.https.onCall(async (data) => {
+export const deleteUserProfile = functions.https.onCall(async (data) => {
   const userID: string = data.userID;
 
   let isSuccessful: boolean = false;
 
   await deleteDoc(doc(users, userID))
-  .then(() => {
-    isSuccessful = true;
-  })
-  .catch((error: any) => {
-    console.log(error);
-    isSuccessful = false;
-  })
+    .then(() => {
+      isSuccessful = true;
+    })
+    .catch((error: any) => {
+      console.log(error);
+      isSuccessful = false;
+    })
 
   return {
     isSuccessful
   };
- });
+});
 
+// foodItemID ?: string,
+//   itemName ?: string,
+//   categoryOfFood ?: Array<string>,
+//   rating ?: number,
+//   ingredients ?: Array<string>,
+//   allergens ?: Array<string>,
+//   restaurantName ?: string,
+//   restaurantID ?: string,
+//   imageURL ?: string,
+//   tags ?: Array<any>
 
 export const getFoodItem = functions.https.onCall(async (data) => {
 
-  let foodArray: Array<any> = [];
+  const foodItemID: string = data.foodItemID;
 
-  const querySnapshot = await getDocs(foodItems);
-  querySnapshot.forEach((doc: any) => {
-    foodArray.push({
-      docID: doc.id,
-      docData: JSON.parse(JSON.stringify(doc.data()))
-    });
-  });
+  let foodItem: FoodItem = {};
 
-  return foodArray;
+  const docSnap = await getDoc(doc(foodItemsCollection, foodItemID));
+
+  if (docSnap.exists()) {
+    const docData = JSON.parse(JSON.stringify(docSnap.data()));
+
+    foodItem = {
+      foodItemID: docData.foodItemID,
+      itemName: docData.itemName,
+      categoryOfFood: docData.categoryOfFood,
+      rating: docData.rating,
+      ingredients: docData.ingredients,
+      allergens: docData.allergens,
+      restaurantName: docData.restaurantName,
+      restaurantID: docData.restaurantID,
+      imageURL: docData.imageURL,
+      tags: docData.tags
+    }
+  } else {
+    foodItem = {
+      error: `Food { ${foodItemID} } was not found.`
+    }
+  }
+
+  return foodItem;
 });
 
 
