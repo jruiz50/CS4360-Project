@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../itemPage/itemView.dart';
+import 'package:spread/itemPage/itemView.dart';
 import 'package:spread/searchPage/list_view.dart';
 
 import 'package:spread/foodItemObject/foodItem.dart';
@@ -44,9 +44,10 @@ class favList extends StatelessWidget {
       ],
       allergens: ['Gluten'],
       restaurantName: 'McDongles',
-      restaurantID: 'A0000',
       imageURL: '-',
-      tags: ['Yum', 'Spicy']);
+      tags: ['Yum', 'Spicy'],
+      restaurantID: 'A0000'
+  );
 
   var testFoodTwo = FoodItem(
       foodItemID: 'test',
@@ -64,7 +65,8 @@ class favList extends StatelessWidget {
       restaurantName: 'Olib Gardin',
       restaurantID: 'A0001',
       imageURL: '-',
-      tags: ['Spicy']);
+      tags: ['Spicy']
+  );
 
   var testFoodThree = FoodItem(
       foodItemID: 'test',
