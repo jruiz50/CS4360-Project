@@ -23,13 +23,8 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   int numOfMarkers = 0;
 
   Future<String> getPositionString() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    String coordinates = "(" +
-        position.longitude.toString() +
-        ", " +
-        position.latitude.toString() +
-        ")";
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    String coordinates = "(${position.longitude}, ${position.latitude})";
     print(coordinates);
     return coordinates;
   }
@@ -57,15 +52,17 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     });
   }
 
-  Future<Map<foodItem, restaurant>> getFoodItemRestruant() async {
+  Future<Map<FoodItem, restaurant>> getFoodItemRestruant() async {
 
-    foodItem item = foodItem(itemName: "whopper",
+    FoodItem item = FoodItem(
+        foodItemID: "1",
+        itemName: "whopper",
         categoryOfFood: "fast food",
         rating: 3,
         ingredients: [""],
         allergens: ["none"],
         restaurantName: "restaurantName",
-        restaurantId: "restaurantId",
+        restaurantID: "restaurantId",
         imageURL: "imageURL",
         tags: ["okay"]
     );
@@ -82,14 +79,14 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
         foodTypeIDs: [0]
     );
 
-    Map<foodItem, restaurant> pair = {item : rest};
+    Map<FoodItem, restaurant> pair = {item : rest};
 
     return pair;
   }
 
   void createMarkerVersion2() async {
-    Map<foodItem, restaurant> itemRestaurantPair = await getFoodItemRestruant();
-    foodItem item = itemRestaurantPair.keys.elementAt(0);
+    Map<FoodItem, restaurant> itemRestaurantPair = await getFoodItemRestruant();
+    FoodItem item = itemRestaurantPair.keys.elementAt(0);
     restaurant rest = itemRestaurantPair[item]!;
     String coordinates = rest.coordinates;
 

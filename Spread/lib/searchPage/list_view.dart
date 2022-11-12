@@ -3,7 +3,7 @@ import 'package:spread/itemPage/itemView.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'dart:math';
 
-import '../foodItemObject/foodItem.dart';
+import 'package:spread/dbObjects/foodItem.dart';
 
 List<FoodItem> savedItems = [];
 // Global variable?
