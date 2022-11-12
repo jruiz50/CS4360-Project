@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spread/itemPage/itemView.dart';
 import 'package:spread/searchPage/list_view.dart';
-
-import 'package:spread/foodItemObject/foodItem.dart';
+import 'package:spread/dbObjects/foodItem.dart';
+// import 'package:spread/foodItemObject/foodItem.dart';
 
 class favView extends StatelessWidget {
   final List<String> entries = <String>[
