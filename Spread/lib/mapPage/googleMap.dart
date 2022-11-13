@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/dbObjects/restaurant.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 class GoogleMapsView extends StatefulWidget {
   @override
@@ -213,7 +214,12 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: createMarkerVersion2,
+        // onPressed: createMarkerVersion2,
+        onPressed: () async {
+          final result = await FirebaseFunctions.instance
+              .httpsCallable('getFoodMarkers').call();
+          print(result.data);
+        },
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),
