@@ -110,7 +110,7 @@ class itemView extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        // color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <TextButton>[
