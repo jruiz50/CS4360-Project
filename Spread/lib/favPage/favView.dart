@@ -46,8 +46,7 @@ class favList extends StatelessWidget {
       restaurantName: 'McDongles',
       imageURL: '-',
       tags: ['Yum', 'Spicy'],
-      restaurantID: 'A0000'
-  );
+      restaurantID: 'A0000');
 
   var testFoodTwo = FoodItem(
       foodItemID: 'test',
@@ -65,8 +64,7 @@ class favList extends StatelessWidget {
       restaurantName: 'Olib Gardin',
       restaurantID: 'A0001',
       imageURL: '-',
-      tags: ['Spicy']
-  );
+      tags: ['Spicy']);
 
   var testFoodThree = FoodItem(
       foodItemID: 'test',
@@ -112,14 +110,16 @@ class favList extends StatelessWidget {
               ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Text>[Text(savedItems[index].itemName)],
+                children: <Text>[Text(savedItems[index].itemName ?? 'n/a')],
               ),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Row>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Text>[Text(savedItems[index].restaurantName)],
+                    children: <Text>[
+                      Text(savedItems[index].restaurantName ?? 'n/a')
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class favList extends StatelessWidget {
                           children: List<Widget>.generate(
                               5,
                               (i) => (() {
-                                    if (i < savedItems[index].rating) {
+                                    if (i < (savedItems[index].rating ?? 0)) {
                                       return Icon(
                                         Icons.star,
                                         color: Colors.yellow,
