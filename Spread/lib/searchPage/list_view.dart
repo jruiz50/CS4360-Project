@@ -6,6 +6,8 @@ import 'dart:math';
 import 'package:spread/dbObjects/foodItem.dart';
 
 List<FoodItem> savedItems = [];
+
+List<FoodItem> foodEntries = <FoodItem>[];
 // Global variable?
 
 class launchListTile extends StatefulWidget {
@@ -140,8 +142,6 @@ class _launchListTile extends State<launchListTile> {
       restaurantID: 'A1111',
       imageURL: '-',
       tags: []);
-
-  List<FoodItem> foodEntries = <FoodItem>[];
 
   List<FoodItem> savedEntries = <FoodItem>[];
 
