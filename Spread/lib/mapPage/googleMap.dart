@@ -57,39 +57,40 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     });
   }
 
-  Future<Map<foodItem, restaurant>> getFoodItemRestruant() async {
-
-    foodItem item = foodItem(itemName: "whopper",
-        categoryOfFood: "fast food",
-        rating: 3,
-        ingredients: [""],
-        allergens: ["none"],
-        restaurantName: "restaurantName",
-        restaurantId: "restaurantId",
-        imageURL: "imageURL",
-        tags: ["okay"]
+  Future<Map<FoodItem, restaurant>> getFoodItemRestruant() async {
+    FoodItem item = FoodItem(
+      itemName: "whopper",
+      categoryOfFood: "fast food",
+      rating: 3,
+      ingredients: [""],
+      allergens: ["none"],
+      restaurantName: "restaurantName",
+      restaurantID: "restaurantId",
+      imageURL: "imageURL",
+      tags: ["okay"],
+      foodItemID: "12",
     );
 
     String coordinates = await getPositionString();
 
-    restaurant rest = restaurant(restaurantID: 1,
+    restaurant rest = restaurant(
+        restaurantID: 1,
         regionID: 2,
         restaurantName: "Burger King",
         menuID: 1,
         coordinates: coordinates,
         tags: ["tags"],
         rating: 4,
-        foodTypeIDs: [0]
-    );
+        foodTypeIDs: [0]);
 
-    Map<foodItem, restaurant> pair = {item : rest};
+    Map<FoodItem, restaurant> pair = {item: rest};
 
     return pair;
   }
 
   void createMarkerVersion2() async {
-    Map<foodItem, restaurant> itemRestaurantPair = await getFoodItemRestruant();
-    foodItem item = itemRestaurantPair.keys.elementAt(0);
+    Map<FoodItem, restaurant> itemRestaurantPair = await getFoodItemRestruant();
+    FoodItem item = itemRestaurantPair.keys.elementAt(0);
     restaurant rest = itemRestaurantPair[item]!;
     String coordinates = rest.coordinates;
 
@@ -104,7 +105,10 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
       markerId: MarkerId(markerID),
       icon: BitmapDescriptor.defaultMarker,
       position: LatLng(lat, long),
-      infoWindow: InfoWindow(title: item.itemName, snippet: rest.restaurantName, anchor: Offset(0.5, 0.0)),
+      infoWindow: InfoWindow(
+          title: item.itemName,
+          snippet: rest.restaurantName,
+          anchor: Offset(0.5, 0.0)),
       visible: true,
     );
 
