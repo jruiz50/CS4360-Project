@@ -115,23 +115,26 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
 
   void createMarkerVersion3() async {
 
+    _markers.clear();
+
     final result = await FirebaseFunctions.instance
         .httpsCallable('getFoodMarkers').call();
     print(result.data);
 
     var items = result.data["markers"];
+    print(items);
 
     for (var item in items) {
       String markerID = numOfMarkers.toString();
       numOfMarkers++;
-      double long = double.parse(item.longitude);
-      double lat = double.parse(item.latitude);
+      double long = double.parse(item['longitude']);
+      double lat = double.parse(item['latitude']);
 
       Marker temp = Marker(
         markerId: MarkerId(markerID),
         icon: BitmapDescriptor.defaultMarker,
         position: LatLng(lat, long),
-        infoWindow: InfoWindow(title: item.itemName, snippet: item.restaurantName, anchor: Offset(0.5, 0.0)),
+        infoWindow: InfoWindow(title: item['itemName'], snippet: item['restaurantName'], anchor: Offset(0.5, 0.0)),
         visible: true,
       );
       _markers.add(temp);
@@ -245,13 +248,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
             ),
       floatingActionButton: FloatingActionButton.extended(
         // onPressed: createMarkerVersion2,
-        onPressed: () async {
-          final result = await FirebaseFunctions.instance
-              .httpsCallable('getFoodMarkers').call();
-          print(result.data);
-          var results = result.data["markers"];
-          results[0]
-        },
+        onPressed: createMarkerVersion3,
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),
