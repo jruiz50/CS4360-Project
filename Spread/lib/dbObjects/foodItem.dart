@@ -2,28 +2,28 @@
 // Each object has a item name, category, rating, ingredients, allergens, restaurant name, restaurantId, image URL, and tags.
 
 class FoodItem {
-  final String foodItemID;
-  final String itemName;
-  final String categoryOfFood;
-  final int rating;
-  var ingredients = <Object?>[];
-  var allergens = <Object?>[];
-  final String restaurantName;
-  final String restaurantID;
-  final String imageURL;
-  var tags = <Object?>[];
+  final String? foodItemID;
+  final String? itemName;
+  final String? categoryOfFood;
+  final int? rating;
+  final List? ingredients;
+  final List? allergens;
+  final String? restaurantName;
+  final String? restaurantID;
+  final String? imageURL;
+  final List? tags;
 
   FoodItem(
-      {required this.foodItemID,
-      required this.itemName,
+      {this.foodItemID = '1',
+      this.itemName = 'test',
       this.categoryOfFood = 'N/A',
       this.rating = 0,
-      required this.ingredients,
-      required this.allergens,
-      required this.restaurantName,
-      required this.restaurantID,
+      this.ingredients,
+      this.allergens,
+      this.restaurantName = 'test',
+      this.restaurantID = 'test',
       this.imageURL = '',
-      required this.tags});
+      this.tags});
 
   Map<String, dynamic> toJson() => {
         'foodItemID': foodItemID,
