@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/dbObjects/restaurant.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 class GoogleMapsView extends StatefulWidget {
   @override
@@ -25,11 +26,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   Future<String> getPositionString() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    String coordinates = "(" +
-        position.longitude.toString() +
-        ", " +
-        position.latitude.toString() +
-        ")";
+    String coordinates = "(${position.longitude}, ${position.latitude})";
     print(coordinates);
     return coordinates;
   }
@@ -59,17 +56,16 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
 
   Future<Map<FoodItem, restaurant>> getFoodItemRestruant() async {
     FoodItem item = FoodItem(
-      itemName: "whopper",
-      categoryOfFood: "fast food",
-      rating: 3,
-      ingredients: [""],
-      allergens: ["none"],
-      restaurantName: "restaurantName",
-      restaurantID: "restaurantId",
-      imageURL: "imageURL",
-      tags: ["okay"],
-      foodItemID: "12",
-    );
+        foodItemID: "1",
+        itemName: "whopper",
+        categoryOfFood: "fast food",
+        rating: 3,
+        ingredients: [""],
+        allergens: ["none"],
+        restaurantName: "restaurantName",
+        restaurantID: "restaurantId",
+        imageURL: "imageURL",
+        tags: ["okay"]);
 
     String coordinates = await getPositionString();
 
@@ -114,6 +110,40 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
 
     _markers.add(temp);
     print("length: " + _markers.length.toString());
+    setState(() {
+      markersToDisplay = _markers.toSet();
+    });
+  }
+
+  void createMarkerVersion3() async {
+    _markers.clear();
+
+    final result =
+        await FirebaseFunctions.instance.httpsCallable('getFoodMarkers').call();
+    print(result.data);
+
+    var items = result.data["markers"];
+    print(items);
+
+    for (var item in items) {
+      String markerID = numOfMarkers.toString();
+      numOfMarkers++;
+      double long = double.parse(item['longitude']);
+      double lat = double.parse(item['latitude']);
+
+      Marker temp = Marker(
+        markerId: MarkerId(markerID),
+        icon: BitmapDescriptor.defaultMarker,
+        position: LatLng(lat, long),
+        infoWindow: InfoWindow(
+            title: item['itemName'],
+            snippet: item['restaurantName'],
+            anchor: Offset(0.5, 0.0)),
+        visible: true,
+      );
+      _markers.add(temp);
+    }
+
     setState(() {
       markersToDisplay = _markers.toSet();
     });
@@ -220,7 +250,8 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: createMarkerVersion2,
+        // onPressed: createMarkerVersion2,
+        onPressed: createMarkerVersion3,
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),

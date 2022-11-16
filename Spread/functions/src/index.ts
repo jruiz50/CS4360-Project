@@ -29,7 +29,7 @@ const app = initializeApp(firebaseConfig);
 
 // References to Database and Collections
 const db = getFirestore(app);
-const users = collection(db, "users");
+const usersCollection = collection(db, "users");
 const foodItemsCollection = collection(db, "foodItems");
 
 
@@ -75,7 +75,7 @@ export const getUserProfile = functions.https.onCall(async (data) => {
 
   let user: User = {};
 
-  const docSnap = await getDoc(doc(users, userID));
+  const docSnap = await getDoc(doc(usersCollection, userID));
 
   if (docSnap.exists()) {
     const docData = JSON.parse(JSON.stringify(docSnap.data()));
@@ -122,7 +122,7 @@ export const createUserProfile = functions.https.onCall(async (data) => {
     favorites: []
   };
 
-  await setDoc(doc(users, userID), newUser)
+  await setDoc(doc(usersCollection, userID), newUser)
     .then(() => {
       isSuccessful = true;
     })
@@ -174,7 +174,7 @@ export const updateUserProfile = functions.https.onCall(async (data) => {
 
   let isSuccessful: boolean = false;
 
-  await updateDoc(doc(users, userID), updatedUser)
+  await updateDoc(doc(usersCollection, userID), updatedUser)
     .then(() => {
       isSuccessful = true;
     })
@@ -200,7 +200,7 @@ export const deleteUserProfile = functions.https.onCall(async (data) => {
 
   let isSuccessful: boolean = false;
 
-  await deleteDoc(doc(users, userID))
+  await deleteDoc(doc(usersCollection, userID))
     .then(() => {
       isSuccessful = true;
     })
@@ -294,4 +294,51 @@ export const foodQuery = functions.https.onCall((data) => {
   return {
     result: "Hello from Firebase!"
   }
+});
+
+
+interface Marker {
+  itemName?: string,
+  restaurantName?: string,
+  latitude?: string,
+  longitude?: string
+};
+
+/**
+ * This function receives a user's coordinates and returns 
+ * an array with information of nearby, high-rated food items.
+ * 
+ * @param data - Object containing a string of the user's coordinates
+ * @returns - Object containing a single array with all food item markers
+ */
+ export const getFoodMarkers = functions.https.onCall(async (data) => {
+  // const userCoordinates: any = data.coordinates;
+  // console.log(userCoordinates);
+
+  let marker: Marker = {};
+  let markersArray: Array<Marker> = [];
+
+  await getDocs(foodItemsCollection).then((snapshot: any) => {
+    snapshot.docs.forEach((document: any) => {
+
+      if (document.id.substring(0, 4) === "DEMO") {
+        const docData = JSON.parse(JSON.stringify(document.data()));
+
+        marker = {
+          itemName: docData.itemName,
+          restaurantName: docData.restaurantName,
+          latitude: docData.latitude,
+          longitude: docData.longitude
+        }
+
+        markersArray.push(marker);
+
+      }
+    });
+  });
+
+  return {
+    markers: markersArray
+  };
+
 });
