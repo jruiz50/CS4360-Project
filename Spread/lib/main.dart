@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:spread/searchPage/list_view.dart';
+import 'package:spread/settingsPage/settingsView.dart';
 import 'firebase_options.dart';
 import 'package:spread/searchPage/search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
@@ -10,6 +11,7 @@ import 'package:spread/ocrPage/camView.dart';
 import 'package:spread/mapPage/mapView.dart';
 import 'package:spread/mapPage/mapSample.dart';
 import 'package:spread/mapPage/googleMap.dart';
+import 'package:spread/themeData/themeDark.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,15 +25,21 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  checkDarkMode() {
+    if (darkModeOn == false) {
+      return ThemeData();
+    } else {
+      return myTheme;
+    }
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Crave',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const loginView(),
+      theme: checkDarkMode(), // ThemeData()
+      home: loginView(),
     );
   }
 }
