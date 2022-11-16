@@ -113,6 +113,14 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     });
   }
 
+  void createMarkerVersion3() async {
+
+    final result = await FirebaseFunctions.instance
+        .httpsCallable('getFoodMarkers').call();
+    print(result.data);
+  }
+
+
   var _msuDenver2 = null;
 
   @override
@@ -219,6 +227,8 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
           final result = await FirebaseFunctions.instance
               .httpsCallable('getFoodMarkers').call();
           print(result.data);
+          var results = result.data["markers"];
+          results[0]
         },
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
