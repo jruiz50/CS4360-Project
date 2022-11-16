@@ -146,11 +146,11 @@ class _launchListTile extends State<launchListTile> {
   List<FoodItem> savedEntries = <FoodItem>[];
 
   populateEntries() {
-    foodEntries.add(t1);
-    foodEntries.add(t2);
-    foodEntries.add(t3);
-    foodEntries.add(t4);
-    foodEntries.add(t5);
+    // foodEntries.add(t1);
+    // foodEntries.add(t2);
+    // foodEntries.add(t3);
+    // foodEntries.add(t4);
+    // foodEntries.add(t5);
   }
 
   populateFavorites(index) {
