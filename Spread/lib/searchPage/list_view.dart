@@ -253,7 +253,7 @@ class _launchListTile extends State<launchListTile> {
                   });
                   // onFavoritePress(index);
                 },
-                icon: (isFavorite[index]) ? fav : unfav),
+                icon: (isFavorite[index]) ? fav : unfav),*/
             onTap: () {
               Navigator.push(
                   context,
@@ -261,7 +261,7 @@ class _launchListTile extends State<launchListTile> {
                       builder: (context) =>
                           itemView(foodItem: foodEntries[index])));
             },
-          */ // Needs to be rewritten to have same number as foodEntries
+            // Needs to be rewritten to have same number as foodEntries
             // in order to avoid an error in list_view
           ),
         );
