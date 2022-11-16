@@ -118,6 +118,28 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
     final result = await FirebaseFunctions.instance
         .httpsCallable('getFoodMarkers').call();
     print(result.data);
+
+    var items = result.data["markers"];
+
+    for (var item in items) {
+      String markerID = numOfMarkers.toString();
+      numOfMarkers++;
+      double long = double.parse(item.longitude);
+      double lat = double.parse(item.latitude);
+
+      Marker temp = Marker(
+        markerId: MarkerId(markerID),
+        icon: BitmapDescriptor.defaultMarker,
+        position: LatLng(lat, long),
+        infoWindow: InfoWindow(title: item.itemName, snippet: item.restaurantName, anchor: Offset(0.5, 0.0)),
+        visible: true,
+      );
+      _markers.add(temp);
+    }
+
+    setState(() {
+      markersToDisplay = _markers.toSet();
+    });
   }
 
 
