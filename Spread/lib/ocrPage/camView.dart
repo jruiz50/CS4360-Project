@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:card_settings/card_settings.dart';
+import 'package:spread/main.dart';
 
 class CamView extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _CamViewState extends State<CamView> {
   RecognizedText? _recogText;
   final TextRecognizer _textRecognizer = TextRecognizer();
   List<String> blockLines = [];
-///////////////////////////////////////////////////////////////////////////////////////////////
+
   final TextEditingController _itemNameCont = TextEditingController();
   final TextEditingController _descCont = TextEditingController();
   final TextEditingController _restNameCont = TextEditingController();
@@ -31,9 +32,10 @@ class _CamViewState extends State<CamView> {
     "Japanese",
     "Indian",
     "Vietamese",
-    'Medaterianan'
+    'Mediterranean'
   ];
 
+  /// Initalizes the text controller fields with captured text from image.
   void initControllerVal(List blockLines) {
     debugPrint("Entering initCont!");
     debugPrint(blockLines[0]);
@@ -46,8 +48,48 @@ class _CamViewState extends State<CamView> {
     }
   }
 
-  void save() {}
+  /// Saves the [picPath] to the image taken for the item form submission.
+  /// After allowing the user to take a picture.
+  saveWithPic() async {
+    String picPath;
+    picPath = await takePic();
+    debugPrint('SAVE_PIC');
+    pushHome();
+  }
 
+  /// Saves the form data without a picture.
+  void saveNoPic() {
+    debugPrint('SAVE_NO_PIC');
+  }
+
+  /// Sends the user to the home screen
+  void pushHome() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const MyHomePage(title: 'Crave')));
+  }
+
+  /// Pop-up dialog which gives the user the option to an image to their
+  /// item form submission.
+  Future<void> addPictureDialog() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('Would you like to add a picture?'),
+            children: <Widget>[
+              TextButton(
+                  onPressed: () => saveWithPic(), child: const Text('Yes')),
+              TextButton(
+                  onPressed: () => [pushHome(), saveNoPic()],
+                  child: const Text('No'))
+            ],
+          );
+        });
+  }
+
+  /// Takes a list [blockLines], of processed text, which
+  /// is used to pre-populate an item form for submission.
   Widget itemForm(List blockLines) {
     final formKey = GlobalKey<FormState>();
     initControllerVal(blockLines);
@@ -88,8 +130,7 @@ class _CamViewState extends State<CamView> {
                       hintText: "Add your hashtags!",
                     ),
                     CardSettingsButton(
-                        label: 'Save',
-                        onPressed: (() => {debugPrint('SAVED!')}))
+                        label: 'Save', onPressed: addPictureDialog)
                   ],
                 ),
               ],
@@ -98,18 +139,64 @@ class _CamViewState extends State<CamView> {
     );
   }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  void takePic() async {
+  /// Allows the user to take an image of text that can be cropped and then
+  /// processed.
+  void takePicText() async {
     final ImagePicker picker = ImagePicker();
     _rawPhoto = await picker.pickImage(
       source: ImageSource.camera,
     );
-    _cropImage(_rawPhoto!.path);
+    cropImageText(_rawPhoto!.path);
     //Navigator.pop(context);
   }
 
-  _cropImage(rawPic) async {
+  /// Returns the [path] of the cropped image.
+  takePic() async {
+    Future<String> path;
+    final ImagePicker picker = ImagePicker();
+    _rawPhoto = await picker.pickImage(
+      source: ImageSource.camera,
+    );
+    path = cropImage(_rawPhoto!.path);
+    return path;
+  }
+
+  /// Takes a [rawPic] as input and allows the user to crop the image.
+  /// The [path] of the cropped image is returned.
+  Future<String> cropImage(rawPic) async {
+    _croppedPhoto = await ImageCropper().cropImage(
+      sourcePath: rawPic,
+      uiSettings: [
+        AndroidUiSettings(
+            cropGridRowCount: 14,
+            cropGridColumnCount: 8,
+            toolbarTitle: 'Crop Menu Item',
+            toolbarColor: Colors.green,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(title: "Crop Menu Item"),
+        WebUiSettings(
+          context: context,
+          presentStyle: CropperPresentStyle.dialog,
+          boundary: const CroppieBoundary(
+            width: 520,
+            height: 520,
+          ),
+          viewPort:
+              const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+          enableExif: true,
+          enableZoom: true,
+          showZoomer: true,
+        ),
+      ],
+    );
+    return _croppedPhoto!.path;
+  }
+
+  /// Takes a [rawPic] as input and then the cropped image is
+  /// sent to be processed.
+  cropImageText(rawPic) async {
     _croppedPhoto = await ImageCropper().cropImage(
       sourcePath: rawPic,
       uiSettings: [
@@ -141,11 +228,14 @@ class _CamViewState extends State<CamView> {
     processImg(croppedInput);
   }
 
+  /// Closes the textRecognizer instance.
   void closeRecog() async {
     _textRecognizer.close();
     super.dispose();
   }
 
+  /// Takes [croppedPic] of type InputImage and
+  /// opens itemForm()
   processImg(InputImage croppedPic) async {
     _recogText = await _textRecognizer.processImage(croppedPic);
     blockLines = convertToLines(_recogText!);
@@ -161,6 +251,7 @@ class _CamViewState extends State<CamView> {
     // displayPopUp(lines);
   }
 
+  /// Takes RecognizedText [recognizedText] and returns a list of lines
   List<String> convertToLines(RecognizedText recognizedText) {
     List<String> lines = [];
     for (TextBlock block in recognizedText.blocks) {
@@ -171,8 +262,6 @@ class _CamViewState extends State<CamView> {
     return lines;
   }
 
-  processText() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,7 +270,7 @@ class _CamViewState extends State<CamView> {
       children: [
         //const Text("Select Scan to take a picture of your menu item"),
         //const Text("Then Crop the photo to only include your chosen item"),
-        ElevatedButton(onPressed: takePic, child: const Text("Scan")),
+        ElevatedButton(onPressed: takePicText, child: const Text("Scan")),
       ],
     ));
   }
