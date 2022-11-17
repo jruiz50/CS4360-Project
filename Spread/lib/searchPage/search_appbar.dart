@@ -4,9 +4,6 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 // import '../foodItemObject/foodItem.dart';
 import 'list_view.dart';
-
-// import '../foodItemObject/foodItem.dart';
-// import 'list_view.dart';
 import 'package:spread/searchPage/list_view.dart';
 
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
