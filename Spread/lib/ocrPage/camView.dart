@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:card_settings/card_settings.dart';
 import 'package:spread/main.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CamView extends StatefulWidget {
   @override
