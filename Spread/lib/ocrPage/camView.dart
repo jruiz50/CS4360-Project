@@ -19,6 +19,8 @@ class _CamViewState extends State<CamView> {
   final TextRecognizer _textRecognizer = TextRecognizer();
   List<String> blockLines = [];
 
+  final userID = FirebaseAuth.instance.currentUser?.uid ?? "";
+
   final TextEditingController _itemNameCont = TextEditingController();
   final TextEditingController _descCont = TextEditingController();
   final TextEditingController _restNameCont = TextEditingController();
