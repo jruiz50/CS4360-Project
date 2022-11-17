@@ -2,6 +2,8 @@
 require("dotenv").config();
 const {
   doc,
+  query,
+  where,
   setDoc,
   getDoc,
   getDocs,
@@ -10,7 +12,6 @@ const {
   collection,
   getFirestore
 } = require("firebase/firestore");
-const superagent = require("superagent");
 const { initializeApp } = require("firebase/app");
 import * as functions from "firebase-functions";
 
@@ -267,33 +268,25 @@ export const getFoodItem = functions.https.onCall(async (data) => {
  * uses it as a query to a food API for nutrition information.
  * 
  * @param data - Object containing a string of the user's typed search
- * @returns - At the moment, simply returns a success response to app
+ * @returns - Object containing an array of matched food items
  */
-export const foodQuery = functions.https.onCall((data) => {
+export const foodQuery = functions.https.onCall(async (data) => {
   const userQuery: string = data.query;
-  let searchQuery: string = userQuery.trim().toLowerCase();
+  const searchQuery: string = userQuery.trim().toLowerCase();
 
-  superagent
-    .post(process.env.FDA_SERVER_URL)
-    .set('X-Api-Key', process.env.FDA_API_KEY)
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify({
-      query: searchQuery,
-      dataType: ["Branded"],
-      pageSize: 3,
-      pageNumber: 0
-    }))
-    .then((res: any) => {
-      console.log(res.body);
-    })
-    .catch((err: any) => {
-      console.log(err);
-    });
+  let results: Array<FoodItem> = [];
 
+  const q = query(foodItemsCollection, where("itemName", "==", searchQuery));
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc: any) => {
+    console.log(doc.id, " => ", doc.data());
+    results.push(doc.data());
+  });
 
   return {
-    result: "Hello from Firebase!"
-  }
+    results: results
+  };
 });
 
 
