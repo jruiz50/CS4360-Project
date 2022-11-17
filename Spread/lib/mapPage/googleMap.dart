@@ -24,7 +24,8 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   int numOfMarkers = 0;
 
   Future<String> getPositionString() async {
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     String coordinates = "(${position.longitude}, ${position.latitude})";
     print(coordinates);
     return coordinates;
@@ -54,7 +55,6 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   }
 
   Future<Map<FoodItem, restaurant>> getFoodItemRestruant() async {
-
     FoodItem item = FoodItem(
         foodItemID: "1",
         itemName: "whopper",
@@ -65,22 +65,21 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
         restaurantName: "restaurantName",
         restaurantID: "restaurantId",
         imageURL: "imageURL",
-        tags: ["okay"]
-    );
+        tags: ["okay"]);
 
     String coordinates = await getPositionString();
 
-    restaurant rest = restaurant(restaurantID: 1,
+    restaurant rest = restaurant(
+        restaurantID: 1,
         regionID: 2,
         restaurantName: "Burger King",
         menuID: 1,
         coordinates: coordinates,
         tags: ["tags"],
         rating: 4,
-        foodTypeIDs: [0]
-    );
+        foodTypeIDs: [0]);
 
-    Map<FoodItem, restaurant> pair = {item : rest};
+    Map<FoodItem, restaurant> pair = {item: rest};
 
     return pair;
   }
@@ -102,12 +101,49 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
       markerId: MarkerId(markerID),
       icon: BitmapDescriptor.defaultMarker,
       position: LatLng(lat, long),
-      infoWindow: InfoWindow(title: item.itemName, snippet: rest.restaurantName, anchor: Offset(0.5, 0.0)),
+      infoWindow: InfoWindow(
+          title: item.itemName,
+          snippet: rest.restaurantName,
+          anchor: Offset(0.5, 0.0)),
       visible: true,
     );
 
     _markers.add(temp);
     print("length: " + _markers.length.toString());
+    setState(() {
+      markersToDisplay = _markers.toSet();
+    });
+  }
+
+  void createMarkerVersion3() async {
+    _markers.clear();
+
+    final result =
+        await FirebaseFunctions.instance.httpsCallable('getFoodMarkers').call();
+    print(result.data);
+
+    var items = result.data["markers"];
+    print(items);
+
+    for (var item in items) {
+      String markerID = numOfMarkers.toString();
+      numOfMarkers++;
+      double long = double.parse(item['longitude']);
+      double lat = double.parse(item['latitude']);
+
+      Marker temp = Marker(
+        markerId: MarkerId(markerID),
+        icon: BitmapDescriptor.defaultMarker,
+        position: LatLng(lat, long),
+        infoWindow: InfoWindow(
+            title: item['itemName'],
+            snippet: item['restaurantName'],
+            anchor: Offset(0.5, 0.0)),
+        visible: true,
+      );
+      _markers.add(temp);
+    }
+
     setState(() {
       markersToDisplay = _markers.toSet();
     });
@@ -215,11 +251,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
             ),
       floatingActionButton: FloatingActionButton.extended(
         // onPressed: createMarkerVersion2,
-        onPressed: () async {
-          final result = await FirebaseFunctions.instance
-              .httpsCallable('getFoodMarkers').call();
-          print(result.data);
-        },
+        onPressed: createMarkerVersion3,
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),

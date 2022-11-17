@@ -6,6 +6,8 @@ import 'dart:math';
 import 'package:spread/dbObjects/foodItem.dart';
 
 List<FoodItem> savedItems = [];
+
+List<FoodItem> foodEntries = <FoodItem>[];
 // Global variable?
 
 class launchListTile extends StatefulWidget {
@@ -18,7 +20,7 @@ class launchListTile extends StatefulWidget {
 bool isFav = false; // TODO: isFav will need to be grabbed from db
 
 class _launchListTile extends State<launchListTile> {
-  final List<String> entries = <String>[
+  final List<String?> entries = <String>[
     "First placeholder",
     "Second placeholder",
     "Third placeholder"
@@ -141,16 +143,14 @@ class _launchListTile extends State<launchListTile> {
       imageURL: '-',
       tags: []);
 
-  List<FoodItem> foodEntries = <FoodItem>[];
-
   List<FoodItem> savedEntries = <FoodItem>[];
 
   populateEntries() {
-    foodEntries.add(t1);
-    foodEntries.add(t2);
-    foodEntries.add(t3);
-    foodEntries.add(t4);
-    foodEntries.add(t5);
+    // foodEntries.add(t1);
+    // foodEntries.add(t2);
+    // foodEntries.add(t3);
+    // foodEntries.add(t4);
+    // foodEntries.add(t5);
   }
 
   populateFavorites(index) {
@@ -210,21 +210,23 @@ class _launchListTile extends State<launchListTile> {
             ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Text>[Text(foodEntries[index].itemName)],
+              children: <Text>[Text(foodEntries[index].itemName ?? 'n/a')],
             ) /*Text(foodEntries[index].itemName)*/,
             subtitle: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Row>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Text>[Text(foodEntries[index].restaurantName)],
+                  children: <Text>[
+                    Text(foodEntries[index].restaurantName ?? 'n/a')
+                  ],
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List<Widget>.generate(
                         5,
                         (i) => (() {
-                              if (i < foodEntries[index].rating) {
+                              if (i < (foodEntries[index].rating ?? 0)) {
                                 return Icon(
                                   Icons.star,
                                   color: Colors.yellow,
@@ -253,7 +255,7 @@ class _launchListTile extends State<launchListTile> {
                   });
                   // onFavoritePress(index);
                 },
-                icon: (isFavorite[index]) ? fav : unfav),
+                icon: (isFavorite[index]) ? fav : unfav),*/
             onTap: () {
               Navigator.push(
                   context,
@@ -261,7 +263,7 @@ class _launchListTile extends State<launchListTile> {
                       builder: (context) =>
                           itemView(foodItem: foodEntries[index])));
             },
-          */ // Needs to be rewritten to have same number as foodEntries
+            // Needs to be rewritten to have same number as foodEntries
             // in order to avoid an error in list_view
           ),
         );

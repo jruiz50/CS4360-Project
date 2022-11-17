@@ -80,7 +80,7 @@ class _userViewState extends State<userView> {
                 },
               ),
             ),
-            Card(
+            /*Card(
               child: ListTile(
                 leading: Icon(Icons.people_alt),
                 title: Text("Friends"),
@@ -89,7 +89,7 @@ class _userViewState extends State<userView> {
                       MaterialPageRoute(builder: (context) => friendView()));
                 },
               ),
-            ),
+            ),*/
             Card(
               child: ListTile(
                 leading: Icon(Icons.settings),
