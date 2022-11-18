@@ -5,6 +5,10 @@ import 'package:spread/dbObjects/foodItem.dart';
 // import '../foodItemObject/foodItem.dart';
 import 'list_view.dart';
 
+// import '../foodItemObject/foodItem.dart';
+// import 'list_view.dart';
+import 'package:spread/searchPage/list_view.dart';
+
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
   const SearchAppBar({super.key, required this.appBar});
@@ -29,8 +33,12 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
                     final result = await FirebaseFunctions.instance
                         .httpsCallable('getFoodItem')
                         .call();
-                    savedItems
-                        .add(FoodItem.fromJson(result.data[0]['docData']));
+                    foodEntries.clear();
+                    for (var i = 0; i < result.data.length; i++) {
+                      foodEntries
+                          .add(FoodItem.fromJson(result.data[i]['docData']));
+                    }
+                    foodEntries.clear();
                   },
                   icon: Icon(Icons.search)),
             ),

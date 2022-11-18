@@ -41,7 +41,7 @@ class itemView extends StatelessWidget {
                   children: List<Widget>.generate(
                       5,
                       (i) => (() {
-                            if (i < foodItem.rating) {
+                            if (i < (foodItem.rating ?? 0)) {
                               return Icon(
                                 Icons.star,
                                 color: Colors.yellow,
@@ -64,20 +64,23 @@ class itemView extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Flexible(child: Text(foodItem.categoryOfFood))
-                ],
-              ),
-              Row(
-                children: <Widget>[Flexible(child: Text(foodItem.itemName))],
-              ),
-              Row(
-                children: <Widget>[
-                  Flexible(child: Text(foodItem.ingredients.join(', ')))
+                  Flexible(child: Text(foodItem.categoryOfFood ?? 'n/a'))
                 ],
               ),
               Row(
                 children: <Widget>[
-                  Flexible(child: Text(foodItem.allergens.join(',')))
+                  Flexible(child: Text(foodItem.itemName ?? 'n/a'))
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                      child: Text(foodItem.ingredients?.join(', ') ?? 'n/a'))
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(child: Text(foodItem.allergens?.join(',') ?? 'n/a'))
                 ],
               ),
               Row(
@@ -110,7 +113,7 @@ class itemView extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        // color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <TextButton>[
@@ -143,10 +146,10 @@ class ItemAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Row>[
               Row(
-                children: <Text>[Text(foodItem.itemName)],
+                children: <Text>[Text(foodItem.itemName ?? 'n/a')],
               ),
               Row(
-                children: <Text>[Text(foodItem.restaurantName)],
+                children: <Text>[Text(foodItem.restaurantName ?? 'n/a')],
               )
             ],
           ),
