@@ -272,7 +272,8 @@ export const getFoodItem = functions.https.onCall(async (data) => {
  */
 export const foodQuery = functions.https.onCall(async (data) => {
   const userQuery: string = data.query;
-  const searchQuery: string = userQuery.trim().toLowerCase();
+  // const searchQuery: string = userQuery.trim().toLowerCase();
+  const searchQuery: string = userQuery.trim();
 
   let results: Array<FoodItem> = [];
 
@@ -304,7 +305,7 @@ interface Marker {
  * @param data - Object containing a string of the user's coordinates
  * @returns - Object containing a single array with all food item markers
  */
- export const getFoodMarkers = functions.https.onCall(async (data) => {
+export const getFoodMarkers = functions.https.onCall(async (data) => {
   // const userCoordinates: any = data.coordinates;
   // console.log(userCoordinates);
 
