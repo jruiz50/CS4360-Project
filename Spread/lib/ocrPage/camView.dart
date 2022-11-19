@@ -3,6 +3,7 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:card_settings/card_settings.dart';
+import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/main.dart';
 
 class CamView extends StatefulWidget {
@@ -22,6 +23,9 @@ class _CamViewState extends State<CamView> {
   final TextEditingController _restNameCont = TextEditingController();
   final TextEditingController _tagsCont = TextEditingController();
 
+  late String itemCatagory = "";
+  late int rating = 5;
+
   List<String> itemTypes = <String>[
     "Cocktail",
     "Non-Alchoholic Beverage",
@@ -37,8 +41,6 @@ class _CamViewState extends State<CamView> {
 
   /// Initalizes the text controller fields with captured text from image.
   void initControllerVal(List blockLines) {
-    debugPrint("Entering initCont!");
-    debugPrint(blockLines[0]);
     int index = 1;
     int numLines = blockLines.length - 1;
     _itemNameCont.text = blockLines[0];
@@ -53,13 +55,38 @@ class _CamViewState extends State<CamView> {
   saveWithPic() async {
     String picPath;
     picPath = await takePic();
-    debugPrint('SAVE_PIC');
+    FoodItem item = FoodItem(
+        restaurantName: _restNameCont.text,
+        itemName: _itemNameCont.text,
+        categoryOfFood: itemCatagory,
+        desc: _descCont.text,
+        rating: rating,
+        tags: parseTags(),
+        imageURL: picPath);
+
     pushHome();
+  }
+
+  //Returns a list of hash tags seperated by [#]
+  parseTags() {
+    if (_tagsCont.text.length > 1) {
+      return _tagsCont.text.split("#");
+    } else {
+      return ["No tags"];
+    }
   }
 
   /// Saves the form data without a picture.
   void saveNoPic() {
-    debugPrint('SAVE_NO_PIC');
+    FoodItem item = FoodItem(
+      restaurantName: _restNameCont.text,
+      itemName: _itemNameCont.text,
+      categoryOfFood: itemCatagory,
+      desc: _descCont.text,
+      rating: rating,
+      tags: parseTags(),
+    );
+    pushHome();
   }
 
   /// Sends the user to the home screen
@@ -80,9 +107,7 @@ class _CamViewState extends State<CamView> {
             children: <Widget>[
               TextButton(
                   onPressed: () => saveWithPic(), child: const Text('Yes')),
-              TextButton(
-                  onPressed: () => [pushHome(), saveNoPic()],
-                  child: const Text('No'))
+              TextButton(onPressed: () => saveNoPic(), child: const Text('No'))
             ],
           );
         });
@@ -104,6 +129,7 @@ class _CamViewState extends State<CamView> {
                     CardSettingsText(
                       label: "Resturant Name: ",
                       hintText: "Enter Resturant Name",
+                      controller: _restNameCont,
                     ),
                     CardSettingsText(
                       label: "Item Name: ",
@@ -113,6 +139,7 @@ class _CamViewState extends State<CamView> {
                       items: itemTypes,
                       initialItem: itemTypes[0],
                       label: 'Item Type',
+                      onChanged: (value) => itemCatagory = value as String,
                     ),
                     CardSettingsParagraph(
                       maxLength: 1000,
@@ -124,10 +151,12 @@ class _CamViewState extends State<CamView> {
                       min: 1,
                       max: 5,
                       initialValue: 5,
+                      onChanged: (value) => rating = value as int,
                     ),
                     CardSettingsParagraph(
                       label: "Hashtags",
                       hintText: "Add your hashtags!",
+                      controller: _tagsCont,
                     ),
                     CardSettingsButton(
                         label: 'Save', onPressed: addPictureDialog)

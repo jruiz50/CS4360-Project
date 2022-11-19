@@ -6,15 +6,17 @@ class FoodItem {
   final String? itemName;
   final String? categoryOfFood;
   final int? rating;
-  final List? ingredients;
+  final List<String>? ingredients;
   final List? allergens;
   final String? restaurantName;
   final String? restaurantID;
   final String? imageURL;
   final List? tags;
+  final String? desc;
 
   FoodItem(
-      {this.foodItemID = '1',
+      {this.desc,
+      this.foodItemID = '1',
       this.itemName = 'test',
       this.categoryOfFood = 'N/A',
       this.rating = 0,
