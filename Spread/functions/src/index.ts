@@ -344,7 +344,13 @@ interface Marker {
 
 
 interface Menu {
-
+  restaurantName?: string,
+  itemName?: string,
+  itemType?: string,
+  description?: string,
+  rating?: number,
+  hashtags?: Array<string>,
+  imagePath?: string
 };
 
 /**
@@ -356,7 +362,15 @@ interface Menu {
  */
 export const uploadMenuScan = functions.https.onCall(async (data) => {
     const userID: string = data.userID;
-    const menu: Menu = {};
+    const menu: Menu = {
+      restaurantName: data.restaurantName,
+      itemName: data.itemName,
+      itemType: data.itemType,
+      description: data.description,
+      rating: data.rating,
+      hashtags: data.hashtags,
+      imagePath: data.imagePath
+    };
 
     let success: boolean = false;
 
@@ -365,11 +379,11 @@ export const uploadMenuScan = functions.https.onCall(async (data) => {
     if (docSnap.exists()) {
       const docData = JSON.parse(JSON.stringify(docSnap.data()));
       let userMenus: Array<Menu> = docData.menus;
+
       userMenus.push(menu);
 
-      await updateDoc(doc(usersCollection, userID), {
-        menus: userMenus
-      }).then(() => {
+      await updateDoc(doc(usersCollection, userID), { menus: userMenus })
+      .then(() => {
         success = true;
       }).catch((e: any) => {
         success = false;

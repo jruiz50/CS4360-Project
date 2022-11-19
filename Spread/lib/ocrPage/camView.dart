@@ -5,6 +5,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:card_settings/card_settings.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/main.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CamView extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class _CamViewState extends State<CamView> {
   RecognizedText? _recogText;
   final TextRecognizer _textRecognizer = TextRecognizer();
   List<String> blockLines = [];
+
+  final userID = FirebaseAuth.instance.currentUser?.uid ?? "";
 
   final TextEditingController _itemNameCont = TextEditingController();
   final TextEditingController _descCont = TextEditingController();
