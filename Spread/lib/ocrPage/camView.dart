@@ -59,14 +59,6 @@ class _CamViewState extends State<CamView> {
   saveWithPic() async {
     String picPath;
     picPath = await takePic();
-    // FoodItem item = FoodItem(
-    //     restaurantName: _restNameCont.text,
-    //     itemName: _itemNameCont.text,
-    //     categoryOfFood: itemCategory,
-    //     desc: _descCont.text,
-    //     rating: rating,
-    //     tags: parseTags(),
-    //     imageURL: picPath);
 
     final result = FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
       "restaurantName": _restNameCont.text,
@@ -79,13 +71,11 @@ class _CamViewState extends State<CamView> {
       "userID": userID
     });
 
-    print(result);
-    // if (result.data["success"] == true) {
-    //   pushHome();
-    // }
+    pushHome();
+
   }
 
-  //Returns a list of hash tags seperated by [#]
+  //Returns a list of hash tags separated by [#]
   parseTags() {
     if (_tagsCont.text.length > 1) {
       return _tagsCont.text.split("#");
@@ -96,15 +86,6 @@ class _CamViewState extends State<CamView> {
 
   /// Saves the form data without a picture.
   void saveNoPic() {
-    // FoodItem item = FoodItem(
-    //   restaurantName: _restNameCont.text,
-    //   itemName: _itemNameCont.text,
-    //   categoryOfFood: itemCategory,
-    //   desc: _descCont.text,
-    //   rating: rating,
-    //   tags: parseTags(),
-    // );
-
     final result = FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
       "restaurantName": _restNameCont.text,
       "itemName:": _itemNameCont.text,
@@ -115,10 +96,7 @@ class _CamViewState extends State<CamView> {
       "userID": userID
     });
 
-    print(result);
-    // if (result.data["success"] == true) {
-    //   pushHome();
-    // }
+    pushHome();
   }
 
   /// Sends the user to the home screen
@@ -159,8 +137,8 @@ class _CamViewState extends State<CamView> {
                 CardSettingsSection(
                   children: [
                     CardSettingsText(
-                      label: "Resturant Name: ",
-                      hintText: "Enter Resturant Name",
+                      label: "Restaurant Name: ",
+                      hintText: "Enter Restaurant Name",
                       controller: _restNameCont,
                     ),
                     CardSettingsText(
