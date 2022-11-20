@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/favPage/favView.dart';
+import 'package:spread/searchPage/list_view.dart';
 // import '../foodItemObject/foodItem.dart';
 import '../userPage/userView.dart';
 // import 'package:flutter_spinbox/cupertino.dart';
@@ -118,7 +119,13 @@ class itemView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <TextButton>[
             TextButton(
-              onPressed: null,
+              onPressed: () {
+                if (savedItems.contains(foodItem)) {
+                  print('Item already saved');
+                } else {
+                  savedItems.add(foodItem);
+                }
+              },
               child: Text("Save"),
             ),
             TextButton(onPressed: null, child: Text("Route"))
