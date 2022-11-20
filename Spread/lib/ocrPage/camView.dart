@@ -27,23 +27,23 @@ class _CamViewState extends State<CamView> {
   final TextEditingController _restNameCont = TextEditingController();
   final TextEditingController _tagsCont = TextEditingController();
 
-  late String itemCatagory = "";
+  late String itemCategory = "";
   late int rating = 5;
 
   List<String> itemTypes = <String>[
     "Cocktail",
-    "Non-Alchoholic Beverage",
+    "Non-Alcoholic Beverage",
     "American",
     "Mexican",
     "Italian",
     "Chinese",
     "Japanese",
     "Indian",
-    "Vietamese",
+    "Vietnamese",
     'Mediterranean'
   ];
 
-  /// Initalizes the text controller fields with captured text from image.
+  /// Initializes the text controller fields with captured text from image.
   void initControllerVal(List blockLines) {
     int index = 1;
     int numLines = blockLines.length - 1;
@@ -59,16 +59,30 @@ class _CamViewState extends State<CamView> {
   saveWithPic() async {
     String picPath;
     picPath = await takePic();
-    FoodItem item = FoodItem(
-        restaurantName: _restNameCont.text,
-        itemName: _itemNameCont.text,
-        categoryOfFood: itemCatagory,
-        desc: _descCont.text,
-        rating: rating,
-        tags: parseTags(),
-        imageURL: picPath);
+    // FoodItem item = FoodItem(
+    //     restaurantName: _restNameCont.text,
+    //     itemName: _itemNameCont.text,
+    //     categoryOfFood: itemCategory,
+    //     desc: _descCont.text,
+    //     rating: rating,
+    //     tags: parseTags(),
+    //     imageURL: picPath);
 
-    pushHome();
+    final result = FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
+      "restaurantName": _restNameCont.text,
+      "itemName:": _itemNameCont.text,
+      "categoryOfFood": itemCategory,
+      "description": _descCont.text,
+      "rating": rating,
+      "tags": parseTags(),
+      "imageURL": picPath,
+      "userID": userID
+    });
+
+    print(result);
+    // if (result.data["success"] == true) {
+    //   pushHome();
+    // }
   }
 
   //Returns a list of hash tags seperated by [#]
@@ -82,15 +96,29 @@ class _CamViewState extends State<CamView> {
 
   /// Saves the form data without a picture.
   void saveNoPic() {
-    FoodItem item = FoodItem(
-      restaurantName: _restNameCont.text,
-      itemName: _itemNameCont.text,
-      categoryOfFood: itemCatagory,
-      desc: _descCont.text,
-      rating: rating,
-      tags: parseTags(),
-    );
-    pushHome();
+    // FoodItem item = FoodItem(
+    //   restaurantName: _restNameCont.text,
+    //   itemName: _itemNameCont.text,
+    //   categoryOfFood: itemCategory,
+    //   desc: _descCont.text,
+    //   rating: rating,
+    //   tags: parseTags(),
+    // );
+
+    final result = FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
+      "restaurantName": _restNameCont.text,
+      "itemName:": _itemNameCont.text,
+      "categoryOfFood": itemCategory,
+      "description": _descCont.text,
+      "rating": rating,
+      "tags": parseTags(),
+      "userID": userID
+    });
+
+    print(result);
+    // if (result.data["success"] == true) {
+    //   pushHome();
+    // }
   }
 
   /// Sends the user to the home screen
@@ -143,7 +171,7 @@ class _CamViewState extends State<CamView> {
                       items: itemTypes,
                       initialItem: itemTypes[0],
                       label: 'Item Type',
-                      onChanged: (value) => itemCatagory = value as String,
+                      onChanged: (value) => itemCategory = value as String,
                     ),
                     CardSettingsParagraph(
                       maxLength: 1000,
