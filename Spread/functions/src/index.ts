@@ -364,11 +364,23 @@ export const uploadMenuScan = functions.https.onCall(async (data) => {
     const userID: string = data.userID;
     let menu: Menu = {
       restaurantName: data.restaurantName,
-      itemName: data.itemName,
-      categoryOfFood: data.categoryOfFood,
       description: data.description,
       rating: data.rating,
       tags: data.tags
+    };
+
+    if (data.itemName) {
+      menu = {
+        ...menu,
+        itemName: data.itemName
+      }
+    }
+
+    if (data.categoryOfFood) {
+      menu = {
+        ...menu,
+        categoryOfFood: data.categoryOfFood
+      }
     };
 
     if (data.imageURL) {
@@ -376,7 +388,7 @@ export const uploadMenuScan = functions.https.onCall(async (data) => {
         ...menu,
         imageURL: data.imageURL
       }
-    }
+    };
 
     let success: boolean = false;
 
@@ -386,7 +398,11 @@ export const uploadMenuScan = functions.https.onCall(async (data) => {
       const docData = JSON.parse(JSON.stringify(docSnap.data()));
       let userMenus: Array<Menu> = docData.menus;
 
+      console.log(userMenus);
+
       userMenus.push(menu);
+
+      console.log(userMenus);
 
       await updateDoc(doc(usersCollection, userID), { menus: userMenus })
       .then(() => {
