@@ -346,11 +346,11 @@ interface Marker {
 interface Menu {
   restaurantName?: string,
   itemName?: string,
-  itemType?: string,
+  categoryOfFood?: string,
   description?: string,
   rating?: number,
-  hashtags?: Array<string>,
-  imagePath?: string
+  tags?: Array<string>,
+  imageURL?: string
 };
 
 /**
@@ -362,15 +362,21 @@ interface Menu {
  */
 export const uploadMenuScan = functions.https.onCall(async (data) => {
     const userID: string = data.userID;
-    const menu: Menu = {
+    let menu: Menu = {
       restaurantName: data.restaurantName,
       itemName: data.itemName,
-      itemType: data.itemType,
+      categoryOfFood: data.categoryOfFood,
       description: data.description,
       rating: data.rating,
-      hashtags: data.hashtags,
-      imagePath: data.imagePath
+      tags: data.tags
     };
+
+    if (data.imageURL) {
+      menu = {
+        ...menu,
+        imageURL: data.imageURL
+      }
+    }
 
     let success: boolean = false;
 
