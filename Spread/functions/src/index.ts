@@ -10,7 +10,6 @@ const {
   collection,
   getFirestore
 } = require("firebase/firestore");
-const superagent = require("superagent");
 const { initializeApp } = require("firebase/app");
 import * as functions from "firebase-functions";
 
@@ -270,25 +269,25 @@ export const getFoodItem = functions.https.onCall(async (data) => {
  * @returns - At the moment, simply returns a success response to app
  */
 export const foodQuery = functions.https.onCall((data) => {
-  const userQuery: string = data.query;
-  let searchQuery: string = userQuery.trim().toLowerCase();
+//   const userQuery: string = data.query;
+//   let searchQuery: string = userQuery.trim().toLowerCase();
 
-  superagent
-    .post(process.env.FDA_SERVER_URL)
-    .set('X-Api-Key', process.env.FDA_API_KEY)
-    .set('Content-Type', 'application/json')
-    .send(JSON.stringify({
-      query: searchQuery,
-      dataType: ["Branded"],
-      pageSize: 3,
-      pageNumber: 0
-    }))
-    .then((res: any) => {
-      console.log(res.body);
-    })
-    .catch((err: any) => {
-      console.log(err);
-    });
+//   superagent
+//     .post(process.env.FDA_SERVER_URL)
+//     .set('X-Api-Key', process.env.FDA_API_KEY)
+//     .set('Content-Type', 'application/json')
+//     .send(JSON.stringify({
+//       query: searchQuery,
+//       dataType: ["Branded"],
+//       pageSize: 3,
+//       pageNumber: 0
+//     }))
+//     .then((res: any) => {
+//       console.log(res.body);
+//     })
+//     .catch((err: any) => {
+//       console.log(err);
+//     });
 
 
   return {
@@ -341,4 +340,79 @@ interface Marker {
     markers: markersArray
   };
 
+});
+
+
+interface Menu {
+  restaurantName?: string,
+  itemName?: string,
+  categoryOfFood?: string,
+  description?: string,
+  rating?: number,
+  tags?: Array<string>,
+  imageURL?: string
+};
+
+/**
+ * This function receives menu information scanned by a user,
+ * then updates the database with this information.
+ *
+ * @param data - Object containing scanned menu information
+ * @returns - Object indicating whether the operation was successful
+ */
+export const uploadMenuScan = functions.https.onCall(async (data) => {
+    const userID: string = data.userID;
+    let menu: Menu = {
+      restaurantName: data.restaurantName,
+      description: data.description,
+      rating: data.rating,
+      tags: data.tags
+    };
+
+    if (data.itemName) {
+      menu = {
+        ...menu,
+        itemName: data.itemName
+      }
+    }
+
+    if (data.categoryOfFood) {
+      menu = {
+        ...menu,
+        categoryOfFood: data.categoryOfFood
+      }
+    };
+
+    if (data.imageURL) {
+      menu = {
+        ...menu,
+        imageURL: data.imageURL
+      }
+    };
+
+    let success: boolean = false;
+
+    const docSnap = await getDoc(doc(usersCollection, userID));
+
+    if (docSnap.exists()) {
+      const docData = JSON.parse(JSON.stringify(docSnap.data()));
+      let userMenus: Array<Menu> = docData.menus;
+
+      console.log(userMenus);
+
+      userMenus.push(menu);
+
+      console.log(userMenus);
+
+      await updateDoc(doc(usersCollection, userID), { menus: userMenus })
+      .then(() => {
+        success = true;
+      }).catch((e: any) => {
+        success = false;
+      });
+    }
+
+    return {
+      success: success
+    };
 });
