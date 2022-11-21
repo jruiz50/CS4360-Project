@@ -84,7 +84,7 @@ class itemView extends StatelessWidget {
                   Flexible(child: Text(foodItem.allergens?.join(',') ?? 'n/a'))
                 ],
               ),
-              Row(
+              /*Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   ButtonBar(
@@ -108,7 +108,7 @@ class itemView extends StatelessWidget {
                     ],
                   )
                 ],
-              )
+              )*/
             ],
           ))
         ],
@@ -128,7 +128,7 @@ class itemView extends StatelessWidget {
               },
               child: Text("Save"),
             ),
-            TextButton(onPressed: null, child: Text("Route"))
+            // TextButton(onPressed: null, child: Text("Route"))
           ],
         ),
       ),
