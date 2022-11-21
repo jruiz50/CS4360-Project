@@ -58,7 +58,7 @@ class _userViewState extends State<userView> {
             ), //Placeholder
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Text>[Text("Name"), Text("User ID")],
+              children: <Text>[Text(_fName + " " + _lName), Text("")],
             ),
             /*Card(
               child: ListTile(

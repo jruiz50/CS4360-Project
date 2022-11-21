@@ -4,19 +4,19 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 // import '../foodItemObject/foodItem.dart';
 import 'list_view.dart';
-
-// import '../foodItemObject/foodItem.dart';
-// import 'list_view.dart';
 import 'package:spread/searchPage/list_view.dart';
 
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
-  const SearchAppBar({super.key, required this.appBar});
+  SearchAppBar({super.key, required this.appBar});
+  final TextEditingController searchController = TextEditingController();
 
   //const SearchAppBar({Key key, this.appBar, this.widgets}) : super (key : key);
 
   @override
   Widget build(BuildContext context) {
+    //You'll access the entered text value on pressed by using the command below
+    // searchController.text;
     return AppBar(
       automaticallyImplyLeading: false,
       title: Container(
@@ -25,22 +25,26 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
         color: Colors.white,
         child: Center(
           child: TextField(
+            controller: searchController,
             decoration: InputDecoration(
               hintText: 'What are you craving?',
               hoverColor: Colors.greenAccent, //????
               prefixIcon: IconButton(
                   onPressed: () async {
                     final result = await FirebaseFunctions.instance
-                        .httpsCallable('getFoodItem')
-                        .call();
+                        .httpsCallable('foodQuery')
+                        .call({'query': searchController.text});
                     foodEntries.clear();
+                    // print(result.data['results'][0]);
+                    // foodEntries = result.data['results'];
+                    launchListTile;
                     for (var i = 0; i < result.data.length; i++) {
                       foodEntries
-                          .add(FoodItem.fromJson(result.data[i]['docData']));
+                          .add(FoodItem.fromJson(result.data['results'][i]));
                     }
-                    foodEntries.clear();
+                    // launchListTile;
                   },
-                  icon: Icon(Icons.search)),
+                  icon: const Icon(Icons.search)),
             ),
           ),
         ),

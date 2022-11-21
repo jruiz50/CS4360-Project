@@ -2,6 +2,8 @@
 require("dotenv").config();
 const {
   doc,
+  query,
+  where,
   setDoc,
   getDoc,
   getDocs,
@@ -266,33 +268,26 @@ export const getFoodItem = functions.https.onCall(async (data) => {
  * uses it as a query to a food API for nutrition information.
  * 
  * @param data - Object containing a string of the user's typed search
- * @returns - At the moment, simply returns a success response to app
+ * @returns - Object containing an array of matched food items
  */
-export const foodQuery = functions.https.onCall((data) => {
-//   const userQuery: string = data.query;
-//   let searchQuery: string = userQuery.trim().toLowerCase();
+export const foodQuery = functions.https.onCall(async (data) => {
+  const userQuery: string = data.query;
+  // const searchQuery: string = userQuery.trim().toLowerCase();
+  const searchQuery: string = userQuery.trim();
 
-//   superagent
-//     .post(process.env.FDA_SERVER_URL)
-//     .set('X-Api-Key', process.env.FDA_API_KEY)
-//     .set('Content-Type', 'application/json')
-//     .send(JSON.stringify({
-//       query: searchQuery,
-//       dataType: ["Branded"],
-//       pageSize: 3,
-//       pageNumber: 0
-//     }))
-//     .then((res: any) => {
-//       console.log(res.body);
-//     })
-//     .catch((err: any) => {
-//       console.log(err);
-//     });
+  let results: Array<FoodItem> = [];
 
+  const q = query(foodItemsCollection, where("itemName", "==", searchQuery));
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc: any) => {
+    console.log(doc.id, " => ", doc.data());
+    results.push(doc.data());
+  });
 
   return {
-    result: "Hello from Firebase!"
-  }
+    results: results
+  };
 });
 
 
@@ -310,7 +305,7 @@ interface Marker {
  * @param data - Object containing a string of the user's coordinates
  * @returns - Object containing a single array with all food item markers
  */
- export const getFoodMarkers = functions.https.onCall(async (data) => {
+export const getFoodMarkers = functions.https.onCall(async (data) => {
   // const userCoordinates: any = data.coordinates;
   // console.log(userCoordinates);
 
@@ -361,58 +356,58 @@ interface Menu {
  * @returns - Object indicating whether the operation was successful
  */
 export const uploadMenuScan = functions.https.onCall(async (data) => {
-    const userID: string = data.userID;
-    let menu: Menu = {
-      restaurantName: data.restaurantName,
-      description: data.description,
-      rating: data.rating,
-      tags: data.tags
-    };
+  const userID: string = data.userID;
+  let menu: Menu = {
+    restaurantName: data.restaurantName,
+    description: data.description,
+    rating: data.rating,
+    tags: data.tags
+  };
 
-    if (data.itemName) {
-      menu = {
-        ...menu,
-        itemName: data.itemName
-      }
+  if (data.itemName) {
+    menu = {
+      ...menu,
+      itemName: data.itemName
     }
+  }
 
-    if (data.categoryOfFood) {
-      menu = {
-        ...menu,
-        categoryOfFood: data.categoryOfFood
-      }
-    };
+  if (data.categoryOfFood) {
+    menu = {
+      ...menu,
+      categoryOfFood: data.categoryOfFood
+    }
+  };
 
-    if (data.imageURL) {
-      menu = {
-        ...menu,
-        imageURL: data.imageURL
-      }
-    };
+  if (data.imageURL) {
+    menu = {
+      ...menu,
+      imageURL: data.imageURL
+    }
+  };
 
-    let success: boolean = false;
+  let success: boolean = false;
 
-    const docSnap = await getDoc(doc(usersCollection, userID));
+  const docSnap = await getDoc(doc(usersCollection, userID));
 
-    if (docSnap.exists()) {
-      const docData = JSON.parse(JSON.stringify(docSnap.data()));
-      let userMenus: Array<Menu> = docData.menus;
+  if (docSnap.exists()) {
+    const docData = JSON.parse(JSON.stringify(docSnap.data()));
+    let userMenus: Array<Menu> = docData.menus;
 
-      console.log(userMenus);
+    console.log(userMenus);
 
-      userMenus.push(menu);
+    userMenus.push(menu);
 
-      console.log(userMenus);
+    console.log(userMenus);
 
-      await updateDoc(doc(usersCollection, userID), { menus: userMenus })
+    await updateDoc(doc(usersCollection, userID), { menus: userMenus })
       .then(() => {
         success = true;
       }).catch((e: any) => {
         success = false;
       });
-    }
+  }
 
-    return {
-      success: success
-    };
+  return {
+    success: success
+  };
 });
