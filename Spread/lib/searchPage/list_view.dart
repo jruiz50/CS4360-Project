@@ -18,6 +18,7 @@ class launchListTile extends StatefulWidget {
 }
 
 bool isFav = false; // TODO: isFav will need to be grabbed from db
+bool toggle = false;
 
 class _launchListTile extends State<launchListTile> {
   final List<String?> entries = <String>[
@@ -146,11 +147,11 @@ class _launchListTile extends State<launchListTile> {
   List<FoodItem> savedEntries = <FoodItem>[];
 
   populateEntries() {
-    // foodEntries.add(t1);
-    // foodEntries.add(t2);
-    // foodEntries.add(t3);
-    // foodEntries.add(t4);
-    // foodEntries.add(t5);
+    /*foodEntries.add(t1);
+    foodEntries.add(t2);
+    foodEntries.add(t3);
+    foodEntries.add(t4);
+    foodEntries.add(t5);*/
   }
 
   populateFavorites(index) {
@@ -241,10 +242,27 @@ class _launchListTile extends State<launchListTile> {
               ],
             ),
             trailing: IconButton(
-              icon: Icon(Icons.star),
               onPressed: () {
-                populateFavorites(index);
+                if (savedItems.contains(foodEntries[index])) {
+                  savedItems.remove(foodEntries[index]);
+                  setState(() {});
+
+                  // Add to list, change color to yellow
+                } else {
+                  savedItems.add(foodEntries[index]);
+                  setState(() {});
+                  // Remove from list, change icon color to grey
+                }
               },
+              icon: (savedItems.contains(foodEntries[index])
+                  ? Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                    )
+                  : Icon(
+                      Icons.star,
+                      color: Colors.grey,
+                    )),
               // Test onPressed Save
             ),
             /*trailing: IconButton(

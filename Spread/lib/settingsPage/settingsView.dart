@@ -30,27 +30,27 @@ class settingsList extends StatelessWidget {
         Container(
           height: 50,
           child: ListTile(
-            title: Text('Name: John Doe'),
-            trailing: IconButton(
+            title: Text('Name: -'),
+            /*trailing: IconButton(
               onPressed: (null),
               icon: Icon(Icons.edit),
-            ),
+            ),*/
           ),
         ),
         Container(
           height: 50,
           child: ListTile(
-            title: Text('Email: johndoe@gmail.com'),
-            trailing: IconButton(
+            title: Text('Email: -'),
+            /*trailing: IconButton(
               onPressed: (null),
               icon: Icon(Icons.edit),
-            ),
+            ),*/
           ),
         ),
         Container(
           height: 50,
           child: ListTile(
-            title: Text('User ID: 9876987698760'),
+            title: Text('User ID: -'),
           ),
         ),
         Container(

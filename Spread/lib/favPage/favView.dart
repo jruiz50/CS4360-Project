@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spread/itemPage/itemView.dart';
+import 'package:spread/main.dart';
 import 'package:spread/searchPage/list_view.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 // import 'package:spread/foodItemObject/foodItem.dart';
@@ -147,10 +148,17 @@ class favList extends StatelessWidget {
                 ],
               ),
               trailing: IconButton(
-                  onPressed: (null),
+                  onPressed: () {
+                    //savedItems.removeAt(index);
+                    //runApp(MyApp());
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showAlertDialog(context, index);
+                        });
+                  },
                   icon: Icon(
-                    Icons.star,
-                    color: Colors.yellow,
+                    Icons.delete,
                   )),
               onTap: () {
                 Navigator.push(
@@ -159,7 +167,6 @@ class favList extends StatelessWidget {
                         builder: (context) =>
                             itemView(foodItem: savedItems[index])));
               },
-              onLongPress: (null),
             ),
           );
         });
@@ -167,5 +174,23 @@ class favList extends StatelessWidget {
     * to delete entries that are already present in your favorites?
     *  */
     throw UnimplementedError();
+  }
+
+  showAlertDialog(BuildContext context, int index) {
+    return AlertDialog(
+      title: const Text('Delete entry from favorites?'),
+      actions: <Widget>[
+        TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel')),
+        TextButton(
+            onPressed: () {
+              savedItems.removeAt(index);
+              runApp(MyApp());
+              Navigator.pop(context, 'OK');
+            },
+            child: const Text('OK'))
+      ],
+    );
   }
 }

@@ -60,7 +60,7 @@ class _userViewState extends State<userView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Text>[Text("Name"), Text("User ID")],
             ),
-            Card(
+            /*Card(
               child: ListTile(
                 leading: Icon(Icons.menu_book),
                 title: Text("Saved Menus"),
@@ -69,7 +69,7 @@ class _userViewState extends State<userView> {
                       MaterialPageRoute(builder: (context) => menuView()));
                 },
               ),
-            ),
+            ),*/
             Card(
               child: ListTile(
                 leading: Icon(Icons.star),
