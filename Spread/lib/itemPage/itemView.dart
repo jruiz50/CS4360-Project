@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/favPage/favView.dart';
 import 'package:spread/searchPage/list_view.dart';
+import 'package:flutter_spinbox/material.dart';
 // import '../foodItemObject/foodItem.dart';
 import '../userPage/userView.dart';
 // import 'package:flutter_spinbox/cupertino.dart';
@@ -14,7 +15,8 @@ import '../userPage/userView.dart';
 class itemView extends StatelessWidget {
   //final this.foodItem = foodItem;
 
-  final FoodItem foodItem;
+  FoodItem foodItem;
+  int itemRate = 0;
 
   itemView({Key? key, required this.foodItem}) : super(key: key);
 
@@ -84,7 +86,24 @@ class itemView extends StatelessWidget {
                   Flexible(child: Text(foodItem.allergens?.join(',') ?? 'n/a'))
                 ],
               ),
-              /*Row(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 200,
+                    height: 45,
+                    child: SpinBox(
+                      min: 1,
+                      max: 5,
+                      value: 0,
+                      onChanged: (value) {
+                        itemRate = value.toInt();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   ButtonBar(
@@ -92,15 +111,8 @@ class itemView extends StatelessWidget {
                     children: <Widget>[
                       new ElevatedButton(
                           onPressed: () {
-                            AlertDialog(
-                              title: Text('Enter Rating'),
-                              content: TextField(
-                                onChanged: (value) {},
-                                controller: _textFieldController,
-                                decoration: InputDecoration(
-                                    hintText: 'Enter rating between 1-5'),
-                              ),
-                            );
+                            // TODO: Update the item rating on button press and refresh page
+                            //doc.reference.update({'rating':itemRate})
                           }, // Open dialog to change rating
                           // This still needs to be changed; button is lit up but does nothing!!!
 
@@ -108,7 +120,7 @@ class itemView extends StatelessWidget {
                     ],
                   )
                 ],
-              )*/
+              )
             ],
           ))
         ],
