@@ -55,6 +55,7 @@ interface FoodItem {
   itemName?: string,
   categoryOfFood?: Array<string>,
   rating?: number,
+  ratings?: Array<number>,
   ingredients?: Array<string>,
   allergens?: Array<string>,
   restaurantName?: string,
@@ -214,17 +215,6 @@ export const deleteUserProfile = functions.https.onCall(async (data) => {
     isSuccessful
   };
 });
-
-// foodItemID ?: string,
-//   itemName ?: string,
-//   categoryOfFood ?: Array<string>,
-//   rating ?: number,
-//   ingredients ?: Array<string>,
-//   allergens ?: Array<string>,
-//   restaurantName ?: string,
-//   restaurantID ?: string,
-//   imageURL ?: string,
-//   tags ?: Array<any>
 
 export const getFoodItem = functions.https.onCall(async (data) => {
 
@@ -413,10 +403,10 @@ export const uploadMenuScan = functions.https.onCall(async (data) => {
 });
 
 /**
-* This function receives menu information scanned by a user,
-* then updates the database with this information.
+* This function receives a user's rating for a food item,
+* then updates it's overall rating in the database.
 *
-* @param data - Object containing scanned menu information
+* @param data - Object containing user rating and food item ID
 * @returns - Object indicating whether the operation was successful
 */
 export const updateFoodRating = functions.https.onCall(async (data) => {
@@ -447,10 +437,10 @@ export const updateFoodRating = functions.https.onCall(async (data) => {
     }).catch((e: any) => {
       success = false
     });
-  }
+  };
   
   return {
     success: success
-  }
+  };
 
 });
