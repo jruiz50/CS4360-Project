@@ -411,3 +411,46 @@ export const uploadMenuScan = functions.https.onCall(async (data) => {
     success: success
   };
 });
+
+/**
+* This function receives menu information scanned by a user,
+* then updates the database with this information.
+*
+* @param data - Object containing scanned menu information
+* @returns - Object indicating whether the operation was successful
+*/
+export const updateFoodRating = functions.https.onCall(async (data) => {
+  const userRating: number = data.rating;
+  const foodItemID: string = data.foodItemID;
+
+  let success: boolean = false;
+
+  const docSnap = await getDoc(doc(foodItemsCollection, foodItemID));
+
+  if (docSnap.exists()) {
+    const docData = JSON.parse(JSON.stringify(docSnap.data()));
+    let ratings: Array<number> = docData.ratings;
+    ratings.push(userRating);
+
+    let avgRating = 0;
+    ratings.forEach((rate: number) => {
+      avgRating += rate;
+    });
+
+    avgRating = avgRating / ratings.length;
+
+    await updateDoc(doc(foodItemsCollection, foodItemID), { 
+      rating: avgRating,
+      ratings: ratings
+    }).then(() => {
+      success = true;
+    }).catch((e: any) => {
+      success = false
+    });
+  }
+  
+  return {
+    success: success
+  }
+
+});
