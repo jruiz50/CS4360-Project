@@ -6,9 +6,8 @@ import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/favPage/favView.dart';
 import 'package:spread/searchPage/list_view.dart';
 import 'package:flutter_spinbox/material.dart';
-// import '../foodItemObject/foodItem.dart';
 import '../userPage/userView.dart';
-// import 'package:flutter_spinbox/cupertino.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 // This'll probably get combined with "foodItemObject" because it's going to use all the same info
 
@@ -110,12 +109,13 @@ class itemView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       new ElevatedButton(
-                          onPressed: () {
-                            // TODO: Update the item rating on button press and refresh page
-                            //doc.reference.update({'rating':itemRate})
-                          }, // Open dialog to change rating
-                          // This still needs to be changed; button is lit up but does nothing!!!
-
+                          onPressed: () async {
+                            final result = await FirebaseFunctions.instance
+                              .httpsCallable('updateFoodRating').call({
+                              "rating": itemRate,
+                              "foodItemID": foodItem.foodItemID
+                            });
+                          },
                           child: Text('Change Rating'))
                     ],
                   )
