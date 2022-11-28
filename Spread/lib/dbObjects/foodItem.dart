@@ -6,7 +6,7 @@ class FoodItem {
   final String? itemName;
   final String? categoryOfFood;
   final int? rating;
-  final List<String>? ingredients;
+  final List? ingredients;
   final List? allergens;
   final String? restaurantName;
   final String? restaurantID;
