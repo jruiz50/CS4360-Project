@@ -35,10 +35,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
                         .httpsCallable('foodQuery')
                         .call({'query': searchController.text});
                     foodEntries.clear();
-                    // print(result.data['results'][0]);
-                    // foodEntries = result.data['results'];
-                    launchListTile;
-                    for (var i = 0; i < result.data.length; i++) {
+                    for (var i = 0; i < result.data['results'].length; i++) {
                       foodEntries
                           .add(FoodItem.fromJson(result.data['results'][i]));
                     }
