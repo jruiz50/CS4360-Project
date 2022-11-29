@@ -2,8 +2,8 @@
 require("dotenv").config();
 const {
   doc,
-  query,
-  where,
+  // query,
+  // where,
   setDoc,
   getDoc,
   getDocs,
@@ -262,18 +262,27 @@ export const getFoodItem = functions.https.onCall(async (data) => {
  */
 export const foodQuery = functions.https.onCall(async (data) => {
   const userQuery: string = data.query;
-  // const searchQuery: string = userQuery.trim().toLowerCase();
-  const searchQuery: string = userQuery.trim();
+  const searchQuery: string = userQuery.trim().toLowerCase();
 
   let results: Array<FoodItem> = [];
 
-  const q = query(foodItemsCollection, where("itemName", "==", searchQuery));
+  let foodItems: Array<FoodItem> = [];
 
-  const querySnapshot = await getDocs(q);
+  let i = 0;
+
+  const querySnapshot = await getDocs(foodItemsCollection);
   querySnapshot.forEach((doc: any) => {
-    console.log(doc.id, " => ", doc.data());
-    results.push(doc.data());
+    foodItems.push(doc.data())
   });
+
+  Object.values(foodItems).forEach(val => {
+    let item = val.itemName?.toLowerCase();
+    if (item?.includes(searchQuery)) {
+      results[i] = val;
+      i++;
+    }
+  });
+
 
   return {
     results: results
@@ -429,7 +438,7 @@ export const updateFoodRating = functions.https.onCall(async (data) => {
 
     avgRating = avgRating / ratings.length;
 
-    await updateDoc(doc(foodItemsCollection, foodItemID), { 
+    await updateDoc(doc(foodItemsCollection, foodItemID), {
       rating: avgRating,
       ratings: ratings
     }).then(() => {
@@ -438,7 +447,7 @@ export const updateFoodRating = functions.https.onCall(async (data) => {
       success = false
     });
   };
-  
+
   return {
     success: success
   };
