@@ -76,9 +76,10 @@ the ability to run mobile emulators.
 >
 > > Select the phone icon with the android symbol in the upper right corner.
 > > Then select Create device.
-> > The select a recent phone of your choice the click nect.
+> > The select a recent phone of your choice then click next.
 > > Select Release "S" with an API Level of 31.
 > > Give it a name then hit finish. The device should then boot.
+> > The following link provides these examples with pictures. https://docs.google.com/document/d/1wiS-MRMN1dtf4WSHDgiSQdMHhHZRpyMCJv5qohUHZnA/edit
 
 > > Please refer to this link for more in depth information regarding the creation of a virual device. https://developer.android.com/studio/run/managing-avds
 
