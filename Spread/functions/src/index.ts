@@ -284,6 +284,7 @@ export const foodQuery = functions.https.onCall(async (data) => {
 interface Marker {
   itemName?: string,
   restaurantName?: string,
+  rating?: number,
   latitude?: string,
   longitude?: string
 };
@@ -310,6 +311,7 @@ export const getFoodMarkers = functions.https.onCall(async (data) => {
       marker = {
         itemName: docData.itemName,
         restaurantName: docData.restaurantName,
+        rating: docData.rating,
         latitude: docData.latitude,
         longitude: docData.longitude
       }
