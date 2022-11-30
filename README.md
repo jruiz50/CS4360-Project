@@ -79,7 +79,7 @@ the ability to run mobile emulators.
 > > The select a recent phone of your choice then click next.
 > > Select Release "S" with an API Level of 31.
 > > Give it a name then hit finish. The device should then boot.
-> > The following link provides these examples with pictures. https://docs.google.com/document/d/1wiS-MRMN1dtf4WSHDgiSQdMHhHZRpyMCJv5qohUHZnA/edit
+> > The following link provides these examples with pictures. https://docs.google.com/document/d/18utPt8JRgeznJ03VnGtQyhzohHgloZkBHBaF5gla2lo/edit?usp=sharing
 
 > > Please refer to this link for more in depth information regarding the creation of a virual device. https://developer.android.com/studio/run/managing-avds
 
