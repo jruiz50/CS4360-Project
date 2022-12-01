@@ -293,6 +293,7 @@ export const foodQuery = functions.https.onCall(async (data) => {
 interface Marker {
   itemName?: string,
   restaurantName?: string,
+  rating?: number,
   latitude?: string,
   longitude?: string
 };
@@ -314,19 +315,18 @@ export const getFoodMarkers = functions.https.onCall(async (data) => {
   await getDocs(foodItemsCollection).then((snapshot: any) => {
     snapshot.docs.forEach((document: any) => {
 
-      if (document.id.substring(0, 4) === "DEMO") {
-        const docData = JSON.parse(JSON.stringify(document.data()));
+      const docData = JSON.parse(JSON.stringify(document.data()));
 
-        marker = {
-          itemName: docData.itemName,
-          restaurantName: docData.restaurantName,
-          latitude: docData.latitude,
-          longitude: docData.longitude
-        }
-
-        markersArray.push(marker);
-
+      marker = {
+        itemName: docData.itemName,
+        restaurantName: docData.restaurantName,
+        rating: docData.rating,
+        latitude: docData.latitude,
+        longitude: docData.longitude
       }
+
+      markersArray.push(marker);
+
     });
   });
 

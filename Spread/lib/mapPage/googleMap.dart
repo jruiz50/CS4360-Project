@@ -131,17 +131,20 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
       double long = double.parse(item['longitude']);
       double lat = double.parse(item['latitude']);
 
+      String itemNameForMarker = item['itemName'] + " [" + item['rating'].toString() + "/5]";
       Marker temp = Marker(
         markerId: MarkerId(markerID),
         icon: BitmapDescriptor.defaultMarker,
         position: LatLng(lat, long),
         infoWindow: InfoWindow(
-            title: item['itemName'],
+            title: itemNameForMarker,
             snippet: item['restaurantName'],
             anchor: Offset(0.5, 0.0)),
         visible: true,
       );
-      _markers.add(temp);
+      if (item['rating'] >= 4) {
+        _markers.add(temp);
+      }
     }
 
     setState(() {
