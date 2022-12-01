@@ -1,14 +1,21 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:spread/searchPage/list_view.dart';
+import 'package:spread/settingsPage/settingsView.dart';
 import 'firebase_options.dart';
 import 'package:spread/searchPage/search_appbar.dart';
 import 'package:spread/loginPage/loginView.dart';
-import 'package:spread/qrPage/qr_scanner.dart';
-import 'mapPage/mapView.dart';
+import '/mapPage/mapView.dart';
+import 'package:spread/ocrPage/camView.dart';
+import 'package:spread/mapPage/mapView.dart';
+import 'package:spread/mapPage/mapSample.dart';
+import 'package:spread/mapPage/googleMap.dart';
+import 'package:spread/themeData/themeDark.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -18,14 +25,20 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  checkDarkMode() {
+    if (darkModeOn == false) {
+      return ThemeData();
+    } else {
+      return myTheme;
+    }
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Crave',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: checkDarkMode(), // ThemeData()
       home: loginView(),
     );
   }
@@ -50,18 +63,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
   // We set 2 to be the middle (search) screen
   // Used for index relative to BottomNavigationBar
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const QRViewFunction(),
-    const Text(
-      'Index 1: Favorites Screen',
-    ),
+    CamView(),
     launchListTile(),
-    MapWidget(),
-    const Text('Index 4: Settings Screen'),
+    GoogleMapsView(),
   ];
   // This creates a list of widgets; each widget displays different text so far
 
@@ -84,21 +93,25 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+          child: Flex(
+        direction: Axis.vertical,
+        children: <Flexible>[
+          Flexible(
+              flex: 1,
+              fit: FlexFit.loose,
+              child: (_widgetOptions.elementAt(_selectedIndex)))
+        ],
+      )
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
 
-        // Child shows widget from the list defined above
-      ),
+          // Child shows widget from the list defined above
+          ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.qr_code_2),
-              label: 'Scan QR',
-              backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.star),
-              label: 'Favorites',
+              icon: Icon(Icons.menu_book),
+              label: 'Scan',
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
           BottomNavigationBarItem(
               icon: Icon(Icons.search),
@@ -106,12 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
           BottomNavigationBarItem(
               icon: Icon(Icons.location_pin),
-              label: 'Map',
+              label: 'Discover',
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-              backgroundColor: Color.fromRGBO(208, 188, 255, 1))
         ],
         currentIndex: _selectedIndex,
         onTap: _onTabClicked,

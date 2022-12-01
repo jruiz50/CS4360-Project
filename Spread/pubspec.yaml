@@ -36,8 +36,19 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_signin_button: ^2.0.0
   firebase_core: ^1.23.0
+  firebase_core_platform_interface: 4.5.1
   qr_code_scanner: ^1.0.1
   geolocator: ^9.0.2
+  firebase_auth: ^3.11.2
+  cloud_functions: ^3.3.9
+  mockito: ^5.3.2
+  google_maps_flutter: ^2.2.1
+  camera: ^0.10.0+3
+  image_picker: ^0.8.6
+  image_cropper: ^3.0.0
+  card_settings: ^3.3.0
+  google_mlkit_text_recognition: ^0.5.0
+  flutter_spinbox: ^0.11.0
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +60,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.2.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
