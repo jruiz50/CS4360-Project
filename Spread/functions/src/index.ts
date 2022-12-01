@@ -2,8 +2,8 @@
 require("dotenv").config();
 const {
   doc,
-  // query,
-  // where,
+  query,
+  where,
   setDoc,
   getDoc,
   getDocs,
@@ -411,6 +411,7 @@ export const uploadMenuScan = functions.https.onCall(async (data) => {
   };
 });
 
+
 /**
 * This function receives a user's rating for a food item,
 * then updates it's overall rating in the database.
@@ -422,31 +423,36 @@ export const updateFoodRating = functions.https.onCall(async (data) => {
   const userRating: number = data.rating;
   const foodItemID: string = data.foodItemID;
 
+  let ratings: Array<number> = [];
+  let avgRating: number = 0;
   let success: boolean = false;
+  let documentID: string = "";
 
-  const docSnap = await getDoc(doc(foodItemsCollection, foodItemID));
-
-  if (docSnap.exists()) {
-    const docData = JSON.parse(JSON.stringify(docSnap.data()));
-    let ratings: Array<number> = docData.ratings;
+  const q = query(foodItemsCollection, where("foodItemID", "==", foodItemID));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc: any) => {
+    documentID = doc.id;
+    const docData = JSON.parse(JSON.stringify(doc.data()));
+    ratings = docData.ratings;
     ratings.push(userRating);
 
-    let avgRating = 0;
     ratings.forEach((rate: number) => {
       avgRating += rate;
     });
 
     avgRating = avgRating / ratings.length;
 
-    await updateDoc(doc(foodItemsCollection, foodItemID), {
-      rating: avgRating,
-      ratings: ratings
-    }).then(() => {
-      success = true;
-    }).catch((e: any) => {
-      success = false
-    });
-  };
+  });
+
+
+  await updateDoc(doc(foodItemsCollection, documentID), {
+    rating: avgRating,
+    ratings: ratings
+  }).then(() => {
+    success = true;
+  }).catch((e: any) => {
+    success = false
+  });
 
   return {
     success: success
