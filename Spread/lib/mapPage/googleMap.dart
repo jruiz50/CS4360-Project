@@ -258,7 +258,7 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
         label: const Text('Refresh Map'),
         icon: const Icon(Icons.refresh),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }
