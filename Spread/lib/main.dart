@@ -110,8 +110,8 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.qr_code_2),
-              label: 'Scan QR',
+              icon: Icon(Icons.menu_book),
+              label: 'Scan',
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
           BottomNavigationBarItem(
               icon: Icon(Icons.search),
@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
           BottomNavigationBarItem(
               icon: Icon(Icons.location_pin),
-              label: 'Map',
+              label: 'Discover',
               backgroundColor: Color.fromRGBO(208, 188, 255, 1)),
         ],
         currentIndex: _selectedIndex,
