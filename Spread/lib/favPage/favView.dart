@@ -90,6 +90,26 @@ class favList extends StatelessWidget {
 
   addSomething() {}
 
+  setImage(url) {
+    if (url != null) {
+      return SizedBox(
+        height: 50,
+        width: 50,
+        child: Image.network(url, errorBuilder: (context, error, stackTrace) {
+          return const Icon(
+            Icons.fastfood,
+            size: 30,
+          );
+        }),
+      );
+    } else {
+      return const Icon(
+        Icons.fastfood,
+        size: 30,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -105,10 +125,7 @@ class favList extends StatelessWidget {
             margin: EdgeInsets.all(1),
             elevation: 3,
             child: ListTile(
-              leading: Icon(
-                Icons.fastfood,
-                size: 30,
-              ),
+              leading: setImage(savedItems[index].imageURL),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Text>[Text(savedItems[index].itemName ?? 'n/a')],
