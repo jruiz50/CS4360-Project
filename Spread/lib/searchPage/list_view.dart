@@ -60,6 +60,26 @@ class _launchListTile extends State<launchListTile> {
     print(savedItems[index].itemName.toString());
   }
 
+  setImage(url) {
+    if (url != null) {
+      return SizedBox(
+        height: 50,
+        width: 50,
+        child: Image.network(url, errorBuilder: (context, error, stackTrace) {
+          return const Icon(
+            Icons.fastfood,
+            size: 30,
+          );
+        }),
+      );
+    } else {
+      return const Icon(
+        Icons.fastfood,
+        size: 30,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -67,13 +87,10 @@ class _launchListTile extends State<launchListTile> {
       padding: const EdgeInsets.all(10),
       itemBuilder: (context, int index) {
         return Card(
-          margin: EdgeInsets.all(1),
+          margin: const EdgeInsets.all(1),
           elevation: 3,
           child: ListTile(
-            leading: Icon(
-              Icons.fastfood,
-              size: 30,
-            ),
+            leading: setImage(foodEntries[index].imageURL),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Text>[Text(foodEntries[index].itemName ?? 'n/a')],
@@ -93,12 +110,12 @@ class _launchListTile extends State<launchListTile> {
                         5,
                         (i) => (() {
                               if (i < (foodEntries[index].rating ?? 0)) {
-                                return Icon(
+                                return const Icon(
                                   Icons.star,
                                   color: Colors.yellow,
                                 );
                               } else {
-                                return Icon(
+                                return const Icon(
                                   Icons.star,
                                   color: Colors.grey,
                                 );
