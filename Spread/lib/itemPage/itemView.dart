@@ -19,6 +19,26 @@ class itemView extends StatelessWidget {
 
   itemView({Key? key, required this.foodItem}) : super(key: key);
 
+  setImage(url) {
+    if (url != null) {
+      return SizedBox(
+        height: 300,
+        width: 300,
+        child: Image.network(url, errorBuilder: (context, error, stackTrace) {
+          return const Icon(
+            Icons.fastfood,
+            size: 300,
+          );
+        }),
+      );
+    } else {
+      return const Icon(
+        Icons.fastfood,
+        size: 30,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -31,13 +51,10 @@ class itemView extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          new Container(
+          Container(
             child: Column(
               children: <Widget>[
-                Icon(
-                  Icons.fastfood,
-                  size: 400,
-                ),
+                setImage(foodItem.imageURL),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List<Widget>.generate(
@@ -111,7 +128,8 @@ class itemView extends StatelessWidget {
                       new ElevatedButton(
                           onPressed: () async {
                             final result = await FirebaseFunctions.instance
-                              .httpsCallable('updateFoodRating').call({
+                                .httpsCallable('updateFoodRating')
+                                .call({
                               "rating": itemRate,
                               "foodItemID": foodItem.foodItemID
                             });
