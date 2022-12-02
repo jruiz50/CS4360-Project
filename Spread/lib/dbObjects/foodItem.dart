@@ -5,7 +5,7 @@ class FoodItem {
   final String? foodItemID;
   final String? itemName;
   final String? categoryOfFood;
-  final int? rating;
+  final double? rating;
   final List? ingredients;
   final List? allergens;
   final String? restaurantName;
@@ -44,7 +44,7 @@ class FoodItem {
       foodItemID: json['foodItemID'],
       itemName: json['itemName'],
       categoryOfFood: json['categoryOfFood'],
-      rating: json['rating'],
+      rating: json['rating'].toDouble(),
       ingredients: json['ingredients'],
       allergens: json['allergens'],
       restaurantName: json['restaurantName'],
