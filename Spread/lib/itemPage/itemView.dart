@@ -83,22 +83,26 @@ class itemView extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
+                  Flexible(child: Text('Food Category: ')),
                   Flexible(child: Text(foodItem.categoryOfFood ?? 'n/a'))
                 ],
               ),
               Row(
                 children: <Widget>[
+                  Flexible(child: Text('Food Name: ')),
                   Flexible(child: Text(foodItem.itemName ?? 'n/a'))
                 ],
               ),
               Row(
                 children: <Widget>[
+                  Flexible(child: Text('Ingredients: ')),
                   Flexible(
                       child: Text(foodItem.ingredients?.join(', ') ?? 'n/a'))
                 ],
               ),
               Row(
                 children: <Widget>[
+                  Flexible(child: Text('Allergens: ')),
                   Flexible(child: Text(foodItem.allergens?.join(',') ?? 'n/a'))
                 ],
               ),

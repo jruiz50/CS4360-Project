@@ -9,6 +9,7 @@ import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/searchPage/search_appbar.dart';
 
 List<FoodItem> savedItems = [];
+List<FoodItem> uploadedItems = [];
 
 List<FoodItem> foodEntries = <FoodItem>[];
 // Global variable?
