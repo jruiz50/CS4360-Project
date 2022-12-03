@@ -19,6 +19,7 @@ class _userViewState extends State<userView> {
   var _fName = "";
   var _lName = "";
   var _userID = "";
+  var _menus;
 
   Future<Map<dynamic, dynamic>> getUserProfile(String userID) async {
     try {
@@ -42,6 +43,7 @@ class _userViewState extends State<userView> {
           _fName = userProfile["firstName"];
           _lName = userProfile["lastName"];
           _userID = userProfile["userID"];
+          _menus = userProfile["menus"];
         });
       });
     }
@@ -65,8 +67,12 @@ class _userViewState extends State<userView> {
                 leading: Icon(Icons.menu_book),
                 title: Text("Scanned Items"),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => menuView()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => menuView(
+                                scannedItems: _menus,
+                              )));
                 },
               ),
             ),
