@@ -14,10 +14,9 @@
 
 ## Introduction
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/journeyai/secure-meetings)
+[![Current Version](https://img.shields.io/badge/version-1.8.0-green.svg)](https://github.com/jruiz50/CS4360-Project)
 
-Journey Secure Meetings utilizes powerful identity solutions to act as a barrier between the world and your conferences. Generating a secure meeting is as easy as choosing a conference provider and a security level, then simply scheduling a date and time!
+Crave is a crowd-sourced app that focuses on getting ratings on specific food and drink menu items from restaurants, bars/breweries, and fast food chains.  Figure out where you want to eat by searching what you are craving!
 
 ## Tech Stack
 
