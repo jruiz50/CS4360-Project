@@ -132,6 +132,7 @@ class _launchListTile extends State<launchListTile> {
                 foodEntries.add(FoodItem.fromJson(result.data['results'][i]));
               }
               setState(() {});
+              FocusScope.of(context).requestFocus(FocusNode());
             },
             controller: searchController,
             decoration: InputDecoration(
@@ -148,7 +149,6 @@ class _launchListTile extends State<launchListTile> {
                           .add(FoodItem.fromJson(result.data['results'][i]));
                     }
                     setState(() {});
-
                     // launchListTile;
                   },
                   icon: const Icon(Icons.search)),
