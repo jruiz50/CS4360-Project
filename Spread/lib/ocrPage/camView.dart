@@ -7,6 +7,7 @@ import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/main.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:spread/searchPage/list_view.dart';
 
 class CamView extends StatefulWidget {
   @override
@@ -60,7 +61,8 @@ class _CamViewState extends State<CamView> {
     String picPath;
     picPath = await takePic();
 
-    final result = FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
+    final result =
+        FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
       "restaurantName": _restNameCont.text,
       "itemName:": _itemNameCont.text,
       "categoryOfFood": itemCategory,
@@ -73,6 +75,15 @@ class _CamViewState extends State<CamView> {
 
     pushHome();
 
+    uploadedItems.add(FoodItem(
+        restaurantName: _restNameCont.text,
+        itemName: _itemNameCont.text,
+        categoryOfFood: itemCategory,
+        desc: _descCont.text,
+        rating: rating.toDouble(),
+        tags: parseTags(),
+        imageURL: picPath));
+    // Test to add items a user uploads to saved menu items
   }
 
   //Returns a list of hash tags separated by [#]
@@ -86,7 +97,8 @@ class _CamViewState extends State<CamView> {
 
   /// Saves the form data without a picture.
   void saveNoPic() {
-    final result = FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
+    final result =
+        FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
       "restaurantName": _restNameCont.text,
       "itemName:": _itemNameCont.text,
       "categoryOfFood": itemCategory,
@@ -97,6 +109,16 @@ class _CamViewState extends State<CamView> {
     });
 
     pushHome();
+
+    uploadedItems.add(FoodItem(
+      restaurantName: _restNameCont.text,
+      itemName: _itemNameCont.text,
+      categoryOfFood: itemCategory,
+      desc: _descCont.text,
+      rating: rating.toDouble(),
+      tags: parseTags(),
+    ));
+    // Test to add items a user uploads to saved menu items
   }
 
   /// Sends the user to the home screen

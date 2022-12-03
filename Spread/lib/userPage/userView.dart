@@ -60,16 +60,16 @@ class _userViewState extends State<userView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Text>[Text(_fName + " " + _lName), Text(_userID)],
             ),
-            /*Card(
+            Card(
               child: ListTile(
                 leading: Icon(Icons.menu_book),
-                title: Text("Saved Menus"),
+                title: Text("Scanned Items"),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => menuView()));
                 },
               ),
-            ),*/
+            ),
             Card(
               child: ListTile(
                 leading: Icon(Icons.star),
