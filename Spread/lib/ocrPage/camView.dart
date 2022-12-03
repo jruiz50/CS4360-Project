@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -60,7 +61,8 @@ class _CamViewState extends State<CamView> {
     String picPath;
     picPath = await takePic();
 
-    final result = FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
+    final result =
+        FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
       "restaurantName": _restNameCont.text,
       "itemName:": _itemNameCont.text,
       "categoryOfFood": itemCategory,
@@ -72,7 +74,6 @@ class _CamViewState extends State<CamView> {
     });
 
     pushHome();
-
   }
 
   //Returns a list of hash tags separated by [#]
@@ -86,7 +87,8 @@ class _CamViewState extends State<CamView> {
 
   /// Saves the form data without a picture.
   void saveNoPic() {
-    final result = FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
+    final result =
+        FirebaseFunctions.instance.httpsCallable('uploadMenuScan').call({
       "restaurantName": _restNameCont.text,
       "itemName:": _itemNameCont.text,
       "categoryOfFood": itemCategory,
@@ -304,13 +306,52 @@ class _CamViewState extends State<CamView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Scan Item',
+              style: GoogleFonts.tangerine(
+                textStyle: const TextStyle(
+                  fontSize: 60,
+                  color: Colors.black,
+                ),
+              )),
+          centerTitle: true,
+          backgroundColor: Colors.greenAccent,
+        ),
         body: ListView(
-      shrinkWrap: true,
-      children: [
-        //const Text("Select Scan to take a picture of your menu item"),
-        //const Text("Then Crop the photo to only include your chosen item"),
-        ElevatedButton(onPressed: takePicText, child: const Text("Scan")),
-      ],
-    ));
+          shrinkWrap: true,
+          children: [
+            SizedBox(
+              width: 280,
+              height: 280,
+              child: Padding(
+                padding: const EdgeInsets.all(30),
+                child: Image.asset('lib/scanAssets/photo-camera.png'),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(15),
+              child: Text(
+                """Here is where you can scan a menu item using your phones camera.\n You have the option of editing any text and
+            the ability to add a photo if your wish.
+            """,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: takePicText,
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.greenAccent)),
+              child: Text(
+                "Scan",
+                style: GoogleFonts.tangerine(
+                    textStyle:
+                        const TextStyle(color: Colors.black, fontSize: 40)),
+              ),
+            ),
+          ],
+        ));
   }
 }

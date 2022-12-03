@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:spread/dbObjects/foodItem.dart';
 import 'package:spread/dbObjects/restaurant.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class GoogleMapsView extends StatefulWidget {
   @override
@@ -131,7 +132,8 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
       double long = double.parse(item['longitude']);
       double lat = double.parse(item['latitude']);
 
-      String itemNameForMarker = item['itemName'] + " [" + item['rating'].toString() + "/5]";
+      String itemNameForMarker =
+          item['itemName'] + " [" + item['rating'].toString() + "/5]";
       Marker temp = Marker(
         markerId: MarkerId(markerID),
         icon: BitmapDescriptor.defaultMarker,
@@ -230,6 +232,18 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text('Discover',
+            style: GoogleFonts.tangerine(
+              textStyle: const TextStyle(
+                fontSize: 60,
+                color: Colors.black,
+              ),
+            )),
+        centerTitle: true,
+        backgroundColor: Colors.greenAccent,
+      ),
       body: _msuDenver2 == null
           ? const Center(
               child: Text("Loading..."),
