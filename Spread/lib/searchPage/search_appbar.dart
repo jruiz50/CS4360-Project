@@ -25,6 +25,15 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
         color: Colors.white,
         child: Center(
           child: TextField(
+            onEditingComplete: () async {
+              final result = await FirebaseFunctions.instance
+                  .httpsCallable('foodQuery')
+                  .call({'query': searchController.text});
+              foodEntries.clear();
+              for (var i = 0; i < result.data['results'].length; i++) {
+                foodEntries.add(FoodItem.fromJson(result.data['results'][i]));
+              }
+            },
             controller: searchController,
             decoration: InputDecoration(
               hintText: 'What are you craving?',
@@ -39,6 +48,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
                       foodEntries
                           .add(FoodItem.fromJson(result.data['results'][i]));
                     }
+
                     // launchListTile;
                   },
                   icon: const Icon(Icons.search)),
