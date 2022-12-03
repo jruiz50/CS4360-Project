@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _onTabClicked(1);
+    _onTabClicked(0);
     super.initState();
   }
 
