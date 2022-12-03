@@ -459,3 +459,29 @@ export const updateFoodRating = functions.https.onCall(async (data) => {
   };
 
 });
+
+
+/**
+* This function receives a user's user ID,
+* then returns a list of their scanned menus.
+*
+* @param data - Object containing user's user ID
+* @returns - Object containing an array
+*/
+export const getUserMenus = functions.https.onCall(async (data) => {
+  const userID: string = data.userID;
+
+  let menus: Array<FoodItem> = [];
+
+  const docSnap = await getDoc(doc(usersCollection, userID));
+
+  if (docSnap.exists()) {
+    const docData = JSON.parse(JSON.stringify(docSnap.data()));
+    menus = docData.menus;
+  }
+
+  return {
+    menus: menus
+  }
+
+});
