@@ -1,6 +1,73 @@
-# Crave
+<h1 align="center"> Crave </h1> <br>
+<p align="center">
+<img alt="Crave" title="Crave Logo" src="https://user-images.githubusercontent.com/58575080/205465011-2f0fbe29-4cde-437b-a708-a2d6c050a3e7.png" height="125" width="125">
+  <p align="center"> A Crowd-Sourced Menu Item Rating Application. </p>
+</p>
 
-A mobile application that focuses on helping the user to find their next meal.
+## Table of Contents
+
+- [Intro](#introduction)
+- [Tech Stack](#tech-stack)
+- [App Features](#features)
+- [Environment Setup](#setup-development-environment)
+- [Run the Application](#run-the-application)
+
+## Introduction
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/journeyai/secure-meetings)
+
+Journey Secure Meetings utilizes powerful identity solutions to act as a barrier between the world and your conferences. Generating a secure meeting is as easy as choosing a conference provider and a security level, then simply scheduling a date and time!
+
+## Tech Stack
+
+The technology infrastructure of this application currently features:
+
+- Mobile Application via [Flutter](https://flutter.dev/multi-platform/mobile) for Android + iOS support
+- [Firebase](https://firebase.google.com/docs) management programmed in [Typescript](https://reactjs.org/docs/static-type-checking.html#typescript)
+- [Cloud Functions](https://firebase.google.com/docs/functions/) Backend Server
+- NoSQL Google [Firestore](https://firebase.google.com/docs/firestore/) Database
+- [Google Maps](https://developers.google.com/maps/documentation/) API integration
+
+## Features
+
+A few of the things that the Crave mobile app is capable of:
+
+- Scan your favorite local menu items, contributing to our crowd sourced database
+- Satisfy your cravings by searching for particular food items
+- Discover popular food items that are nearby your current location
+
+
+## Setup Development Environment
+
+> If you already have Flutter installed, along with either Android Studio or Xcode, you can skip to the ["Run Application" section](#run-the-application)
+
+First, you will need to clone or download this code onto your local machine.
+
+This project uses `flutter`. Instructions on how to install and get started can be found [here](https://docs.flutter.dev/get-started/install).
+
+
+### Install App Dependencies
+
+From the root directory, run
+
+```zsh
+cd Spread
+
+flutter pub get
+```
+
+
+## Run the Application
+
+Ensure your local environment is set up to the specifications listed above for proper functionality. To run the Crave mobile application:
+
+Start the React App | Create a new terminal from the project root and run:
+
+```zsh
+cd client && npm start
+```
+
 
 ### Getting Started
 
