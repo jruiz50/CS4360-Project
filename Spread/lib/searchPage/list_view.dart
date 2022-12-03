@@ -167,15 +167,25 @@ class _launchListTile extends State<launchListTile> {
               leading: setImage(foodEntries[index].imageURL),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Text>[Text(foodEntries[index].itemName ?? 'n/a')],
+                children: <Widget>[
+                  Flexible(
+                      child: Text(
+                    foodEntries[index].itemName ?? 'n/a',
+                    overflow: TextOverflow.ellipsis,
+                  ))
+                ],
               ) /*Text(foodEntries[index].itemName)*/,
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Row>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Text>[
-                      Text(foodEntries[index].restaurantName ?? 'n/a')
+                    children: <Widget>[
+                      Flexible(
+                          child: Text(
+                        foodEntries[index].restaurantName ?? 'n/a',
+                        overflow: TextOverflow.ellipsis,
+                      ))
                     ],
                   ),
                   Row(

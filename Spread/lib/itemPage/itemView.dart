@@ -187,10 +187,20 @@ class ItemAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Row>[
               Row(
-                children: <Text>[Text(foodItem.itemName ?? 'n/a')],
+                children: <Widget>[
+                  Flexible(
+                      child: Text(
+                    foodItem.itemName ?? 'n/a',
+                    overflow: TextOverflow.ellipsis,
+                  ))
+                ],
               ),
               Row(
-                children: <Text>[Text(foodItem.restaurantName ?? 'n/a')],
+                children: <Widget>[
+                  Flexible(
+                      child: Text(foodItem.restaurantName ?? 'n/a',
+                          overflow: TextOverflow.ellipsis))
+                ],
               )
             ],
           ),

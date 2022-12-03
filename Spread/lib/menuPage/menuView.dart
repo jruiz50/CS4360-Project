@@ -84,41 +84,44 @@ class menuList extends StatelessWidget {
               leading: setImage(uploadedItems[index].imageURL),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Text>[Text(uploadedItems[index].itemName ?? 'n/a')],
+                children: <Widget>[
+                  Flexible(
+                      child: Text(
+                    uploadedItems[index].itemName ?? 'n/a',
+                    overflow: TextOverflow.ellipsis,
+                  ))
+                ],
               ),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Row>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Text>[
-                      Text(uploadedItems[index].restaurantName ?? 'n/a')
+                    children: <Widget>[
+                      Flexible(
+                          child: Text(
+                        uploadedItems[index].restaurantName ?? 'n/a',
+                        overflow: TextOverflow.ellipsis,
+                      ))
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Row>[
-                      Row(
-                          children: List<Widget>.generate(
-                              5,
-                              (i) => (() {
-                                    if (i <
-                                        (uploadedItems[index].rating ?? 0)) {
-                                      return Icon(
-                                        Icons.star,
-                                        color: Colors.yellow,
-                                      );
-                                    } else {
-                                      return Icon(
-                                        Icons.star,
-                                        color: Colors.grey,
-                                      );
-                                    }
-                                  }())))
-                      // This should be replaced with function to
-                      // show a set number of stars instead of num later
-                    ],
-                  )
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List<Widget>.generate(
+                          5,
+                          (i) => (() {
+                                if (i < (uploadedItems[index].rating ?? 0)) {
+                                  return const Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                  );
+                                } else {
+                                  return const Icon(
+                                    Icons.star,
+                                    color: Colors.grey,
+                                  );
+                                }
+                              }())))
                 ],
               ),
               onTap: () {

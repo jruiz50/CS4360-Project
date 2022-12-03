@@ -63,7 +63,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   // We set 2 to be the middle (search) screen
   // Used for index relative to BottomNavigationBar
 

@@ -128,40 +128,44 @@ class favList extends StatelessWidget {
               leading: setImage(savedItems[index].imageURL),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Text>[Text(savedItems[index].itemName ?? 'n/a')],
+                children: <Widget>[
+                  Flexible(
+                      child: Text(
+                    savedItems[index].itemName ?? 'n/a',
+                    overflow: TextOverflow.ellipsis,
+                  ))
+                ],
               ),
               subtitle: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Row>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Text>[
-                      Text(savedItems[index].restaurantName ?? 'n/a')
+                    children: <Widget>[
+                      Flexible(
+                          child: Text(
+                        savedItems[index].restaurantName ?? 'n/a',
+                        overflow: TextOverflow.ellipsis,
+                      ))
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Row>[
-                      Row(
-                          children: List<Widget>.generate(
-                              5,
-                              (i) => (() {
-                                    if (i < (savedItems[index].rating ?? 0)) {
-                                      return Icon(
-                                        Icons.star,
-                                        color: Colors.yellow,
-                                      );
-                                    } else {
-                                      return Icon(
-                                        Icons.star,
-                                        color: Colors.grey,
-                                      );
-                                    }
-                                  }())))
-                      // This should be replaced with function to
-                      // show a set number of stars instead of num later
-                    ],
-                  )
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List<Widget>.generate(
+                          5,
+                          (i) => (() {
+                                if (i < (savedItems[index].rating ?? 0)) {
+                                  return const Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                  );
+                                } else {
+                                  return const Icon(
+                                    Icons.star,
+                                    color: Colors.grey,
+                                  );
+                                }
+                              }())))
                 ],
               ),
               trailing: IconButton(
