@@ -1,15 +1,29 @@
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spread/dbObjects/userProfile.dart';
 import 'package:spread/itemPage/itemView.dart';
 import 'package:spread/searchPage/list_view.dart';
 
+import '../dbObjects/foodItem.dart';
+
 class menuView extends StatelessWidget {
+  var scannedItems;
+  menuView({Key? key, required this.scannedItems}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    // print(scannedItems);
+    uploadedItems.clear();
+    for (var i = 0; i < scannedItems.length; i++) {
+      uploadedItems.add(FoodItem.fromJson(scannedItems[i]));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: <Text>[Text('Uploaded Items')],
+          children: <Text>[Text('Scanned Items')],
         ),
         backgroundColor: Colors.greenAccent,
       ),
@@ -44,6 +58,16 @@ class menuList extends StatelessWidget {
       );
     }
   }
+
+  /*makeList() async {
+    final result = await FirebaseFunctions.instance
+        .httpsCallable('getUserMenus')
+        .call({'userID': FirebaseAuth.instance.currentUser?.uid ?? ""});
+
+    for (var i = 0; i < result.data['results'].length; i++) {
+      foodEntries.add(FoodItem.fromJson(result.data['results'][i]));
+    }
+  }*/
 
   @override
   Widget build(BuildContext context) {
