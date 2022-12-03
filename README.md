@@ -1,6 +1,6 @@
 <h1 align="center"> Crave </h1> <br>
 <p align="center">
-<img alt="Crave" title="Crave Logo" src="https://user-images.githubusercontent.com/58575080/205465011-2f0fbe29-4cde-437b-a708-a2d6c050a3e7.png" height="125" width="125">
+<img alt="Crave" title="Crave Logo" src="https://user-images.githubusercontent.com/58575080/205465011-2f0fbe29-4cde-437b-a708-a2d6c050a3e7.png" height="200" width="200">
   <p align="center"> A Crowd-Sourced Menu Item Rating Application. </p>
 </p>
 
@@ -36,19 +36,25 @@ A few of the things that the Crave mobile app is capable of:
 - Satisfy your cravings by searching for particular food items
 - Discover popular food items that are nearby your current location
 
-
 ## Setup Development Environment
 
-> If you already have Flutter installed, along with either Android Studio or Xcode, you can skip to the ["Run Application" section](#run-the-application)
+First, you will need to clone or download this code onto your local machine. At your desired location, run the following command in your terminal:
 
-First, you will need to clone or download this code onto your local machine.
+```zsh
+git clone https://github.com/jruiz50/CS4360-Project.git
+```
 
-This project uses `flutter`. Instructions on how to install and get started can be found [here](https://docs.flutter.dev/get-started/install).
+### Install Flutter SDK
 
+This project uses `flutter`. Instructions on how to install and get started can be found [here](https://docs.flutter.dev/get-started/install). 
+
+Once you have completed the installation, ensure to update your path to use Flutter command line tools. 
+
+Links to update path on [Windows](https://docs.flutter.dev/get-started/install/windows#update-your-path) or [MacOS](https://docs.flutter.dev/get-started/install/macos#update-your-path).
 
 ### Install App Dependencies
 
-From the root directory, run
+From inside the project root directory, run
 
 ```zsh
 cd Spread
@@ -56,65 +62,24 @@ cd Spread
 flutter pub get
 ```
 
+### Select an Operating System
+
+The Crave mobile application can be run under two different operating systems, each via a physical or simulated device. 
+
+If you have an Android device or would like to simulate the application on a Android device, we suggest you [install Android Studio](https://developer.android.com/studio/install).
+
+If you have an iOS device or would like to simulate the application on an iOS device, we suggest you [install Xcode](https://developer.apple.com/xcode/resources/) (requires a MacOS device). 
+
 
 ## Run the Application
 
-Ensure your local environment is set up to the specifications listed above for proper functionality. To run the Crave mobile application:
+### Via Android Studio
 
-Start the React App | Create a new terminal from the project root and run:
-
-```zsh
-cd client && npm start
-```
-
-
-### Getting Started
-
-> There are three options for acessing the app in it's current state.
->
 > > The first by installing the app on a physical device.
 > >
 > > > Enure that installation from unknown sources is enabled, then connect your phone to your computer, and drag the apk from the APK folder onto your device.
 > > > Find the Apk on your device, install and explore it's features.
 >
-> > The second option is to use Android Studio to run a virtual device. This will also allow for exploration of the codebase.
-> > This process is outlined in detail below.
-
-### Installing Android Studio
-
-Our application is currently being built using the Android Studio IDE.
-Which provides a host of features, such as debugging, language support, and for testing purposes
-the ability to run mobile emulators.
-
-> Specific mobile platform emulation is based on the operating system
-> of the machine running the project. If your using Windows or Linux then an Android device will be used.
-> For machines running macOS the choice for either mobile platform exists. This guides will use
-> an android emulator.
-
-> The first step is to install Android Studio by following the steps as outlined for your machine,
-> from the link below.
-
-> https://developer.android.com/studio/install
-
-### Installing Flutter SDK
-
-> Flutter is an open source user interface development kit that was created by google.
-> It is used for cross platform development for applications that run on,
-> Android, iOS, Linux, macOS, Windows, Google Fuchsia, and the web.
-> While utilizing a single codebase.
-
-> The steps for installing Flutter on your machine choice can be found below.
-> The most important step after installation of the sdk, is to ensure that _flutter_
-> is added to your machines path.
-
-> Note: The steps involving flutter doctor are way to ensure that flutter is installed, but can be disregarded if your
-> confident in the installation.
-
-> Note: While Flutter uses the Dart language, installation of the Dart SDK is not required as it is included
-> with the Flutter SDK.
-
-> https://docs.flutter.dev/get-started/install
-
 ### Setting up Android Studio
 
 > Setting up Android Studio is more involved process, as it will require the creation of a virtual device, grabbing the project
@@ -166,13 +131,8 @@ the ability to run mobile emulators.
 > >
 > > taskkill /F /IM "qemu-system-x86_64.exe" /T
 
-The third option is to use Xcode to run a virtual iOS device emulator.
 
-> For users that may not have access to the above two methods (especially those with iOS devices and MacBooks), this process outlines how a user may run our application via Xcode, either on an emulator or on their own iOS device.
-
-### Installing Xcode IDE
-
-It is recommended that developers download and install the latest stable version of Xcode from the [Apple Developer Website](https://developer.apple.com/xcode/resources/).
+### Via Xcode
 
 Once installed, open the `Runner.xcworkspace` file, which can be found via the following directory navigation:
 
@@ -182,17 +142,15 @@ Once installed, open the `Runner.xcworkspace` file, which can be found via the f
 
 ### Installing Application Pods
 
-In order for your build to succeed, it is required that you install the pods (dependencies) for the project. In your terminal from the project root of Spread:
+In order for your build to succeed, it is required that you install the pods (dependencies) for the project. In your terminal from the project root:
 
 ```zsh
 
-cd ios
-
-pod deintegrate
-
-pod update
+cd Spread/ios
 
 pod install
+
+pod update
 
 ```
 
