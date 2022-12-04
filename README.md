@@ -65,9 +65,9 @@ flutter pub get
 
 ### Select an Operating System
 
-The Crave mobile application can be run under two different operating systems, each via a physical or simulated device.
+The Crave mobile application can be run under two different operating systems. We support simulators for Android, and both simulator and physical device for iOS.
 
-If you have an Android device or would like to simulate the application on a Android device, we suggest you [install Android Studio](https://developer.android.com/studio/install).
+If you would like to simulate the application on a Android device, we suggest you [install Android Studio](https://developer.android.com/studio/install).
 
 If you have an iOS device or would like to simulate the application on an iOS device, we suggest you [install Xcode](https://developer.apple.com/xcode/resources/) (requires a MacOS device).
 
@@ -117,10 +117,6 @@ Open the project code in Android Studio, particularly the `Spread` directory.
 Ensure your terminal is also located in the Spread directory.
 
 #### Running the Application
-
-To run the application on your physical Android device:
-
-In your device settings, ensure that `Installation from Unknown Sources` is enabled, then connect your phone to your computer. From there, you can simply drag the APK from the APK folder onto your device. This initiates the app download, at which point you can run it on your device.
 
 To run the application on a simulated Android device:
 
