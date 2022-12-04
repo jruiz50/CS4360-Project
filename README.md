@@ -11,6 +11,7 @@
 - [App Features](#features)
 - [Environment Setup](#setup-development-environment)
 - [Run the Application](#run-the-application)
+- [Logging into the Application](#logging-into-the-application)
 
 ## Introduction
 
@@ -104,6 +105,8 @@ Here you will find a list of iOS simulators that will be able to run our applica
 
 Finally, run the application by selecting the Play symbol on the top left of the Xcode editor, or by running `Cmd + R`.
 
+Once the app is running, you can follow [these instructions](#logging-into-the-application) for signing in.
+
 #### Closing the Application
 
 To quit the application, you can simply exit out of the simulator by closing its window (or by exiting the application on your physical device). The best way to ensure the application will quit is to either press the Stop symbol on the top left of the Xcode editor, or by running `Cmd + .`
@@ -129,6 +132,8 @@ With the simulator running, write the following command in your terminal at the 
 
 `flutter run`
 
+Once the app is running, you can follow [these instructions](#logging-into-the-application) for signing in.
+
 #### Closing the Application
 
 To stop to app from running, in the terminal type `q`. This closes the application and stops the simulator.
@@ -136,3 +141,13 @@ To stop to app from running, in the terminal type `q`. This closes the applicati
 > Note: On Windows the emulator may continue to run in the background. To terminate this process, type the following command in a new terminal
 
 > taskkill /F /IM "qemu-system-x86_64.exe" /T
+
+## Logging into the Application
+
+You can either create an account or sign in using our testing credentials.
+
+Testing Credentials (case-sensitive):
+- Email: test@test.com
+- Password: password
+
+
