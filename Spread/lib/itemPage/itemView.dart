@@ -19,6 +19,26 @@ class itemView extends StatelessWidget {
 
   itemView({Key? key, required this.foodItem}) : super(key: key);
 
+  setImage(url) {
+    if (url != null) {
+      return SizedBox(
+        height: 300,
+        width: 300,
+        child: Image.network(url, errorBuilder: (context, error, stackTrace) {
+          return const Icon(
+            Icons.fastfood,
+            size: 300,
+          );
+        }),
+      );
+    } else {
+      return const Icon(
+        Icons.fastfood,
+        size: 30,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -31,13 +51,10 @@ class itemView extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          new Container(
+          Container(
             child: Column(
               children: <Widget>[
-                Icon(
-                  Icons.fastfood,
-                  size: 400,
-                ),
+                setImage(foodItem.imageURL),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List<Widget>.generate(
@@ -66,22 +83,26 @@ class itemView extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
+                  Flexible(child: Text('Food Category: ')),
                   Flexible(child: Text(foodItem.categoryOfFood ?? 'n/a'))
                 ],
               ),
               Row(
                 children: <Widget>[
+                  Flexible(child: Text('Food Name: ')),
                   Flexible(child: Text(foodItem.itemName ?? 'n/a'))
                 ],
               ),
               Row(
                 children: <Widget>[
+                  Flexible(child: Text('Ingredients: ')),
                   Flexible(
                       child: Text(foodItem.ingredients?.join(', ') ?? 'n/a'))
                 ],
               ),
               Row(
                 children: <Widget>[
+                  Flexible(child: Text('Allergens: ')),
                   Flexible(child: Text(foodItem.allergens?.join(',') ?? 'n/a'))
                 ],
               ),
@@ -111,7 +132,8 @@ class itemView extends StatelessWidget {
                       new ElevatedButton(
                           onPressed: () async {
                             final result = await FirebaseFunctions.instance
-                              .httpsCallable('updateFoodRating').call({
+                                .httpsCallable('updateFoodRating')
+                                .call({
                               "rating": itemRate,
                               "foodItemID": foodItem.foodItemID
                             });
@@ -165,10 +187,20 @@ class ItemAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Row>[
               Row(
-                children: <Text>[Text(foodItem.itemName ?? 'n/a')],
+                children: <Widget>[
+                  Flexible(
+                      child: Text(
+                    foodItem.itemName ?? 'n/a',
+                    overflow: TextOverflow.ellipsis,
+                  ))
+                ],
               ),
               Row(
-                children: <Text>[Text(foodItem.restaurantName ?? 'n/a')],
+                children: <Widget>[
+                  Flexible(
+                      child: Text(foodItem.restaurantName ?? 'n/a',
+                          overflow: TextOverflow.ellipsis))
+                ],
               )
             ],
           ),

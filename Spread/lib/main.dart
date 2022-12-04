@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Crave',
       theme: checkDarkMode(), // ThemeData()
-      home: loginView(),
+      home: const loginView(),
     );
   }
 }
@@ -63,22 +63,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   // We set 2 to be the middle (search) screen
   // Used for index relative to BottomNavigationBar
 
   static final List<Widget> _widgetOptions = <Widget>[
     CamView(),
-    launchListTile(),
+    const launchListTile(),
     GoogleMapsView(),
   ];
   // This creates a list of widgets; each widget displays different text so far
 
   void _onTabClicked(int index) {
+    debugPrint("CALLING INIT");
     setState(() {
       _selectedIndex = index;
     });
   } // Function to change index when tab is clicked
+
+  @override
+  void initState() {
+    _onTabClicked(0);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: SearchAppBar(
-        appBar: AppBar(),
-      ),
+      // appBar: SearchAppBar(
+      // appBar: AppBar(),
+      //),
       body: Center(
           child: Flex(
         direction: Axis.vertical,

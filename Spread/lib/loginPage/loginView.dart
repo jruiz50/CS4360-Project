@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spread/creationPage/createAccView.dart';
 import 'package:spread/main.dart';
+import 'package:spread/searchPage/list_view.dart';
 
 class loginView extends StatefulWidget {
   const loginView({super.key});
