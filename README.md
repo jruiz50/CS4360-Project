@@ -16,7 +16,7 @@
 
 [![Current Version](https://img.shields.io/badge/version-1.8.0-green.svg)](https://github.com/jruiz50/CS4360-Project)
 
-Crave is a crowd-sourced app that focuses on getting ratings on specific food and drink menu items from restaurants, bars/breweries, and fast food chains.  Figure out where you want to eat by searching what you are craving!
+Crave is a crowd-sourced app that focuses on getting ratings on specific food and drink menu items from restaurants, bars/breweries, and fast food chains. Figure out where you want to eat by searching what you are craving!
 
 ## Tech Stack
 
@@ -46,9 +46,9 @@ git clone https://github.com/jruiz50/CS4360-Project.git
 
 ### Install Flutter SDK
 
-This project uses `flutter`. Instructions on how to install and get started can be found [here](https://docs.flutter.dev/get-started/install). 
+This project uses [Flutter](https://flutter.dev). Instructions on how to install and get started can be found [here](https://docs.flutter.dev/get-started/install).
 
-Once you have completed the installation, ensure to update your path to use Flutter command line tools. 
+Once you have completed the installation, ensure to update your path to use Flutter command line tools.
 
 Links to update path on [Windows](https://docs.flutter.dev/get-started/install/windows#update-your-path) or [MacOS](https://docs.flutter.dev/get-started/install/macos#update-your-path).
 
@@ -64,85 +64,25 @@ flutter pub get
 
 ### Select an Operating System
 
-The Crave mobile application can be run under two different operating systems, each via a physical or simulated device. 
+The Crave mobile application can be run under two different operating systems, each via a physical or simulated device.
 
 If you have an Android device or would like to simulate the application on a Android device, we suggest you [install Android Studio](https://developer.android.com/studio/install).
 
-If you have an iOS device or would like to simulate the application on an iOS device, we suggest you [install Xcode](https://developer.apple.com/xcode/resources/) (requires a MacOS device). 
-
+If you have an iOS device or would like to simulate the application on an iOS device, we suggest you [install Xcode](https://developer.apple.com/xcode/resources/) (requires a MacOS device).
 
 ## Run the Application
 
-### Via Android Studio
-
-> > The first by installing the app on a physical device.
-> >
-> > > Enure that installation from unknown sources is enabled, then connect your phone to your computer, and drag the apk from the APK folder onto your device.
-> > > Find the Apk on your device, install and explore it's features.
->
-### Setting up Android Studio
-
-> Setting up Android Studio is more involved process, as it will require the creation of a virtual device, grabbing the project
-> from version control, and installation of required packages.
-
-> Grab the project
->
-> > The first step is to open Android Studio and select File -> New -> Project from Version Control.
-> > Then copy and paste in this url: https://github.com/jruiz50/CS4360-Project.git
-> > and clone the project.
-
-> > Note: If you don't have current project in progress in Android Studio, Select new Flutter Project -> Empty Project -> Modules
-> > Now repete the steps above to clone the project
-
-> > A popup in the lower right of the window will prompt you to configure the android framework. Go ahead and click configure,
-> > then make sure that both of the boxes are checked.
-
-> > In the upper left corner of the window, under the project name, slect the dropdown that says Android with the android symbol,
-> > and select Project.
-
-> > Expand "CS4360-Project" to show Spread -> lib
-> > lib contains all of the source code the project.
-
-> Create a virtual device
->
-> > Select the phone icon with the android symbol in the upper right corner.
-> > Then select Create device.
-> > The select a recent phone of your choice then click next.
-> > Select Release "S" with an API Level of 31.
-> > Give it a name then hit finish. The device should then boot.
-> > The following link provides these examples with pictures. https://docs.google.com/document/d/18utPt8JRgeznJ03VnGtQyhzohHgloZkBHBaF5gla2lo/edit?usp=sharing
-
-> > Please refer to this link for more in depth information regarding the creation of a virual device. https://developer.android.com/studio/run/managing-avds
-
-> Running the project
->
-> > Open the terminal by selecting the Terminal tab at the bottom of the screen and use "cd Spread".
-> > Then enter "dart pub get", this will ensure that all dependancies that are required in the pubspec.yaml will be installed.
-> > Finally ensure that your virtual device is running.
-> > Then in the terminal type "Flutter run" (Note your terminal must be "in" Spread)
-> > Note first run commpilation can take several minutes. The virtual device will eventually open up the app after installation.
-
-> Closing the App
->
-> > To stop to app from running, in the terminal hit "crtl-c" or "cmd-c". Then type "y" to terminate. The virual device can
-> > can now be exited.
-> > Note: On Windows the emulator will continue to run in the background. To terminate this process, open up another terminal
-> > and paste this command in to terminate the process.
-> >
-> > taskkill /F /IM "qemu-system-x86_64.exe" /T
-
-
 ### Via Xcode
 
-Once installed, open the `Runner.xcworkspace` file, which can be found via the following directory navigation:
+Open the `Runner.xcworkspace` file in Xcode, which can be found via the following directory navigation:
 
 `Spread > ios > Runner.xcworkspace`
 
 > Note: There are two Runner.xc\* files. Be sure to open the correct one!
 
-### Installing Application Pods
+#### Installing Application Pods
 
-In order for your build to succeed, it is required that you install the pods (dependencies) for the project. In your terminal from the project root:
+It is required that you install the pods (dependencies) for the project. In your terminal from the project root:
 
 ```zsh
 
@@ -154,26 +94,45 @@ pod update
 
 ```
 
-Once complete, you can build the application in Xcode with `Cmd + B`. Sometimes the application will auto-build before you are able to complete the steps above. If you are still seeing errors, clean your build folder with `Cmd + Shift + K`, then retry your build.
-
-### Emulating the Application
-
-Once the application has been successfully built,
-
-> To run the application on your iOS device:
-
-Ensure that your iOS device is connected to your MacBook via USB-C to lightning cable.
-
-> The following steps are the same for users running the application on an emulator:
+#### Running the Application
 
 At the top of the Xcode menu, select the following:
 
 `Product > Destination`
 
-Here you will find a list of iOS simulators, including your own physical device if it is connected. Select the device which you wish to run the application on.
+Here you will find a list of iOS simulators that will be able to run our application. If you would like to run the application on your physical iOS device, simply connect it to your MacOS device and you will see it pop up in the list of simulators.
 
 Finally, run the application by selecting the Play symbol on the top left of the Xcode editor, or by running `Cmd + R`.
 
-### Closing the Application
+#### Closing the Application
 
 To quit the application, you can simply exit out of the simulator by closing its window (or by exiting the application on your physical device). The best way to ensure the application will quit is to either press the Stop symbol on the top left of the Xcode editor, or by running `Cmd + .`
+
+### Via Android Studio
+
+Open the project code in Android Studio, particularly the `Spread` directory.
+Ensure your terminal is also located in the Spread directory.
+
+#### Running the Application
+
+To run the application on your physical Android device:
+
+In your device settings, ensure that `Installation from Unknown Sources` is enabled, then connect your phone to your computer. From there, you can simply drag the APK from the APK folder onto your device. This initiates the app download, at which point you can run it on your device.
+
+To run the application on a simulated Android device:
+
+You must first create/install a virtual device.
+Detailed instructions with images on how to create a virtual device that supports our application on Android Studio can be found [here](https://docs.google.com/document/d/18utPt8JRgeznJ03VnGtQyhzohHgloZkBHBaF5gla2lo/edit?usp=sharing).
+
+Once your device is installed, ensure to run it by selecting the "Play" symbol in the Device Manager.
+With the simulator running, write the following command in your terminal at the Spread directory to run the app:
+
+`flutter run`
+
+#### Closing the Application
+
+To stop to app from running, in the terminal type `q`. This closes the application and stops the simulator.
+
+> Note: On Windows the emulator may continue to run in the background. To terminate this process, type the following command in a new terminal
+
+> taskkill /F /IM "qemu-system-x86_64.exe" /T
