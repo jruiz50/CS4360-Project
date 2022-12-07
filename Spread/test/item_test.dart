@@ -47,6 +47,12 @@ void main() {
 
 void ignoreOverflowErrors(FlutterErrorDetails details,
     {bool forceReport = false}) {
+  /* 
+  Date Accessed: 10/23/2022
+  Code Reference: https://remelehane.dev/posts/widget-testing-rendeflex-overflow/
+  Desc: Code was used to ignore RenderFlex errors on smaller android devices in order to
+  perform desired tests because RenderFlex errors would halt all other tests. -Brandon Young
+   */
   bool isOverflowError = false;
 
   var exception = details.exception;
